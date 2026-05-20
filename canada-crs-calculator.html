@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canada Express Entry CRS Calculator | GlobalVisaMath</title>
+    <meta name="description" content="Calculate your Canada Express Entry Comprehensive Ranking System (CRS) score. Find your points breakdown and get custom recommendations to improve your immigration score.">
+    <link rel="canonical" href="https://www.globalvisamath.com/canada-crs-calculator.html">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2959862133855422" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                GlobalVisaMath
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">All Calculators</a>
+                <a href="schengen-calculator.html">Schengen 90/180</a>
+                <a href="canada-crs-calculator.html" class="active">Canada CRS</a>
+                <a href="green-card-renewal.html">Green Card</a>
+                <a href="j1-visa-tracker.html">J-1 Tracker</a>
+                <div class="lang-selector-wrap" style="display: inline-flex;">
+                    <select id="langSelect" onchange="changeLanguage(this.value)" aria-label="Select Language">
+                        <option value="">Translate</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="de">Deutsch</option>
+                        <option value="hi">हिन्दी</option>
+                        <option value="zh-CN">中文</option>
+                    </select>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="hero">
+            <h1>Canada Express Entry CRS Points Calculator</h1>
+            <p>Calculate your Express Entry Comprehensive Ranking System (CRS) score for Canadian permanent residency.</p>
+        </div>
+
+        <section class="calculator-panel">
+            <div class="calc-header">
+                <h2>Immigration Profile</h2>
+                <span class="trust-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Official IRCC Rules
+                </span>
+            </div>
+
+            <form id="crsForm" onsubmit="event.preventDefault(); calculateCRS();">
+                <!-- Section 1: Marital Status -->
+                <div class="form-section-title">1. Marital Status</div>
+                <div class="date-row">
+                    <div class="input-group">
+                        <label for="maritalStatus" data-tooltip="Immigration points differ slightly for single vs married principal applicants">Marital Status ⓘ</label>
+                        <select id="maritalStatus" class="date-input" onchange="toggleSpouseSection()">
+                            <option value="single">Single / Unmarried</option>
+                            <option value="married">Married / Common-Law Partner</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Section 2: Core Human Capital -->
+                <div class="form-section-title" style="margin-top: 1.5rem;">2. Core Human Capital Factors</div>
+                
+                <div class="date-row">
+                    <div class="input-group">
+                        <label for="age" data-tooltip="Maximum points are awarded between ages 20-29. Points decline gradually after age 30.">Age of Principal Applicant ⓘ</label>
+                        <select id="age" class="date-input">
+                            <option value="17">Under 18</option>
+                            <option value="18">18 years of age</option>
+                            <option value="19">19 years of age</option>
+                            <option value="20">20 to 29 years of age</option>
+                            <option value="30">30 years of age</option>
+                            <option value="31">31 years of age</option>
+                            <option value="32">32 years of age</option>
+                            <option value="33">33 years of age</option>
+                            <option value="34">34 years of age</option>
+                            <option value="35">35 years of age</option>
+                            <option value="36">36 years of age</option>
+                            <option value="37">37 years of age</option>
+                            <option value="38">38 years of age</option>
+                            <option value="39">39 years of age</option>
+                            <option value="40">40 years of age</option>
+                            <option value="41">41 years of age</option>
+                            <option value="42">42 years of age</option>
+                            <option value="43">43 years of age</option>
+                            <option value="44">44 years of age</option>
+                            <option value="45">45 years of age or older</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="date-row">
+                    <div class="input-group">
+                        <label for="education" data-tooltip="Your highest completed degree, backed by an ECA evaluation if completed outside Canada">Level of Education ⓘ</label>
+                        <select id="education" class="date-input">
+                            <option value="none">Less than high school</option>
+                            <option value="hs">High school diploma</option>
+                            <option value="1yr">One-year post-secondary program</option>
+                            <option value="2yr">Two-year post-secondary program</option>
+                            <option value="3yr">Bachelor's degree (3 or more years)</option>
+                            <option value="multi">Two or more post-secondary credentials</option>
+                            <option value="masters">Master's degree</option>
+                            <option value="phd">Doctoral level university degree (PhD)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="date-row">
+                    <div class="input-group">
+                        <label for="firstLanguage" data-tooltip="Express Entry points map directly to Canadian Language Benchmark (CLB) levels">First Official Language Proficiency (CLB) ⓘ</label>
+                        <select id="firstLanguage" class="date-input">
+                            <option value="clb4">CLB 4 or below</option>
+                            <option value="clb5">CLB 5</option>
+                            <option value="clb6">CLB 6</option>
+                            <option value="clb7">CLB 7</option>
+                            <option value="clb8">CLB 8</option>
+                            <option value="clb9">CLB 9</option>
+                            <option value="clb10">CLB 10 or above</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="date-row">
+                    <div class="input-group">
+                        <label for="canWork" data-tooltip="Full-time equivalent skilled work inside Canada under TEER 0, 1, 2, or 3">Canadian Work Experience ⓘ</label>
+                        <select id="canWork" class="date-input">
+                            <option value="none">None or less than 1 year</option>
+                            <option value="1yr">1 year</option>
+                            <option value="2yr">2 years</option>
+                            <option value="3yr">3 years</option>
+                            <option value="4yr">4 years</option>
+                            <option value="5yr">5 years or more</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Section 3: Spouse Factors (Conditionally Displayed) -->
+                <div id="spouseSection" style="display: none; border-top: 1px solid var(--border); padding-top: 1.5rem; margin-top: 1.5rem;">
+                    <div class="form-section-title">3. Spouse or Common-Law Partner Factors</div>
+                    
+                    <div class="date-row">
+                        <div class="input-group">
+                            <label for="spouseEducation" data-tooltip="Highest educational degree completed by your spouse, evaluated by ECA if non-Canadian">Spouse Level of Education ⓘ</label>
+                            <select id="spouseEducation" class="date-input">
+                                <option value="none">Less than high school / None</option>
+                                <option value="hs">High school diploma</option>
+                                <option value="1yr">One-year post-secondary program</option>
+                                <option value="2yr">Two-year post-secondary program</option>
+                                <option value="3yr">Bachelor's degree or higher</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="date-row">
+                        <div class="input-group">
+                            <label for="spouseLanguage" data-tooltip="Language level of your spouse under IELTS/CELPIP/TEF/TCF scores mapped to CLB">Spouse Language Proficiency (CLB) ⓘ</label>
+                            <select id="spouseLanguage" class="date-input">
+                                <option value="clb4">CLB 4 or below / None</option>
+                                <option value="clb5">CLB 5 or 6</option>
+                                <option value="clb7">CLB 7 or 8</option>
+                                <option value="clb9">CLB 9 or above</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="date-row">
+                        <div class="input-group">
+                            <label for="spouseWork" data-tooltip="Full-time equivalent skilled work inside Canada by your spouse in TEER 0, 1, 2, or 3">Spouse Canadian Work Experience ⓘ</label>
+                            <select id="spouseWork" class="date-input">
+                                <option value="none">None or less than 1 year</option>
+                                <option value="1yr">1 year</option>
+                                <option value="2yr">2 years or more</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Skill Transferability -->
+                <div class="form-section-title" style="margin-top: 1.5rem;">3. Skill Transferability / Foreign Experience</div>
+                
+                <div class="date-row">
+                    <div class="input-group">
+                        <label for="foreignWork" data-tooltip="Continuous skilled work experience outside Canada in the last 10 years">Foreign Work Experience ⓘ</label>
+                        <select id="foreignWork" class="date-input">
+                            <option value="none">None or less than 1 year</option>
+                            <option value="1yr">1 to 2 years</option>
+                            <option value="3yr">3 years or more</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Section 5: Additional Factors -->
+                <div class="form-section-title" style="margin-top: 1.5rem;">4. Additional Points (Maximum 600)</div>
+                
+                <div class="date-row" style="flex-wrap: wrap; gap: 1rem;">
+                    <div class="input-group" style="min-width: 200px;">
+                        <label><input type="checkbox" id="siblingCanada"> Sibling in Canada (PR or Citizen)</label>
+                    </div>
+                    <div class="input-group" style="min-width: 200px;">
+                        <label><input type="checkbox" id="frenchLanguage"> French Language skills (NCLC 7+)</label>
+                    </div>
+                    <div class="input-group" style="min-width: 200px;">
+                        <label><input type="checkbox" id="canStudy"> Canadian Post-Secondary Education</label>
+                    </div>
+                    <div class="input-group" style="min-width: 200px;">
+                        <label><input type="checkbox" id="arrangedJob"> Arranged Employment Offer</label>
+                    </div>
+                    <div class="input-group" style="min-width: 200px;">
+                        <label><input type="checkbox" id="pnpNomination"> Provincial Nomination (PNP)</label>
+                    </div>
+                </div>
+
+                <div class="action-row" style="margin-top: 2rem;">
+                    <button type="submit" class="btn-primary">Calculate CRS Score</button>
+                </div>
+            </form>
+
+            <!-- Results Panel -->
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <h3>Your CRS Points Summary</h3>
+                <div class="status-card">
+                    <div class="status-number" id="crsTotalScore">0</div>
+                    <div class="status-label">Total Comprehensive Ranking System Points (Out of 1200)</div>
+                </div>
+                
+                <div class="audit-trail">
+                    <h4>Points Breakdown</h4>
+                    <ul id="pointsBreakdownList">
+                        <!-- Dynamically filled -->
+                    </ul>
+                </div>
+
+                <div class="audit-trail" style="margin-top: 1.5rem; background: #fffdf5; border-color: #f6e05e;">
+                    <h4 style="color: #b7791f;">💡 CRS Optimization Recommendations</h4>
+                    <ul id="recommendationsList" style="list-style: disc; padding-left: 1.2rem; color: #744210; font-size: 0.9rem; line-height: 1.6;">
+                        <!-- Dynamically filled -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEO Information Section -->
+        <section class="info-section">
+            <h2>Understanding the Express Entry CRS Score</h2>
+            <p>The Comprehensive Ranking System (CRS) is the points-based system used by Immigration, Refugees and Citizenship Canada (IRCC) to assess and rank candidates in the Express Entry pool. Candidates are ranked based on their age, education, language ability, work experience, and other additional factors.</p>
+            <p style="margin-top: 1.5rem;">Every few weeks, the Canadian government conducts Express Entry draws, issuing Invitations to Apply (ITAs) for permanent residency to candidates who meet or exceed the cutoff score. Using a CRS calculator helps you understand where you stand and how to optimize your profile.</p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <strong>GlobalVisaMath</strong>
+                <p>Professional travel &amp; immigration compliance tools.</p>
+                <div class="footer-links" style="margin-top: 10px; display: flex; gap: 15px; font-size: 0.8rem;">
+                    <a href="about.html" style="color: #cbd5e0; text-decoration: none;">About Us</a>
+                    <a href="privacy.html" style="color: #cbd5e0; text-decoration: none;">Privacy Policy</a>
+                    <a href="terms.html" style="color: #cbd5e0; text-decoration: none;">Terms of Service</a>
+                    <a href="contribute.html" style="color: #cbd5e0; text-decoration: none;">Contribute</a>
+                </div>
+            </div>
+            <div class="footer-col text-right">
+                <p>Calculations based on standard IRCC ministerial instructions.</p>
+                <p>&copy; 2026 GlobalVisaMath.com. Not legal advice.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function toggleSpouseSection() {
+            const status = document.getElementById('maritalStatus').value;
+            const spouseSection = document.getElementById('spouseSection');
+            if (status === 'married') {
+                spouseSection.style.display = 'block';
+            } else {
+                spouseSection.style.display = 'none';
+            }
+        }
+
+        // ── Native High-Performance Scroll-Reveal ──
+    window.addEventListener('load', () => {
+      const targets = document.querySelectorAll('.calculator-panel, .results-section, .info-section, .footer');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          } else {
+            entry.target.classList.remove('visible');
+          }
+        });
+      }, {
+        threshold: 0.05,
+        rootMargin: '0px 0px -10px 0px'
+      });
+      targets.forEach(target => {
+        target.classList.add('reveal-scroll');
+        observer.observe(target);
+      });
+    });
+    </script>
+</body>
+</html>

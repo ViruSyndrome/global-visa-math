@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immigration & Visa Math Calculators | GlobalVisaMath</title>
+    <meta name="description" content="Calculate visa compliance and renewal timelines using free, 100% private tools. Includes Schengen 90/180 calculator, Canada Express Entry CRS score calculator, USCIS Green Card renewal estimator, and J1 visa tracker.">
+    <link rel="canonical" href="https://www.globalvisamath.com/">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2959862133855422" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                GlobalVisaMath
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="active">All Calculators</a>
+                <a href="schengen-calculator.html">Schengen 90/180</a>
+                <a href="canada-crs-calculator.html">Canada CRS</a>
+                <a href="green-card-renewal.html">Green Card</a>
+                <a href="j1-visa-tracker.html">J-1 Tracker</a>
+                <div class="lang-selector-wrap" style="display: inline-flex;">
+                    <select id="langSelect" onchange="changeLanguage(this.value)" aria-label="Select Language">
+                        <option value="">Translate</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="de">Deutsch</option>
+                        <option value="hi">हिन्दी</option>
+                        <option value="zh-CN">中文</option>
+                    </select>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="hero">
+            <h1>Immigration &amp; Visa Calculators</h1>
+            <p>Free, 100% private, client-side compliance tools. No registration or data storage required.</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-section" style="margin-bottom: 2rem; position: relative;">
+            <input type="text" id="calculatorSearch" placeholder="Search visa tools (e.g. Schengen, CRS, Green Card...)" style="width: 100%; padding: 0.85rem 1.25rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; outline: none; box-shadow: 0 2px 4px rgba(0,0,0,0.02); transition: all 0.2s;" onkeyup="filterCalculators()">
+        </div>
+
+        <!-- Dashboard Cards Grid -->
+        <div class="tools-grid" id="toolsGrid">
+            <!-- Schengen Card -->
+            <div class="tool-card" data-tags="schengen visa calculator europe rolling 180 day stay travel">
+                <div class="card-icon" style="color: var(--accent); margin-bottom: 1rem;">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                </div>
+                <h3>Schengen 90/180 Calculator</h3>
+                <p>Calculate your stay duration within the European Schengen Area under the rolling 90/180-day rule to avoid penalties.</p>
+                <a href="schengen-calculator.html" class="btn-card">Use Schengen Tool</a>
+            </div>
+
+            <!-- Canada CRS Card -->
+            <div class="tool-card" data-tags="canada crs calculator express entry points immigration permanent residency">
+                <div class="card-icon" style="color: #c53030; margin-bottom: 1rem;">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <h3>Canada CRS Points Calculator</h3>
+                <p>Calculate your Comprehensive Ranking System (CRS) score for Canadian Express Entry immigration and permanent residency.</p>
+                <a href="canada-crs-calculator.html" class="btn-card">Use Canada CRS Tool</a>
+            </div>
+
+            <!-- Green Card Card -->
+            <div class="tool-card" data-tags="green card renewal timeline estimator uscis form i-90 physical presence permanent resident">
+                <div class="card-icon" style="color: var(--success); margin-bottom: 1rem;">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="4"></line><line x1="8" y1="2" x2="8" y2="4"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                </div>
+                <h3>Green Card Renewal Estimator</h3>
+                <p>Determine the optimal filing timeline for your USCIS Form I-90 Green Card renewal, including expected fees and checklists.</p>
+                <a href="green-card-renewal.html" class="btn-card">Use Green Card Tool</a>
+            </div>
+
+            <!-- J1 Visa Card -->
+            <div class="tool-card" data-tags="j1 visa compliance grace period tracker two year home physical residency 212e exchange visitor">
+                <div class="card-icon" style="color: #dd6b20; margin-bottom: 1rem;">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <h3>J-1 Visa Compliance Tracker</h3>
+                <p>Monitor your exchange visitor DS-2019 validation dates, 30-day grace period restrictions, and USDOS health insurance criteria.</p>
+                <a href="j1-visa-tracker.html" class="btn-card">Use J-1 Tracker Tool</a>
+            </div>
+        </div>
+
+        <!-- Rich SEO Information Section -->
+        <section class="info-section reveal-scroll" style="margin-top: 3rem;">
+            <h2>About GlobalVisaMath Calculators</h2>
+            <p>Our visa calculation engines provide instantaneous, local processing for international travelers and immigration applicants. By utilizing advanced client-side JavaScript execution, we guarantee that your travel itineraries, passport dates, and personal profile data never leave your browser.</p>
+            <p style="margin-top: 1rem;">Whether you are tracking a rolling 180-day window to comply with the European Union's Schengen Border Code, estimating your points for Canadian immigration under the Express Entry system, calculating the timeline for USCIS permanent resident card renewal, or tracking a J-1 program's active dates, our tools offer a zero-signup, high-fidelity experience.</p>
+        </section>
+
+        <!-- FAQs Section -->
+        <section class="info-section reveal-scroll" style="margin-top: 2rem;">
+            <h2 style="margin-bottom: 1.5rem; text-align: center;">Frequently Asked Questions</h2>
+            <div class="faq-item" style="border-bottom: 1px solid var(--border); padding: 1rem 0;">
+                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Are my inputs stored or shared?</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">No. GlobalVisaMath operates strictly client-side. The tools process all dates, education parameters, and trip details in your local memory, and nothing is transmitted to any server.</p>
+            </div>
+            <div class="faq-item" style="border-bottom: 1px solid var(--border); padding: 1rem 0;">
+                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">How accurate are the calculator results?</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Our logic matches official legal guidelines: EU Regulation (EU) 2016/399 for Schengen, the standard IRCC Express Entry Comprehensive Ranking System point allocation for Canada, and USCIS Form I-90 / USDOS exchange visitor directives. However, they are for informational purposes and do not represent formal legal advice.</p>
+            </div>
+            <div class="faq-item" style="padding: 1rem 0 0 0;">
+                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">What is the Schengen 90/180 rule?</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Under the Schengen Borders Code, non-EU travelers are allowed to stay in the Schengen Area for up to 90 days in any rolling 180-day window. This calculation requires looking backwards 180 days from any single day of evaluation.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <strong>GlobalVisaMath</strong>
+                <p>Professional travel &amp; immigration compliance tools.</p>
+                <div class="footer-links" style="margin-top: 10px; display: flex; gap: 15px; font-size: 0.8rem;">
+                    <a href="about.html" style="color: #cbd5e0; text-decoration: none;">About Us</a>
+                    <a href="privacy.html" style="color: #cbd5e0; text-decoration: none;">Privacy Policy</a>
+                    <a href="terms.html" style="color: #cbd5e0; text-decoration: none;">Terms of Service</a>
+                    <a href="contribute.html" style="color: #cbd5e0; text-decoration: none;">Contribute</a>
+                </div>
+            </div>
+            <div class="footer-col text-right">
+                <p>All calculations are performed client-side securely.</p>
+                <p>&copy; 2026 GlobalVisaMath.com. Not legal advice.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ── Search Filtering Logic ──
+        function filterCalculators() {
+            const input = document.getElementById('calculatorSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.tool-card');
+            cards.forEach(card => {
+                const tags = card.getAttribute('data-tags').toLowerCase();
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                if (tags.includes(input) || title.includes(input)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // ── Native High-Performance Scroll-Reveal ──
+    window.addEventListener('load', () => {
+      const targets = document.querySelectorAll('.tool-card, .info-section, .footer');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          } else {
+            entry.target.classList.remove('visible');
+          }
+        });
+      }, {
+        threshold: 0.05,
+        rootMargin: '0px 0px -10px 0px'
+      });
+      targets.forEach(target => {
+        target.classList.add('reveal-scroll');
+        observer.observe(target);
+      });
+    });
+    </script>
+</body>
+</html>

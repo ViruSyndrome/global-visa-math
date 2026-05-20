@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - GlobalVisaMath</title>
+    <meta name="description" content="Read the Privacy Policy for GlobalVisaMath. Discover how our tools process all calculations strictly client-side without storing or transmitting personal data.">
+    <link rel="canonical" href="https://www.globalvisamath.com/privacy.html">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2959862133855422" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                GlobalVisaMath
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">All Calculators</a>
+                <a href="schengen-calculator.html">Schengen 90/180</a>
+                <a href="canada-crs-calculator.html">Canada CRS</a>
+                <a href="green-card-renewal.html">Green Card</a>
+                <a href="j1-visa-tracker.html">J-1 Tracker</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="info-section">
+            <h1 style="color: var(--primary); font-size: 2.2rem; margin-bottom: 1.5rem; text-align: center;">Privacy Policy</h1>
+            <p style="font-size: 0.9rem; color: var(--text-muted); text-align: center; margin-bottom: 2rem;">Last Updated: May 2026</p>
+
+            <h2>1. Zero Data Collection Architecture</h2>
+            <p>GlobalVisaMath is designed with a strict privacy-first model. We do not require any signup, account registration, or email verification to access our tools. No travel histories, passport details, test dates, ages, or immigration status data are ever sent to our servers or stored in any remote database.</p>
+
+            <h2 style="margin-top: 1.5rem;">2. Client-Side Execution</h2>
+            <p>All calculations, date parsing, and score summaries are executed entirely within your web browser using standard client-side JavaScript. Once you close or reload the browser tab, the data processed in your session memory is permanently discarded.</p>
+
+            <h2 style="margin-top: 1.5rem;">3. Google AdSense &amp; Analytics</h2>
+            <p>To support the maintenance and hosting of this free service, we display advertising spaces through Google AdSense. These services may collect standardized browsing metrics:</p>
+            <ul>
+                <li>Google, as a third-party vendor, uses cookies to serve ads based on a user's prior visits to our website.</li>
+                <li>Google's use of advertising cookies enables it and its partners to serve ads based on your visit to this site and/or other sites on the Internet.</li>
+                <li>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer">Google Ads Settings</a>.</li>
+            </ul>
+
+            <h2 style="margin-top: 1.5rem;">4. Links to External Resources</h2>
+            <p>Our pages contain links pointing directly to official governmental portals (such as USCIS, IRCC, and the European Union Lex portal). We are not responsible for the privacy practices or contents of those external government sites.</p>
+
+            <h2 style="margin-top: 1.5rem;">5. Contacting Us</h2>
+            <p>For questions regarding our privacy practices, you can contact us at <a href="mailto:privacy@globalvisamath.com">privacy@globalvisamath.com</a>.</p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <strong>GlobalVisaMath</strong>
+                <p>Professional travel &amp; immigration compliance tools.</p>
+                <div class="footer-links" style="margin-top: 10px; display: flex; gap: 15px; font-size: 0.8rem;">
+                    <a href="about.html" style="color: #cbd5e0; text-decoration: none;">About Us</a>
+                    <a href="privacy.html" style="color: #cbd5e0; text-decoration: none; font-weight: 700;">Privacy Policy</a>
+                    <a href="terms.html" style="color: #cbd5e0; text-decoration: none;">Terms of Service</a>
+                    <a href="contribute.html" style="color: #cbd5e0; text-decoration: none;">Contribute</a>
+                </div>
+            </div>
+            <div class="footer-col text-right">
+                <p>All calculations are performed client-side securely.</p>
+                <p>&copy; 2026 GlobalVisaMath.com. Not legal advice.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ── Native High-Performance Scroll-Reveal ──
+        window.addEventListener('load', () => {
+          const targets = document.querySelectorAll('.info-section, .footer');
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+              } else {
+                entry.target.classList.remove('visible');
+              }
+            });
+          }, {
+            threshold: 0.05,
+            rootMargin: '0px 0px -10px 0px'
+          });
+          targets.forEach(target => {
+            target.classList.add('reveal-scroll');
+            observer.observe(target);
+          });
+        });
+    </script>
+</body>
+</html>

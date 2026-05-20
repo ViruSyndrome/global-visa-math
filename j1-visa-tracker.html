@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J-1 Visa Grace Period &amp; Compliance Tracker | GlobalVisaMath</title>
+    <meta name="description" content="Calculate your J-1 Exchange Visitor program active duration, DS-2019 expiration, 30-day grace period travel restrictions, and USDOS insurance compliance.">
+    <link rel="canonical" href="https://www.globalvisamath.com/j1-visa-tracker.html">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2959862133855422" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                GlobalVisaMath
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">All Calculators</a>
+                <a href="schengen-calculator.html">Schengen 90/180</a>
+                <a href="canada-crs-calculator.html">Canada CRS</a>
+                <a href="green-card-renewal.html">Green Card</a>
+                <a href="j1-visa-tracker.html" class="active">J-1 Tracker</a>
+                <div class="lang-selector-wrap" style="display: inline-flex;">
+                    <select id="langSelect" onchange="changeLanguage(this.value)" aria-label="Select Language">
+                        <option value="">Translate</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="de">Deutsch</option>
+                        <option value="hi">हिन्दी</option>
+                        <option value="zh-CN">中文</option>
+                    </select>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="hero">
+            <h1>J-1 Exchange Visitor Compliance Tracker</h1>
+            <p>Monitor your exchange visitor DS-2019 validation dates, 30-day grace period restrictions, and USDOS health insurance criteria.</p>
+        </div>
+
+        <section class="calculator-panel">
+            <div class="calc-header">
+                <h2>Program Parameters</h2>
+                <span class="trust-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    DOS Regulations
+                </span>
+            </div>
+
+            <div class="input-section">
+                <div class="date-row">
+                    <div class="input-group">
+                        <label for="j1Category" data-tooltip="Determines your program duration cap under U.S. State Department regulations">Exchange Visitor Category ⓘ</label>
+                        <select id="j1Category" class="date-input">
+                            <option value="scholar">Research Scholar / Professor (Max 5 yrs)</option>
+                            <option value="shortTerm">Short-Term Scholar (Max 6 mos)</option>
+                            <option value="trainee">Trainee (Max 18 mos)</option>
+                            <option value="intern">Intern (Max 12 mos)</option>
+                            <option value="student">College / University Student</option>
+                            <option value="aupair">Au Pair (Max 12 mos)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="date-row">
+                    <div class="input-group">
+                        <label for="dsStart" data-tooltip="The program start date stated in Box 3 of your DS-2019 form">DS-2019 Start Date ⓘ</label>
+                        <input type="date" id="dsStart" class="date-input">
+                    </div>
+                    <div class="input-group">
+                        <label for="dsEnd" data-tooltip="The program end date stated in Box 3 of your DS-2019 form">DS-2019 End Date (Program Expiry) ⓘ</label>
+                        <input type="date" id="dsEnd" class="date-input">
+                    </div>
+                </div>
+
+                <div class="action-row" style="margin-top: 1rem;">
+                    <div class="input-group">
+                        <label for="assessmentDate" data-tooltip="The date on which you want to verify your active legal status">Date of Evaluation ⓘ</label>
+                        <input type="date" id="assessmentDate" class="date-input">
+                    </div>
+                    <button class="btn-primary" onclick="calculateJ1Compliance()" data-tooltip="Verify status compliance, grace periods and health insurance criteria">Calculate Compliance Status</button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <h3>Your Program Status &amp; Timeline</h3>
+                
+                <div class="status-card" id="j1StatusCard">
+                    <div class="status-number" id="j1DaysRemaining">0</div>
+                    <div class="status-label" id="j1StatusLabel">Days remaining in program</div>
+                </div>
+                <p class="status-message" id="j1StatusMessage"></p>
+
+                <!-- Travel Grace Period Alert -->
+                <div class="audit-trail" style="margin-bottom: 1.5rem; background: #fffaf0; border: 1px solid #feebc8; border-left: 5px solid #dd6b20; border-radius: 4px; padding: 1.25rem;">
+                    <h4 style="color: #c05621; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        Critical 30-Day Travel &amp; Stay Window
+                    </h4>
+                    <ul style="list-style: disc; padding-left: 1.25rem; font-size: 0.88rem; color: #7b341e; line-height: 1.6;">
+                        <li><strong>Grace Period Window:</strong> <span id="gracePeriodDates">Pending calculation</span></li>
+                        <li><strong>Stay Status:</strong> You are legally allowed to remain in the U.S. and prepare for departure during this window.</li>
+                        <li><strong>Travel Warning:</strong> You cannot travel outside the U.S. and re-enter in J-1 status during the 30-day grace period. Work authorization is strictly prohibited.</li>
+                    </ul>
+                </div>
+
+                <!-- Insurance Requirements -->
+                <div class="audit-trail" style="margin-bottom: 1.5rem;">
+                    <h4>USDOS Mandated Health Insurance Check</h4>
+                    <p class="audit-disclaimer" style="margin-bottom: 0.75rem;">Your insurance policy must meet the following minimum criteria to maintain valid J-1 status:</p>
+                    <ul style="list-style: none; font-size: 0.9rem; padding: 0; line-height: 1.6;">
+                        <li style="display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Medical benefits of at least <strong>$100,000 per accident or illness</strong>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Repatriation of remains coverage in the amount of <strong>$25,000</strong>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Expenses associated with the medical evacuation in the amount of <strong>$50,000</strong>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            A deductible not to exceed <strong>$500 per accident or sickness</strong>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="audit-trail">
+                    <h4>Required Compliance Audit</h4>
+                    <ul id="j1AuditChecklist" style="list-style: none; font-size: 0.9rem; line-height: 1.6;">
+                        <!-- Dynamically filled -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEO Information Section -->
+        <section class="info-section">
+            <h2>About the J-1 Exchange Visitor Program</h2>
+            <p>The J-1 visa is a non-immigrant visa category administered by the U.S. Department of State (DOS) designed to promote educational and cultural exchange. Exchange visitors are required to adhere to strict regulatory compliance parameters to maintain valid status.</p>
+            <p style="margin-top: 1.5rem;">Key requirements include holding active, qualifying health insurance coverage for the principal applicant and all J-2 dependents, maintaining a valid travel signature on Form DS-2019 for any international departures, and understanding whether the exchange visitor is subject to the two-year home-country physical presence requirement (Section 212(e)) before being eligible to change status inside the U.S. or apply for certain other visas.</p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <strong>GlobalVisaMath</strong>
+                <p>Professional travel &amp; immigration compliance tools.</p>
+                <div class="footer-links" style="margin-top: 10px; display: flex; gap: 15px; font-size: 0.8rem;">
+                    <a href="about.html" style="color: #cbd5e0; text-decoration: none;">About Us</a>
+                    <a href="privacy.html" style="color: #cbd5e0; text-decoration: none;">Privacy Policy</a>
+                    <a href="terms.html" style="color: #cbd5e0; text-decoration: none;">Terms of Service</a>
+                    <a href="contribute.html" style="color: #cbd5e0; text-decoration: none;">Contribute</a>
+                </div>
+            </div>
+            <div class="footer-col text-right">
+                <p>Calculations strictly follow current USDOS J-1 Exchange Visitor regulations.</p>
+                <p>&copy; 2026 GlobalVisaMath.com. Not legal advice.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Set default assessment date to today
+        document.addEventListener('DOMContentLoaded', () => {
+            const assessmentInput = document.getElementById('assessmentDate');
+            if (assessmentInput) {
+                const today = new Date();
+                assessmentInput.value = today.toISOString().split('T')[0];
+            }
+        });
+
+        // ── Native High-Performance Scroll-Reveal ──
+    window.addEventListener('load', () => {
+      const targets = document.querySelectorAll('.calculator-panel, .results-section, .info-section, .footer');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          } else {
+            entry.target.classList.remove('visible');
+          }
+        });
+      }, {
+        threshold: 0.05,
+        rootMargin: '0px 0px -10px 0px'
+      });
+      targets.forEach(target => {
+        target.classList.add('reveal-scroll');
+        observer.observe(target);
+      });
+    });
+    </script>
+</body>
+</html>

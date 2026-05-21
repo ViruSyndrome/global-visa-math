@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2959862133855422" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -23,22 +23,15 @@
                 </svg>
                 GlobalVisaMath
             </a>
-            <nav class="nav-links">
+            <button class="hamburger" id="visaHamburger" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="nav-links" id="visaNavLinks">
                 <a href="index.html" class="active">All Calculators</a>
                 <a href="schengen-calculator.html">Schengen 90/180</a>
                 <a href="canada-crs-calculator.html">Canada CRS</a>
                 <a href="green-card-renewal.html">Green Card</a>
                 <a href="j1-visa-tracker.html">J-1 Tracker</a>
-                <div class="lang-selector-wrap" style="display: inline-flex;">
-                    <select id="langSelect" onchange="changeLanguage(this.value)" aria-label="Select Language">
-                        <option value="">Translate</option>
-                        <option value="es">Español</option>
-                        <option value="fr">Français</option>
-                        <option value="de">Deutsch</option>
-                        <option value="hi">हिन्दी</option>
-                        <option value="zh-CN">中文</option>
-                    </select>
-                </div>
             </nav>
         </div>
     </header>
@@ -119,7 +112,15 @@
                 <h4 style="color: var(--primary); margin-bottom: 0.5rem;">What is the Schengen 90/180 rule?</h4>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">Under the Schengen Borders Code, non-EU travelers are allowed to stay in the Schengen Area for up to 90 days in any rolling 180-day window. This calculation requires looking backwards 180 days from any single day of evaluation.</p>
             </div>
-        </section>
+        <!-- Support Banner -->
+        <div class="support-banner" style="background: linear-gradient(135deg, rgba(43, 108, 176, 0.08), rgba(43, 108, 176, 0.03)); border: 1px solid rgba(43, 108, 176, 0.2); border-radius: 12px; padding: 1.5rem; margin-top: 3rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+            <span style="font-size: 2rem;">☕</span>
+            <div style="flex: 1; min-width: 200px;">
+                <div style="font-weight: 700; font-size: 1.05rem; color: var(--primary);">GlobalVisaMath is free — no signup, no paywall</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 4px;">If our Schengen calculator or Express Entry tracker saved you time or clarified your immigration pathway, consider supporting the project to keep it running.</div>
+            </div>
+            <a href="contribute.html" style="display: inline-block; padding: 10px 22px; background: linear-gradient(135deg, var(--primary), #4299e1); color: #fff; border-radius: 8px; font-weight: 700; font-size: 0.88rem; text-decoration: none; white-space: nowrap; transition: opacity 0.2s;">Support Us ♥</a>
+        </div>
     </main>
 
     <footer class="footer">
@@ -131,7 +132,6 @@
                     <a href="about.html" style="color: #cbd5e0; text-decoration: none;">About Us</a>
                     <a href="privacy.html" style="color: #cbd5e0; text-decoration: none;">Privacy Policy</a>
                     <a href="terms.html" style="color: #cbd5e0; text-decoration: none;">Terms of Service</a>
-                    <a href="contribute.html" style="color: #cbd5e0; text-decoration: none;">Contribute</a>
                 </div>
             </div>
             <div class="footer-col text-right">

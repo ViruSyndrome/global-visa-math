@@ -1,6 +1,24 @@
 // GlobalVisaMath JS Engines
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Mobile Hamburger Menu Toggle
+    const hamburger = document.getElementById('visaHamburger');
+    const navLinks = document.getElementById('visaNavLinks');
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            hamburger.classList.toggle('open');
+            navLinks.classList.toggle('open');
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+                hamburger.classList.remove('open');
+                navLinks.classList.remove('open');
+            }
+        });
+    }
+
     // ==========================================
     // 1. Schengen 90/180 Calculator
     // ==========================================
@@ -106,14 +124,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const daysUsedEl = document.getElementById('daysUsed');
         daysUsedEl.textContent = daysUsed;
         
+        const schengenCircle = document.getElementById('schengenCircle');
+        if (schengenCircle) {
+            const circumference = 282.74;
+            const pct = Math.min(daysUsed / 90, 1.0);
+            const offset = circumference - (pct * circumference);
+            schengenCircle.style.strokeDasharray = `${circumference}`;
+            schengenCircle.style.strokeDashoffset = `${offset}`;
+            if (daysUsed > 90) {
+                schengenCircle.style.stroke = 'var(--danger)';
+            } else {
+                schengenCircle.style.stroke = 'var(--accent)';
+            }
+        }
+
         const statusMessage = document.getElementById('statusMessage');
         const daysLeft = 90 - daysUsed;
 
         if (daysUsed > 90) {
-            daysUsedEl.className = 'status-number danger';
+            daysUsedEl.style.color = 'var(--danger)';
             statusMessage.innerHTML = `<span style="color: var(--danger)">You have exceeded the 90-day limit by ${daysUsed - 90} days.</span>`;
         } else {
-            daysUsedEl.className = 'status-number success';
+            daysUsedEl.style.color = 'var(--primary)';
             statusMessage.innerHTML = `<span style="color: var(--success)">You are compliant. You have ${daysLeft} days remaining in this window.</span>`;
         }
 
@@ -250,6 +282,15 @@ function calculateCRS() {
     // Display
     document.getElementById('resultsSection').style.display = 'block';
     document.getElementById('crsTotalScore').textContent = grandTotal;
+
+    const crsCircle = document.getElementById('crsCircle');
+    if (crsCircle) {
+        const circumference = 282.74;
+        const pct = Math.min(grandTotal / 1200, 1.0);
+        const offset = circumference - (pct * circumference);
+        crsCircle.style.strokeDasharray = `${circumference}`;
+        crsCircle.style.strokeDashoffset = `${offset}`;
+    }
 
     const pointsList = document.getElementById('pointsBreakdownList');
     pointsList.innerHTML = `

@@ -246,7 +246,7 @@ function calculateCRS() {
         spouseEduPoints = spouseEduMap[spouseEduVal] || 0;
 
         const spouseLangVal = document.getElementById('spouseLanguage').value;
-        const spouseLangMap = { 'clb4': 0, 'clb5': 6, 'clb7': 12, 'clb9': 20 };
+        const spouseLangMap = { 'clb4': 0, 'clb5': 4, 'clb7': 12, 'clb9': 20 };
         spouseLangPoints = spouseLangMap[spouseLangVal] || 0;
 
         const spouseWorkVal = document.getElementById('spouseWork').value;
@@ -256,15 +256,56 @@ function calculateCRS() {
 
     // Skill transferability (Education + Foreign work)
     const foreignWorkVal = document.getElementById('foreignWork').value;
-    let transferabilityPoints = 0;
-    
-    // Simplification of IRCC complex cross-matrix
+    const canWorkVal = document.getElementById('canWork').value;
+    const eduVal = document.getElementById('education').value;
+    const langVal = document.getElementById('firstLanguage').value;
+
     const firstLanguageCLB9 = langVal === 'clb9' || langVal === 'clb10';
-    if (foreignWorkVal === '1yr') {
-        transferabilityPoints += firstLanguageCLB9 ? 25 : 13;
-    } else if (foreignWorkVal === '3yr') {
-        transferabilityPoints += firstLanguageCLB9 ? 50 : 25;
+    const firstLanguageCLB7or8 = langVal === 'clb7' || langVal === 'clb8';
+
+    const hasCanadianWork1Yr = canWorkVal === '1yr';
+    const hasCanadianWork2YrOrMore = canWorkVal !== 'none' && canWorkVal !== '1yr';
+
+    const isPostSecondary = eduVal !== 'none' && eduVal !== 'hs';
+    const isMasterOrPhD = eduVal === 'masters' || eduVal === 'phd';
+
+    // 1. Education + First Language CLB
+    let eduLangPoints = 0;
+    if (isMasterOrPhD) {
+        eduLangPoints = firstLanguageCLB9 ? 50 : (firstLanguageCLB7or8 ? 25 : 0);
+    } else if (isPostSecondary) {
+        eduLangPoints = firstLanguageCLB9 ? 25 : (firstLanguageCLB7or8 ? 13 : 0);
     }
+
+    // 2. Education + Canadian Work Experience
+    let eduCanWorkPoints = 0;
+    if (isMasterOrPhD) {
+        eduCanWorkPoints = hasCanadianWork2YrOrMore ? 50 : (hasCanadianWork1Yr ? 25 : 0);
+    } else if (isPostSecondary) {
+        eduCanWorkPoints = hasCanadianWork2YrOrMore ? 25 : (hasCanadianWork1Yr ? 13 : 0);
+    }
+
+    const eduTransferTotal = Math.min(eduLangPoints + eduCanWorkPoints, 50);
+
+    // 3. Foreign Work Experience + First Language CLB
+    let workLangPoints = 0;
+    if (foreignWorkVal === '3yr') {
+        workLangPoints = firstLanguageCLB9 ? 50 : (firstLanguageCLB7or8 ? 25 : 0);
+    } else if (foreignWorkVal === '1yr') {
+        workLangPoints = firstLanguageCLB9 ? 25 : (firstLanguageCLB7or8 ? 13 : 0);
+    }
+
+    // 4. Foreign Work Experience + Canadian Work Experience
+    let workCanWorkPoints = 0;
+    if (foreignWorkVal === '3yr') {
+        workCanWorkPoints = hasCanadianWork2YrOrMore ? 50 : (hasCanadianWork1Yr ? 25 : 0);
+    } else if (foreignWorkVal === '1yr') {
+        workCanWorkPoints = hasCanadianWork2YrOrMore ? 25 : (hasCanadianWork1Yr ? 13 : 0);
+    }
+
+    const workTransferTotal = Math.min(workLangPoints + workCanWorkPoints, 50);
+
+    const transferabilityPoints = eduTransferTotal + workTransferTotal;
 
     // Additional points (Max 600)
     let additionalPoints = 0;

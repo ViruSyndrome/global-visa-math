@@ -1,5 +1,12 @@
 // GlobalVisaMath JS Engines
 
+// Analytics tracking helper
+function trackEvent(eventName, params = {}) {
+    if (typeof gtag === 'function') {
+        gtag('event', eventName, params);
+    }
+}
+
 function parseLocalDate(dateStr) {
     if (!dateStr) return null;
     const [year, month, day] = dateStr.split('-').map(Number);
@@ -116,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         displaySchengenResults(totalDaysUsed, auditLog, windowStart, controlDate);
+        trackEvent('calculate_schengen', { days_used: totalDaysUsed, trips_count: trips.length });
     }
 
     function displaySchengenResults(daysUsed, auditLog, windowStart, windowEnd) {
@@ -378,6 +386,7 @@ function calculateCRS() {
     }
 
     document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+    trackEvent('calculate_crs', { score: grandTotal, marital_status: maritalStatus });
 }
 
 // ==========================================
@@ -454,6 +463,7 @@ function calculateGCRenewal() {
     `;
 
     resultsSection.scrollIntoView({ behavior: 'smooth' });
+    trackEvent('calculate_gc_renewal', { days_remaining: diffDays });
 }
 
 // ==========================================
@@ -542,4 +552,5 @@ function calculateJ1Compliance() {
     `;
 
     resultsSection.scrollIntoView({ behavior: 'smooth' });
+    trackEvent('calculate_j1_compliance');
 }

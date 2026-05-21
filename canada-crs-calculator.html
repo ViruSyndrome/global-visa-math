@@ -45,10 +45,15 @@
         <section class="calculator-panel">
             <div class="calc-header">
                 <h2>Immigration Profile</h2>
-                <span class="trust-badge">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                    Official IRCC Rules
-                </span>
+                <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                    <span class="trust-badge" style="color: #4a5568; background: #edf2f7;">
+                        Rules Current as of: 2026
+                    </span>
+                    <span class="trust-badge">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        Privacy First
+                    </span>
+                </div>
             </div>
 
             <form id="crsForm" onsubmit="event.preventDefault(); calculateCRS();">
@@ -152,7 +157,9 @@
                                 <option value="hs">High school diploma</option>
                                 <option value="1yr">One-year post-secondary program</option>
                                 <option value="2yr">Two-year post-secondary program</option>
-                                <option value="3yr">Bachelor's degree or higher</option>
+                                <option value="3yr">Bachelor's degree</option>
+                                <option value="multi">Two or more certificates/degrees</option>
+                                <option value="masters">Master's or Doctoral degree</option>
                             </select>
                         </div>
                     </div>
@@ -175,7 +182,10 @@
                             <select id="spouseWork" class="date-input">
                                 <option value="none">None or less than 1 year</option>
                                 <option value="1yr">1 year</option>
-                                <option value="2yr">2 years or more</option>
+                                <option value="2yr">2 years</option>
+                                <option value="3yr">3 years</option>
+                                <option value="4yr">4 years</option>
+                                <option value="5yr">5 years or more</option>
                             </select>
                         </div>
                     </div>
@@ -255,13 +265,13 @@
         <section class="info-section">
             <h2>Understanding the Express Entry CRS Score</h2>
             <p>The Comprehensive Ranking System (CRS) is the points-based system used by Immigration, Refugees and Citizenship Canada (IRCC) to assess and rank candidates in the Express Entry pool. Candidates are ranked based on their age, education, language ability, work experience, and other additional factors.</p>
-            <p style="margin-top: 1rem;"><strong>Category-Based Selection:</strong> In addition to general draws, IRCC conducts targeted category-based Express Entry draws focusing on specific profiles, such as strong French language skills, healthcare workers, STEM professions, trades, transport, and agriculture. Your CRS score remains the deciding factor within these specific categories.</p>
-            <div style="margin-top: 1.5rem; padding: 1rem; background: #f8fafc; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem;">
-                <strong>Official Resources:</strong>
-                <ul style="margin-top: 0.5rem; padding-left: 1.2rem; line-height: 1.6;">
-                    <li>Check your profile with the official <a href="https://www.cic.gc.ca/english/immigrate/skilled/crs-tool.asp" target="_blank" rel="noopener noreferrer">IRCC Express Entry CRS Tool</a>.</li>
-                    <li>View recent cutoff scores and draw history on the <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/submit-profile/rounds-invitations.html" target="_blank" rel="noopener noreferrer">IRCC Express Entry Rounds of Invitations</a> page.</li>
-                </ul>
+            <p style="margin-top: 1.5rem;">Every few weeks, the Canadian government conducts Express Entry draws, issuing Invitations to Apply (ITAs) for permanent residency to candidates who meet or exceed the cutoff score. Using a CRS calculator helps you understand where you stand and how to optimize your profile.</p>
+
+            <div style="margin-top: 1.5rem; padding: 1rem 1.25rem; background: rgba(43, 108, 176, 0.04); border: 1px solid var(--border); border-radius: 8px;">
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">
+                    📋 <strong>Official Source:</strong> For ministerial instructions and complete scoring grids, visit the official <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/eligibility/criteria-comprehensive-ranking-system.html" target="_blank" rel="noopener noreferrer" style="color: var(--accent); font-weight: 500;">IRCC Express Entry CRS Criteria</a>.
+                    If you notice policy updates or discrepancies, please notify us at <a href="mailto:hello@globalvisamath.com" style="color: var(--accent); font-weight: 500;">hello@globalvisamath.com</a>.
+                </p>
             </div>
         </section>
     </main>

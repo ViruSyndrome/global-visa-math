@@ -1,5 +1,11 @@
 // GlobalVisaMath JS Engines
 
+function parseLocalDate(dateStr) {
+    if (!dateStr) return null;
+    const [year, month, day] = dateStr.split('-').map(Number);
+    return new Date(year, month - 1, day, 0, 0, 0, 0);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Mobile Hamburger Menu Toggle
     const hamburger = document.getElementById('visaHamburger');
@@ -64,8 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const controlDate = new Date(controlDateVal);
-        controlDate.setHours(0, 0, 0, 0);
+        const controlDate = parseLocalDate(controlDateVal);
 
         const windowStart = new Date(controlDate);
         windowStart.setDate(controlDate.getDate() - 179);
@@ -79,10 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const exitInput = row.querySelector('input[id^="exit_"]');
             
             if (entryInput.value && exitInput.value) {
-                const entryDate = new Date(entryInput.value);
-                entryDate.setHours(0, 0, 0, 0);
-                const exitDate = new Date(exitInput.value);
-                exitDate.setHours(0, 0, 0, 0);
+                const entryDate = parseLocalDate(entryInput.value);
+                const exitDate = parseLocalDate(exitInput.value);
 
                 if (exitDate < entryDate) {
                     alert(`Error in Trip ${index + 1}: Exit date cannot be before Entry date.`);
@@ -104,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (overlapStart <= overlapEnd) {
                 const diffTime = Math.abs(overlapEnd - overlapStart);
-                const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                const days = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
                 totalDaysUsed += days;
                 auditLog.push(`Trip ${index + 1} (${trip.entry.toLocaleDateString()} to ${trip.exit.toLocaleDateString()}): <strong>${days} days</strong> counted in window.`);
             } else {
@@ -212,12 +215,12 @@ function calculateCRS() {
     const langVal = document.getElementById('firstLanguage').value;
     let langPoints = 0;
     const clbMap = {
-        'clb4': 0, 'clb5': 6, 'clb6': 9, 'clb7': 17, 'clb8': 23, 'clb9': 31, 'clb10': 34
+        'clb4': 6, 'clb5': 6, 'clb6': 9, 'clb7': 17, 'clb8': 23, 'clb9': 31, 'clb10': 34
     };
     langPoints = (clbMap[langVal] || 0) * 4; // Reading, Writing, Speaking, Listening equal weight assumed
     if (isMarried) {
         const marriedClbMap = {
-            'clb4': 0, 'clb5': 6, 'clb6': 8, 'clb7': 16, 'clb8': 22, 'clb9': 29, 'clb10': 32
+            'clb4': 6, 'clb5': 6, 'clb6': 8, 'clb7': 16, 'clb8': 22, 'clb9': 30, 'clb10': 32
         };
         langPoints = (marriedClbMap[langVal] || 0) * 4;
     }
@@ -242,7 +245,7 @@ function calculateCRS() {
     let spouseWorkPoints = 0;
     if (isMarried) {
         const spouseEduVal = document.getElementById('spouseEducation').value;
-        const spouseEduMap = { 'none': 0, 'hs': 2, '1yr': 6, '2yr': 8, '3yr': 10 };
+        const spouseEduMap = { 'none': 0, 'hs': 2, '1yr': 6, '2yr': 7, '3yr': 8, 'multi': 9, 'masters': 10 };
         spouseEduPoints = spouseEduMap[spouseEduVal] || 0;
 
         const spouseLangVal = document.getElementById('spouseLanguage').value;
@@ -250,62 +253,74 @@ function calculateCRS() {
         spouseLangPoints = spouseLangMap[spouseLangVal] || 0;
 
         const spouseWorkVal = document.getElementById('spouseWork').value;
-        const spouseWorkMap = { 'none': 0, '1yr': 5, '2yr': 10 };
+        const spouseWorkMap = { 'none': 0, '1yr': 5, '2yr': 7, '3yr': 8, '4yr': 9, '5yr': 10 };
         spouseWorkPoints = spouseWorkMap[spouseWorkVal] || 0;
     }
 
-    // Skill transferability (Education + Foreign work)
+    // Skill transferability factors
+    let transferabilityPoints = 0;
+    
+    // Language proficiency category for transferability
+    const hasCLB9Plus = langVal === 'clb9' || langVal === 'clb10';
+    const hasCLB7Or8 = langVal === 'clb7' || langVal === 'clb8';
+    
+    // Education category
+    const isSingleEdu = eduVal === '1yr' || eduVal === '2yr' || eduVal === '3yr';
+    const isMultiEdu = eduVal === 'multi' || eduVal === 'masters' || eduVal === 'phd';
+    
+    // Canadian work category
+    const canWork1Yr = canWorkVal === '1yr';
+    const canWork2YrPlus = canWorkVal !== 'none' && canWorkVal !== '1yr';
+    
+    // Foreign work category
     const foreignWorkVal = document.getElementById('foreignWork').value;
-    const canWorkVal = document.getElementById('canWork').value;
-    const eduVal = document.getElementById('education').value;
-    const langVal = document.getElementById('firstLanguage').value;
+    const isForeign1To2 = foreignWorkVal === '1yr';
+    const isForeign3Plus = foreignWorkVal === '3yr';
 
-    const firstLanguageCLB9 = langVal === 'clb9' || langVal === 'clb10';
-    const firstLanguageCLB7or8 = langVal === 'clb7' || langVal === 'clb8';
-
-    const hasCanadianWork1Yr = canWorkVal === '1yr';
-    const hasCanadianWork2YrOrMore = canWorkVal !== 'none' && canWorkVal !== '1yr';
-
-    const isPostSecondary = eduVal !== 'none' && eduVal !== 'hs';
-    const isMasterOrPhD = eduVal === 'masters' || eduVal === 'phd';
-
-    // 1. Education + First Language CLB
+    // 1. Education + Language (Max 50 points)
     let eduLangPoints = 0;
-    if (isMasterOrPhD) {
-        eduLangPoints = firstLanguageCLB9 ? 50 : (firstLanguageCLB7or8 ? 25 : 0);
-    } else if (isPostSecondary) {
-        eduLangPoints = firstLanguageCLB9 ? 25 : (firstLanguageCLB7or8 ? 13 : 0);
+    if (isMultiEdu) {
+        if (hasCLB9Plus) eduLangPoints = 50;
+        else if (hasCLB7Or8) eduLangPoints = 25;
+    } else if (isSingleEdu) {
+        if (hasCLB9Plus) eduLangPoints = 25;
+        else if (hasCLB7Or8) eduLangPoints = 13;
     }
 
-    // 2. Education + Canadian Work Experience
+    // 2. Education + Canadian Work Experience (Max 50 points)
     let eduCanWorkPoints = 0;
-    if (isMasterOrPhD) {
-        eduCanWorkPoints = hasCanadianWork2YrOrMore ? 50 : (hasCanadianWork1Yr ? 25 : 0);
-    } else if (isPostSecondary) {
-        eduCanWorkPoints = hasCanadianWork2YrOrMore ? 25 : (hasCanadianWork1Yr ? 13 : 0);
+    if (isMultiEdu) {
+        if (canWork2YrPlus) eduCanWorkPoints = 50;
+        else if (canWork1Yr) eduCanWorkPoints = 25;
+    } else if (isSingleEdu) {
+        if (canWork2YrPlus) eduCanWorkPoints = 25;
+        else if (canWork1Yr) eduCanWorkPoints = 13;
     }
 
-    const eduTransferTotal = Math.min(eduLangPoints + eduCanWorkPoints, 50);
-
-    // 3. Foreign Work Experience + First Language CLB
-    let workLangPoints = 0;
-    if (foreignWorkVal === '3yr') {
-        workLangPoints = firstLanguageCLB9 ? 50 : (firstLanguageCLB7or8 ? 25 : 0);
-    } else if (foreignWorkVal === '1yr') {
-        workLangPoints = firstLanguageCLB9 ? 25 : (firstLanguageCLB7or8 ? 13 : 0);
+    // 3. Foreign Work Experience + Language (Max 50 points)
+    let foreignLangPoints = 0;
+    if (isForeign3Plus) {
+        if (hasCLB9Plus) foreignLangPoints = 50;
+        else if (hasCLB7Or8) foreignLangPoints = 25;
+    } else if (isForeign1To2) {
+        if (hasCLB9Plus) foreignLangPoints = 25;
+        else if (hasCLB7Or8) foreignLangPoints = 13;
     }
 
-    // 4. Foreign Work Experience + Canadian Work Experience
-    let workCanWorkPoints = 0;
-    if (foreignWorkVal === '3yr') {
-        workCanWorkPoints = hasCanadianWork2YrOrMore ? 50 : (hasCanadianWork1Yr ? 25 : 0);
-    } else if (foreignWorkVal === '1yr') {
-        workCanWorkPoints = hasCanadianWork2YrOrMore ? 25 : (hasCanadianWork1Yr ? 13 : 0);
+    // 4. Foreign Work Experience + Canadian Work Experience (Max 50 points)
+    let foreignCanWorkPoints = 0;
+    if (isForeign3Plus) {
+        if (canWork2YrPlus) foreignCanWorkPoints = 50;
+        else if (canWork1Yr) foreignCanWorkPoints = 25;
+    } else if (isForeign1To2) {
+        if (canWork2YrPlus) foreignCanWorkPoints = 25;
+        else if (canWork1Yr) foreignCanWorkPoints = 13;
     }
 
-    const workTransferTotal = Math.min(workLangPoints + workCanWorkPoints, 50);
-
-    const transferabilityPoints = eduTransferTotal + workTransferTotal;
+    // Combine categories:
+    const subTotalA = Math.min(50, eduLangPoints + eduCanWorkPoints);
+    const subTotalB = Math.min(50, foreignLangPoints + foreignCanWorkPoints);
+    transferabilityPoints = subTotalA + subTotalB;
 
     // Additional points (Max 600)
     let additionalPoints = 0;
@@ -335,10 +350,10 @@ function calculateCRS() {
 
     const pointsList = document.getElementById('pointsBreakdownList');
     pointsList.innerHTML = `
-        <li>Core Human Capital Points: <strong>${coreHumanTotal}</strong></li>
-        ${isMarried ? `<li>Spouse / Partner Factors: <strong>${spouseTotal}</strong></li>` : ''}
-        <li>Skill Transferability: <strong>${transferabilityPoints}</strong></li>
-        <li>Additional Factors (Provincial Nomination, French, etc.): <strong>${additionalPoints}</strong></li>
+        <li>Core Human Capital Points: <strong>${coreHumanTotal}</strong> (Age: ${agePoints}, Education: ${eduPoints}, Language: ${langPoints}, Canadian Work: ${canWorkPoints})</li>
+        ${isMarried ? `<li>Spouse / Partner Factors: <strong>${spouseTotal}</strong> (Education: ${spouseEduPoints}, Language: ${spouseLangPoints}, Canadian Work: ${spouseWorkPoints})</li>` : ''}
+        <li>Skill Transferability: <strong>${transferabilityPoints}</strong> / 100 (Education Factors: ${subTotalA}/50, Experience Factors: ${subTotalB}/50)</li>
+        <li>Additional Factors: <strong>${additionalPoints}</strong> / 600</li>
     `;
 
     // Recommendations
@@ -375,13 +390,12 @@ function calculateGCRenewal() {
         return;
     }
 
-    const expiryDate = new Date(expiryInput);
-    expiryDate.setHours(0,0,0,0);
+    const expiryDate = parseLocalDate(expiryInput);
     const today = new Date();
-    today.setHours(0,0,0,0);
+    today.setHours(0, 0, 0, 0);
 
     const diffTime = expiryDate - today;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
 
     const resultsSection = document.getElementById('resultsSection');
     resultsSection.style.display = 'block';
@@ -455,9 +469,9 @@ function calculateJ1Compliance() {
         return;
     }
 
-    const startDate = new Date(startInput);
-    const endDate = new Date(endInput);
-    const assessmentDate = new Date(assessmentInput);
+    const startDate = parseLocalDate(startInput);
+    const endDate = parseLocalDate(endInput);
+    const assessmentDate = parseLocalDate(assessmentInput);
 
     if (endDate < startDate) {
         alert('Error: Program end date cannot be before start date.');
@@ -482,28 +496,28 @@ function calculateJ1Compliance() {
 
     if (assessmentDate < startDate) {
         const diffTime = startDate - assessmentDate;
-        const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const days = Math.round(diffTime / (1000 * 60 * 60 * 24));
         daysRemainingEl.textContent = days;
         daysRemainingEl.className = 'status-number';
         statusLabel.textContent = 'Days until program start';
         statusMessage.innerHTML = `<span>Your J-1 program status is <strong>Pending</strong>. Your program begins in ${days} days.</span>`;
     } else if (assessmentDate <= endDate) {
         const diffTime = endDate - assessmentDate;
-        const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const days = Math.round(diffTime / (1000 * 60 * 60 * 24));
         daysRemainingEl.textContent = days;
         daysRemainingEl.className = 'status-number success';
         statusLabel.textContent = 'Days remaining in program';
         statusMessage.innerHTML = `<span style="color: var(--success)">Your J-1 program status is <strong>Active</strong>. You have ${days} days of program eligibility remaining.</span>`;
     } else if (assessmentDate <= graceEnd) {
         const diffTime = graceEnd - assessmentDate;
-        const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const days = Math.round(diffTime / (1000 * 60 * 60 * 24));
         daysRemainingEl.textContent = days;
         daysRemainingEl.className = 'status-number success';
         statusLabel.textContent = 'Days remaining in grace period';
         statusMessage.innerHTML = `<span style="color: #dd6b20">Your J-1 program has ended. You are in the <strong>30-Day Grace Period</strong>. You must depart the U.S. or transfer within ${days} days.</span>`;
     } else {
         const diffTime = assessmentDate - graceEnd;
-        const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const days = Math.round(diffTime / (1000 * 60 * 60 * 24));
         daysRemainingEl.textContent = days;
         daysRemainingEl.className = 'status-number danger';
         statusLabel.textContent = 'Days out of compliance';

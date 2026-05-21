@@ -11,6 +11,46 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2959862133855422" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are my inputs stored or shared?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. GlobalVisaMath operates strictly client-side. The tools process all dates, education parameters, and trip details in your local browser memory, and nothing is transmitted to any server."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How accurate are the calculator results?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our logic matches official legal guidelines: EU Regulation (EU) 2016/399 for Schengen, the IRCC Express Entry Comprehensive Ranking System point allocation for Canada, and USCIS Form I-90 / USDOS exchange visitor directives. Results are for informational purposes and do not represent formal legal advice."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the Schengen 90/180 rule?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Under the Schengen Borders Code, non-EU travelers are allowed to stay in the Schengen Area for up to 90 days in any rolling 180-day window. The 180 days are counted backwards from any single day of evaluation, not from a fixed calendar period."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What tools does GlobalVisaMath offer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GlobalVisaMath offers four free, privacy-first calculators: a Schengen 90/180 Day Calculator, a Canada Express Entry CRS Points Calculator, a USCIS Green Card (Form I-90) Renewal Estimator, and a J-1 Exchange Visitor Compliance Tracker."
+          }
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <header class="navbar">
@@ -42,10 +82,6 @@
             <p>Free, 100% private, client-side compliance tools. No registration or data storage required.</p>
         </div>
 
-        <!-- Search Bar -->
-        <div class="search-section" style="margin-bottom: 2rem; position: relative;">
-            <input type="text" id="calculatorSearch" placeholder="Search visa tools (e.g. Schengen, CRS, Green Card...)" style="width: 100%; padding: 0.85rem 1.25rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; outline: none; box-shadow: 0 2px 4px rgba(0,0,0,0.02); transition: all 0.2s;" onkeyup="filterCalculators()">
-        </div>
 
         <!-- Dashboard Cards Grid -->
         <div class="tools-grid" id="toolsGrid">
@@ -143,20 +179,6 @@
 
     <script src="script.js"></script>
     <script>
-        // ── Search Filtering Logic ──
-        function filterCalculators() {
-            const input = document.getElementById('calculatorSearch').value.toLowerCase();
-            const cards = document.querySelectorAll('.tool-card');
-            cards.forEach(card => {
-                const tags = card.getAttribute('data-tags').toLowerCase();
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                if (tags.includes(input) || title.includes(input)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
 
         // ── Native High-Performance Scroll-Reveal ──
     window.addEventListener('load', () => {

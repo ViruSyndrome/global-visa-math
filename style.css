@@ -280,6 +280,16 @@ button {
     background: var(--primary-hover);
 }
 
+.form-error {
+    background: rgba(254, 202, 202, 0.35);
+    border: 1px solid #fca5a5;
+    color: #b91c1c;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+}
+
 /* Results */
 .results-section {
     margin-top: 2rem;

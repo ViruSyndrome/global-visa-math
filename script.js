@@ -13,22 +13,68 @@ function parseLocalDate(dateStr) {
     return new Date(year, month - 1, day, 0, 0, 0, 0);
 }
 
+function ensureFormErrorContainer() {
+    var error = document.getElementById('formError');
+    if (error) return error;
+
+    var target = document.querySelector('.action-row') || document.querySelector('.input-section') || document.querySelector('.calculator-panel') || document.querySelector('main') || document.body;
+    error = document.createElement('div');
+    error.id = 'formError';
+    error.className = 'form-error';
+    error.style.display = 'none';
+    error.setAttribute('role', 'alert');
+    error.setAttribute('aria-live', 'assertive');
+    if (target && target.parentNode) {
+        target.parentNode.insertBefore(error, target.nextSibling);
+    } else {
+        document.body.insertBefore(error, document.body.firstChild);
+    }
+    return error;
+}
+
+function showToolError(message) {
+    var error = ensureFormErrorContainer();
+    error.textContent = message;
+    error.style.display = 'block';
+}
+
+function clearToolError() {
+    var error = document.getElementById('formError');
+    if (error) {
+        error.textContent = '';
+        error.style.display = 'none';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Mobile Hamburger Menu Toggle
     const hamburger = document.getElementById('visaHamburger');
     const navLinks = document.getElementById('visaNavLinks');
     if (hamburger && navLinks) {
+        var visaMenuOpen = false;
+        function closeVisaMenu() {
+            visaMenuOpen = false;
+            hamburger.classList.remove('open');
+            navLinks.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', 'false');
+        }
+
         hamburger.addEventListener('click', (e) => {
             e.stopPropagation();
+            visaMenuOpen = !visaMenuOpen;
             hamburger.classList.toggle('open');
             navLinks.classList.toggle('open');
+            hamburger.setAttribute('aria-expanded', visaMenuOpen ? 'true' : 'false');
         });
-        
+
         document.addEventListener('click', (e) => {
             if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
-                hamburger.classList.remove('open');
-                navLinks.classList.remove('open');
+                closeVisaMenu();
             }
+        });
+
+        navLinks.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', closeVisaMenu);
         });
     }
 
@@ -72,8 +118,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function calculateSchengen() {
         const controlDateVal = controlDateInput.value;
-        if (!controlDateVal) {
-            alert('Please select a Date of Assessment.');
+        clearToolError();
+    if (!controlDateVal) {
+            showToolError('Please select a Date of Assessment.');
             return;
         }
 
@@ -95,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const exitDate = parseLocalDate(exitInput.value);
 
                 if (exitDate < entryDate) {
-                    alert(`Error in Trip ${index + 1}: Exit date cannot be before Entry date.`);
+                    showToolError(`Error in Trip ${index + 1}: Exit date cannot be before Entry date.`);
                     hasErrors = true;
                 } else {
                     trips.push({ entry: entryDate, exit: exitDate });
@@ -183,6 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // 2. Canada Express Entry CRS Calculator
 // ==========================================
 function calculateCRS() {
+    clearToolError();
     const maritalStatus = document.getElementById('maritalStatus').value;
     const isMarried = maritalStatus === 'married';
 
@@ -393,9 +441,10 @@ function calculateCRS() {
 // 3. Green Card Renewal Estimator
 // ==========================================
 function calculateGCRenewal() {
+    clearToolError();
     const expiryInput = document.getElementById('gcExpiryDate').value;
     if (!expiryInput) {
-        alert('Please select your Green Card expiration date.');
+        showToolError('Please select your Green Card expiration date.');
         return;
     }
 
@@ -470,12 +519,13 @@ function calculateGCRenewal() {
 // 4. J-1 Visa Compliance Tracker
 // ==========================================
 function calculateJ1Compliance() {
+    clearToolError();
     const startInput = document.getElementById('dsStart').value;
     const endInput = document.getElementById('dsEnd').value;
     const assessmentInput = document.getElementById('assessmentDate').value;
 
     if (!startInput || !endInput || !assessmentInput) {
-        alert('Please complete all program date fields.');
+        showToolError('Please complete all program date fields.');
         return;
     }
 
@@ -484,7 +534,7 @@ function calculateJ1Compliance() {
     const assessmentDate = parseLocalDate(assessmentInput);
 
     if (endDate < startDate) {
-        alert('Error: Program end date cannot be before start date.');
+        showToolError('Error: Program end date cannot be before start date.');
         return;
     }
 

@@ -20,6 +20,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      .noscript-warning { margin: 0; padding: 16px 20px; background: #fef3c7; color: #92400e; font-weight: 700; text-align: center; border-bottom: 1px solid #fde68a; }
+    </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2959862133855422" crossorigin="anonymous"></script>
     <script type="application/ld+json">
     {
@@ -61,11 +64,25 @@
       ]
     }
     </script>
+    <style>
+      .noscript-warning {
+        margin: 0;
+        padding: 16px 20px;
+        background: #fef3c7;
+        color: #92400e;
+        font-weight: 700;
+        text-align: center;
+        border-bottom: 1px solid #fde68a;
+      }
+    </style>
 </head>
 <body>
+    <noscript>
+      <div class="noscript-warning">This site requires JavaScript for the calculator tools. Please enable JavaScript in your browser.</div>
+    </noscript>
     <header class="navbar">
         <div class="nav-inner">
-            <a href="/" class="logo">
+            <a href="index.html" class="logo">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"></circle>
                     <line x1="2" y1="12" x2="22" y2="12"></line>
@@ -73,11 +90,11 @@
                 </svg>
                 GlobalVisaMath
             </a>
-            <button class="hamburger" id="visaHamburger" aria-label="Toggle navigation">
+            <button class="hamburger" id="visaHamburger" aria-label="Toggle navigation" aria-controls="visaNavLinks" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
             <nav class="nav-links" id="visaNavLinks">
-                <a href="/" class="active">All Calculators</a>
+                <a href="index.html" class="active">All Calculators</a>
                 <a href="schengen-calculator.html">Schengen 90/180</a>
                 <a href="canada-crs-calculator.html">Canada CRS</a>
                 <a href="green-card-renewal.html">Green Card</a>

@@ -28,8 +28,7 @@
   <!-- Passport/Star center highlight -->
   <circle cx="16" cy="16" r="2.5" fill="#ffffff" opacity="0.9"/>
   
-  <!-- "Math / Visa Movement" Dynamic Ascent Curve -->
-  <path d="M7.5 21.5 Q12 18 15.5 16.5 T24.5 10.5" stroke="url(#accentGrad)" stroke-width="2.5" stroke-linecap="round"/>
-  <!-- Mathematical checkmark / arrow accent at the tip -->
-  <path d="M20.5 10.5h4v4" stroke="url(#accentGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Sharp trending line in favicon representing mathematical visa flow -->
+  <path d="M25 10l-9 9-5-5-5 5" stroke="url(#accentGrad)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="19 10 25 10 25 16" stroke="url(#accentGrad)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

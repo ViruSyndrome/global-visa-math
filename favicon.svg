@@ -15,20 +15,23 @@
   <!-- Background circle with smooth gradient and shadow border -->
   <circle cx="16" cy="16" r="15" fill="url(#bgGrad)" stroke="url(#accentGrad)" stroke-width="1.5"/>
   
-  <!-- Subtle Globe Wireframe Lines -->
-  <!-- Longitude arcs -->
-  <path d="M16 2.5 A13.5 13.5 0 0 1 16 29.5" stroke="#93c5fd" stroke-width="0.8" opacity="0.3"/>
-  <path d="M16 2.5 A13.5 13.5 0 0 0 16 29.5" stroke="#93c5fd" stroke-width="0.8" opacity="0.3"/>
-  <path d="M16 2.5 A8.5 13.5 0 0 1 16 29.5 M16 2.5 A8.5 13.5 0 0 0 16 29.5" stroke="#93c5fd" stroke-width="0.8" opacity="0.35"/>
-  <!-- Latitude lines -->
-  <line x1="2.5" y1="16" x2="29.5" y2="16" stroke="#93c5fd" stroke-width="0.8" opacity="0.4"/>
-  <path d="M5.5 9.5 C10 11.5 22 11.5 26.5 9.5" stroke="#93c5fd" stroke-width="0.8" opacity="0.35"/>
-  <path d="M5.5 22.5 C10 20.5 22 20.5 26.5 22.5" stroke="#93c5fd" stroke-width="0.8" opacity="0.35"/>
-  
-  <!-- Passport/Star center highlight -->
-  <circle cx="16" cy="16" r="2.5" fill="#ffffff" opacity="0.9"/>
-  
-  <!-- Sharp trending line in favicon representing mathematical visa flow -->
-  <path d="M25 10l-9 9-5-5-5 5" stroke="url(#accentGrad)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <polyline points="19 10 25 10 25 16" stroke="url(#accentGrad)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="rotate(-8 16 16)">
+    <!-- Stamp outer border -->
+    <rect x="6" y="7" width="20" height="18" rx="2.5" stroke="#38bdf8" stroke-width="1.8"/>
+    <!-- Stamp inner dashed border -->
+    <rect x="8.5" y="9.5" width="15" height="13" rx="1.5" stroke="#93c5fd" stroke-width="0.8" stroke-dasharray="2 1.5" opacity="0.7"/>
+    <!-- Horizontal divider -->
+    <line x1="8.5" y1="16" x2="23.5" y2="16" stroke="#93c5fd" stroke-width="0.8" opacity="0.6"/>
+    
+    <!-- Top-left: Mini Globe -->
+    <circle cx="12" cy="12.5" r="2.2" stroke="#ffffff" stroke-width="1"/>
+    <line x1="9.8" y1="12.5" x2="14.2" y2="12.5" stroke="#ffffff" stroke-width="0.8" opacity="0.6"/>
+    <line x1="12" y1="10.3" x2="12" y2="14.7" stroke="#ffffff" stroke-width="0.8" opacity="0.6"/>
+    
+    <!-- Top-right: Star -->
+    <path d="M19.5 12.5l.4-.8.8-.4-.8-.4-.4-.8-.4.8-.8.4.8.4.4.8z" fill="#ffffff" stroke="none"/>
+    
+    <!-- Bottom: Checkmark representing compliance checks -->
+    <path d="M11 20.5l2 2 5-5" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
 </svg>

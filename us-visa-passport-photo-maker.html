@@ -239,7 +239,7 @@
         let cropper = null;
 
         // UI Handlers
-        dropZone.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('click', (e) => { if (e.target.id === 'cameraBtn') return; fileInput.click(); });
         dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = 'var(--primary)'; });
         dropZone.addEventListener('dragleave', () => dropZone.style.borderColor = 'var(--border)');
         dropZone.addEventListener('drop', (e) => {

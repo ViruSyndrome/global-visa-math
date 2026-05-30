@@ -156,15 +156,19 @@
         <section class="tool-section">
             <div class="photo-tool-container">
 
-                <div class="upload-area" id="dropZone">
-                    <div style="font-size: 3rem; margin-bottom: 12px;">📸</div>
-                    <h3>Upload or Take a Selfie</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">Drag & drop, click to browse, or use camera</p>
-                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
-                    
-                    <button class="btn btn-secondary" id="cameraBtn" style="margin-top: 16px; position: relative; z-index: 10;" onclick="startCamera(event)">📷 Use Camera</button>
+                
+                <div class="action-buttons" style="display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()" style="flex: 1; min-width: 200px; max-width: 250px; padding: 12px; font-size: 1.05rem;">📂 Upload Photo</button>
+                    <button class="btn btn-secondary" id="cameraBtn" onclick="startCamera(event)" style="flex: 1; min-width: 200px; max-width: 250px; padding: 12px; font-size: 1.05rem;">📷 Use Camera</button>
                 </div>
                 
+                <div class="upload-area" id="dropZone" style="margin-top: 0;">
+                    <div style="font-size: 3rem; margin-bottom: 12px;">🖼️</div>
+                    <h3>Or Drag & Drop Here</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">(JPG, PNG)</p>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                </div>
+
                 <div id="cameraInterface" style="display:none; text-align:center; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 8px; margin-top: 20px;">
                     <video id="cameraFeed" autoplay playsinline style="max-width:100%; border-radius:8px; transform: scaleX(-1);"></video>
                     <div style="margin-top: 16px; display: flex; gap: 12px; justify-content: center;">

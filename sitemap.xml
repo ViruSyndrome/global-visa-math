@@ -1,57 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.globalvisamath.com/</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
+    <loc>https://www.globalvisamath.com/about.html</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.globalvisamath.com/schengen-calculator.html</loc>
-    <lastmod>2026-05-20</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://www.globalvisamath.com/australia-visa-photo-maker.html</loc>
+    <lastmod>2026-05-31</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.globalvisamath.com/canada-crs-calculator.html</loc>
-    <lastmod>2026-05-20</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-05-31</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.globalvisamath.com/canada-pr-passport-photo-maker.html</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.globalvisamath.com/canada-visa-photo-maker.html</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.globalvisamath.com/contribute.html</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://www.globalvisamath.com/green-card-renewal.html</loc>
-    <lastmod>2026-05-20</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.globalvisamath.com/index.html</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.globalvisamath.com/indian-passport-photo-maker.html</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.globalvisamath.com/indian-visa-oci-photo-maker.html</loc>
+    <lastmod>2026-05-31</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.globalvisamath.com/j1-visa-tracker.html</loc>
-    <lastmod>2026-05-20</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-05-31</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.globalvisamath.com/about.html</loc>
-    <lastmod>2026-05-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.globalvisamath.com/japan-visa-photo-maker.html</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.globalvisamath.com/privacy.html</loc>
-    <lastmod>2026-05-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.globalvisamath.com/schengen-calculator.html</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.globalvisamath.com/schengen-visa-photo-maker.html</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.globalvisamath.com/terms.html</loc>
-    <lastmod>2026-05-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.globalvisamath.com/contribute.html</loc>
-    <lastmod>2026-05-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://www.globalvisamath.com/uk-visa-passport-photo-maker.html</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.globalvisamath.com/us-visa-passport-photo-maker.html</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.9</priority>
   </url>
 </urlset>

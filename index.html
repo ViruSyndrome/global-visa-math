@@ -92,6 +92,24 @@
     <meta name="twitter:title" content="Immigration & Visa Math Calculators | GlobalVisaMath">
     <meta name="twitter:description" content="Calculate visa compliance and renewal timelines using free, 100% private tools. Includes Schengen 90/180 calculator, Canada Express Entry CRS score calculator, USCIS Green Card renewal estimator, and J1 visa tracker.">
     <meta name="twitter:image" content="https://www.globalvisamath.com/og-image.png">
+
+    <!-- Application Schema for AI SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "GlobalVisaMath",
+      "url": "https://www.globalvisamath.com",
+      "description": "Free, privacy-first immigration and visa math calculators. Schengen 90/180 rule, Canada Express Entry CRS, and Visa Photo Resizer.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
 </head>
 <body>
     <noscript>
@@ -125,9 +143,11 @@
             </button>
             <nav class="nav-links" id="visaNavLinks">
                 <a href="index.html" class="active">All Calculators</a>
-                <a href="schengen-calculator.html">Schengen 90/180</a>
-                <a href="canada-crs-calculator.html">Canada CRS</a>
-                <a href="green-card-renewal.html">Green Card</a>
+        <div class="nav-links">
+            <a href="schengen-calculator.html">Schengen 90/180</a>
+            <a href="canada-crs-calculator.html">Canada CRS</a>
+            <a href="us-visa-passport-photo-maker.html" class="highlight-link">Visa Photo Maker</a>
+        </div>        <a href="green-card-renewal.html">Green Card</a>
                 <a href="j1-visa-tracker.html">J-1 Tracker</a>
             </nav>
         </div>
@@ -136,7 +156,11 @@
     <main class="container">
         <div class="hero">
             <h1>Immigration &amp; Visa Calculators</h1>
-            <p>Free, 100% private, client-side compliance tools. No registration or data storage required.</p>
+            <p class="hero-subtitle">100% free, private tools for digital nomads, expats, and travelers. Calculate Schengen 90/180 compliance, Canadian Express Entry CRS points, or instantly format your Visa Photos without your data ever leaving your browser.</p>
+            <div class="hero-buttons" style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+                <a href="#toolsGrid" class="btn btn-primary" style="padding: 0.85rem 1.5rem; font-size: 1rem;">Explore Calculators</a>
+                <a href="us-visa-passport-photo-maker.html" class="btn btn-secondary" style="padding: 0.85rem 1.5rem; font-size: 1rem; margin-bottom: 0;">Visa Photo Maker</a>
+            </div>
         </div>
 
 
@@ -176,7 +200,16 @@
                 <h3>Green Card Renewal Estimator</h3>
                 <p>Determine the optimal filing timeline for your USCIS Form I-90 Green Card renewal, including expected fees and checklists.</p>
                 <a href="green-card-renewal.html" class="btn-card">Use Green Card Tool</a>
-            </div>
+                <!-- Visa Photo Maker Card -->
+            <a href="us-visa-passport-photo-maker.html" class="tool-card">
+                <div class="tool-icon" style="background: rgba(14, 165, 233, 0.1); color: var(--primary);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </div>
+                <h3>Visa Photo Maker</h3>
+                <p>Instantly crop, resize, and format your selfies for US, Schengen, UK, and Indian visas. 100% private client-side processing.</p>
+                <span class="tool-link">Create Photo &#8594;</span>
+            </a>
+        </div>
 
             <!-- J1 Visa Card -->
             <div class="tool-card" data-tags="j1 visa compliance grace period tracker two year home physical residency 212e exchange visitor">

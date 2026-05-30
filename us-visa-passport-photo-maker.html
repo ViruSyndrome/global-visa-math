@@ -136,9 +136,9 @@
             </div>
             
             <!-- Other Countries Dropdown for SEO Interlinking -->
-            <div style="margin-top: 24px; text-align: center; margin-bottom: 32px; padding: 16px; background: rgba(15, 23, 42, 0.4); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-                <label for="countrySelect" style="font-size: 0.9rem; color: var(--text-muted);">Switch Country/Visa Type:</label>
-                <select id="countrySelect" class="form-input" style="width: auto; display: inline-block; padding: 6px 12px; height: auto;" onchange="window.location.href=this.value">
+            <div style="text-align: center; margin-bottom: 24px;">
+                <span style="font-size: 0.9rem; color: var(--text-muted); margin-right: 8px;">Switch Country/Visa Type:</span>
+                <select id="countrySelect" class="form-input" style="width: auto; display: inline-block; padding: 6px 32px 6px 16px; height: auto; border-radius: 20px; font-size: 0.9rem; background-color: var(--card-bg);" onchange="window.location.href=this.value">
                     <option value="us-visa-passport-photo-maker.html" selected>US Visa & Passport</option>
                     <option value="indian-visa-oci-photo-maker.html">Indian e-Visa & OCI</option>
                     <option value="indian-passport-photo-maker.html">Indian Standard Passport</option>
@@ -157,18 +157,19 @@
             <div class="photo-tool-container">
 
                 
-                <div class="action-buttons" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; max-width: 600px; margin: 0 auto 24px auto;">
-                    <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()" style="width: 100%; padding: 14px; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">📂 Upload Photo</button>
-                    <button class="btn btn-secondary" id="cameraBtn" onclick="startCamera(event)" style="width: 100%; padding: 14px; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">📷 Use Camera</button>
-                </div>
-                
-                <div class="upload-area" id="dropZone" style="margin-top: 0;">
+                <div class="upload-area" id="dropZone">
                     <div style="font-size: 3rem; margin-bottom: 12px;">🖼️</div>
-                    <h3>Or Drag & Drop Here</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">(JPG, PNG)</p>
+                    <h3 style="margin-bottom: 20px;">Choose an option to begin</h3>
+                    
+                    <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 10;">
+                        <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()" style="padding: 12px 24px; display: flex; align-items: center; gap: 8px; min-width: 180px; justify-content: center;">📂 Upload Photo</button>
+                        <button class="btn btn-secondary" id="cameraBtn" onclick="startCamera(event)" style="padding: 12px 24px; display: flex; align-items: center; gap: 8px; min-width: 180px; justify-content: center;">📷 Use Camera</button>
+                    </div>
+                    
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 24px;">Or Drag & Drop your image anywhere in this box (JPG, PNG)</p>
                     <input type="file" id="fileInput" accept="image/*" style="display: none;">
                 </div>
-
+                
                 <div id="cameraInterface" style="display:none; text-align:center; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 8px; margin-top: 20px;">
                     <video id="cameraFeed" autoplay playsinline style="max-width:100%; border-radius:8px; transform: scaleX(-1);"></video>
                     <div style="margin-top: 16px; display: flex; gap: 12px; justify-content: center;">

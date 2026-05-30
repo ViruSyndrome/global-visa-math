@@ -136,7 +136,7 @@
             </div>
             
             <!-- Other Countries Dropdown for SEO Interlinking -->
-            <div style="margin-top: 24px;">
+            <div style="margin-top: 24px; text-align: center; margin-bottom: 32px; padding: 16px; background: rgba(15, 23, 42, 0.4); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
                 <label for="countrySelect" style="font-size: 0.9rem; color: var(--text-muted);">Switch Country/Visa Type:</label>
                 <select id="countrySelect" class="form-input" style="width: auto; display: inline-block; padding: 6px 12px; height: auto;" onchange="window.location.href=this.value">
                     <option value="us-visa-passport-photo-maker.html" selected>US Visa & Passport</option>
@@ -157,9 +157,9 @@
             <div class="photo-tool-container">
 
                 
-                <div class="action-buttons" style="display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap;">
-                    <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()" style="flex: 1; min-width: 200px; max-width: 250px; padding: 12px; font-size: 1.05rem;">📂 Upload Photo</button>
-                    <button class="btn btn-secondary" id="cameraBtn" onclick="startCamera(event)" style="flex: 1; min-width: 200px; max-width: 250px; padding: 12px; font-size: 1.05rem;">📷 Use Camera</button>
+                <div class="action-buttons" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; max-width: 600px; margin: 0 auto 24px auto;">
+                    <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()" style="width: 100%; padding: 14px; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">📂 Upload Photo</button>
+                    <button class="btn btn-secondary" id="cameraBtn" onclick="startCamera(event)" style="width: 100%; padding: 14px; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">📷 Use Camera</button>
                 </div>
                 
                 <div class="upload-area" id="dropZone" style="margin-top: 0;">

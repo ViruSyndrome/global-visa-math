@@ -3,65 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Canada Visitor Visa Photo Maker & Resizer | GlobalVisaMath</title>
-    <meta name="description" content="Standard 35x45 mm photo for Canadian Temporary Resident Visas. Free, 100% private in-browser photo cropper. No signup, no data sent to servers.">
-    <link rel="canonical" href="https://www.globalvisamath.com/canada-visa-photo-maker.html">
+    <title>Free Saudi Arabia Visa Photo Maker | GlobalVisaMath</title>
+    <meta name="description" content="Create a compliant 40x60mm photo for Saudi Arabia tourist visa, Umrah visa, and Hajj applications. Free, 100% private in-browser photo maker. No signup required.">
+    <link rel="canonical" href="https://www.globalvisamath.com/saudi-arabia-visa-photo-maker.html">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    
     <meta name="msvalidate.01" content="FA7405A0B7623E8A404F74AE4952777C" />
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5KJNDPS0EG">
-        // --- WebRTC Camera Logic ---
-        let currentStream = null;
-        
-        async function startCamera(e) {
-            if (e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-            try {
-                currentStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
-                const videoElement = document.getElementById('cameraFeed');
-                videoElement.srcObject = currentStream;
-                document.getElementById('dropZone').style.display = 'none';
-                document.getElementById('cameraInterface').style.display = 'block';
-            } catch (err) {
-                console.error("Camera access denied or failed:", err);
-                alert("Could not access camera. Please ensure you have granted camera permissions.");
-            }
-        }
-        
-        function stopCamera() {
-            if (currentStream) {
-                currentStream.getTracks().forEach(track => track.stop());
-                currentStream = null;
-            }
-            document.getElementById('cameraInterface').style.display = 'none';
-            document.getElementById('dropZone').style.display = 'block';
-        }
-        
-        function capturePhoto() {
-            const video = document.getElementById('cameraFeed');
-            if (!currentStream) return;
-            
-            const canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            const ctx = canvas.getContext('2d');
-            
-            // Handle horizontal flip for front-facing camera mirror effect
-            ctx.translate(canvas.width, 0);
-            ctx.scale(-1, 1);
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            
-            canvas.toBlob(blob => {
-                const file = new File([blob], "camera-photo.jpg", { type: "image/jpeg" });
-                stopCamera();
-                handleFile(file);
-            }, 'image/jpeg', 0.95);
-        }
-        // ---------------------------
-    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5KJNDPS0EG"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -69,22 +17,18 @@
       gtag("config", "G-5KJNDPS0EG");
     </script>
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Cropper.js for reliable client-side cropping -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Canada Visitor Visa Photo Maker",
-      "url": "https://www.globalvisamath.com/canada-visa-photo-maker.html",
-      "description": "Standard 35x45 mm photo for Canadian Temporary Resident Visas. 100% private, client-side execution.",
+      "name": "Saudi Arabia Visa Photo Maker",
+      "url": "https://www.globalvisamath.com/saudi-arabia-visa-photo-maker.html",
+      "description": "Create a compliant 40x60mm photo for Saudi Arabia visa and Umrah/Hajj applications. 100% private, client-side execution.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "All",
       "offers": {
@@ -96,14 +40,14 @@
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2959862133855422" crossorigin="anonymous"></script>
     <style>
-        .photo-tool-container {{
+        .photo-tool-container {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 24px;
             margin-top: 24px;
-        }}
-        .upload-area {{
+        }
+        .upload-area {
             border: 2px dashed var(--border);
             border-radius: 8px;
             padding: 40px 20px;
@@ -111,25 +55,25 @@
             cursor: pointer;
             transition: all 0.2s ease;
             background: rgba(15, 23, 42, 0.3);
-        }}
-        .upload-area:hover {{
+        }
+        .upload-area:hover {
             border-color: var(--primary);
             background: rgba(14, 165, 233, 0.05);
-        }}
-        .cropper-container-wrapper {{
+        }
+        .cropper-container-wrapper {
             max-width: 100%;
             height: 400px;
             margin: 20px 0;
             display: none;
             background: #0f172a;
-        }}
-        .controls-row {{
+        }
+        .controls-row {
             display: flex;
             gap: 12px;
             margin-top: 16px;
             justify-content: center;
-        }}
-        .spec-badge {{
+        }
+        .spec-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -139,7 +83,7 @@
             border-radius: 99px;
             font-size: 0.85rem;
             font-weight: 600;
-        }}
+        }
     </style>
 </head>
 <body>
@@ -178,30 +122,27 @@
 
     <main class="container">
         <section class="hero-section" style="padding: 40px 20px 20px; text-align: center;">
-            <h1 class="hero-title">Canada Visitor Visa Photo Maker</h1>
-            <p class="hero-subtitle">Instantly crop and resize your selfie to the exact official requirements. 100% private — your photo never leaves your device.</p>
-            
+            <h1 class="hero-title">Saudi Arabia Visa Photo Maker</h1>
+            <p class="hero-subtitle">Crop your photo to the official Saudi Arabia visa specification — covers tourist, Umrah, and Hajj applications. 100% private — your photo never leaves your device.</p>
             <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 16px;">
-                <span class="spec-badge">📏 35x45 mm</span>
-                <span class="spec-badge">🖨️ 413x531 px (@300 DPI)</span>
-                <span class="spec-badge">🎨 Bg: White</span>
+                <span class="spec-badge">&#128207; 40×60 mm</span>
+                <span class="spec-badge">&#128424; 472×709 px (@300 DPI)</span>
+                <span class="spec-badge">&#127912; Bg: White</span>
             </div>
-            
-            <!-- Other Countries Dropdown for SEO Interlinking -->
-            <div style="text-align: center; margin-bottom: 24px;">
+            <div style="text-align: center; margin: 20px 0 24px;">
                 <span style="font-size: 0.9rem; color: var(--text-muted); margin-right: 8px;">Switch Country/Visa Type:</span>
-                                <select id="countrySelect" class="form-input" style="width: auto; display: inline-block; padding: 6px 32px 6px 16px; height: auto; border-radius: 20px; font-size: 0.9rem; background-color: var(--card-bg);" onchange="window.location.href=this.value">
+                <select id="countrySelect" class="form-input" style="width: auto; display: inline-block; padding: 6px 32px 6px 16px; height: auto; border-radius: 20px; font-size: 0.9rem; background-color: var(--card-bg);" onchange="window.location.href=this.value">
                     <option value="us-visa-passport-photo-maker.html">US Visa & Passport</option>
                     <option value="indian-visa-oci-photo-maker.html">Indian e-Visa & OCI</option>
                     <option value="indian-passport-photo-maker.html">Indian Standard Passport</option>
                     <option value="schengen-visa-photo-maker.html">Schengen Visa (Europe)</option>
                     <option value="uk-visa-passport-photo-maker.html">UK Visa & Passport</option>
-                    <option value="canada-visa-photo-maker.html" selected>Canada Visitor Visa</option>
+                    <option value="canada-visa-photo-maker.html">Canada Visitor Visa</option>
                     <option value="canada-pr-passport-photo-maker.html">Canada PR & Passport</option>
                     <option value="australia-visa-photo-maker.html">Australia Visa</option>
                     <option value="japan-visa-photo-maker.html">Japan Visa</option>
                     <option value="uae-dubai-visa-photo-maker.html">UAE & Dubai Visa</option>
-                    <option value="saudi-arabia-visa-photo-maker.html">Saudi Arabia Visa</option>
+                    <option value="saudi-arabia-visa-photo-maker.html" selected>Saudi Arabia Visa</option>
                     <option value="singapore-visa-photo-maker.html">Singapore Visa & Pass</option>
                     <option value="china-visa-photo-maker.html">China Visa</option>
                     <option value="new-zealand-visa-photo-maker.html">New Zealand Visa</option>
@@ -212,33 +153,27 @@
 
         <section class="tool-section">
             <div class="photo-tool-container">
-
-                
                 <div class="upload-area" id="dropZone">
                     <h3 style="margin-bottom: 20px;">Choose an option to begin</h3>
-                    
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; position: relative; z-index: 10;">
-                        <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()" style="width: 100%; padding: 12px 24px; display: flex; align-items: center; gap: 8px; justify-content: center; font-size: 1.05rem;">📂 Upload Photo</button>
-                        <button class="btn btn-primary" id="cameraBtn" onclick="startCamera(event)" style="width: 100%; padding: 12px 24px; display: flex; align-items: center; gap: 8px; justify-content: center; font-size: 1.05rem;">📷 Use Camera</button>
+                        <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()" style="width: 100%; padding: 12px 24px; display: flex; align-items: center; gap: 8px; justify-content: center; font-size: 1.05rem;">&#128194; Upload Photo</button>
+                        <button class="btn btn-primary" id="cameraBtn" onclick="startCamera(event)" style="width: 100%; padding: 12px 24px; display: flex; align-items: center; gap: 8px; justify-content: center; font-size: 1.05rem;">&#128247; Use Camera</button>
                     </div>
-                    
                     <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 24px;">Or Drag & Drop your image anywhere in this box (JPG, PNG)</p>
                     <input type="file" id="fileInput" accept="image/*" style="display: none;">
                 </div>
-                
+
                 <div id="cameraInterface" style="display:none; text-align:center; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 8px; margin-top: 20px;">
                     <video id="cameraFeed" autoplay playsinline style="max-width:100%; border-radius:8px; transform: scaleX(-1);"></video>
                     <div style="margin-top: 16px; display: flex; gap: 12px; justify-content: center;">
                         <button id="cancelCameraBtn" class="btn btn-secondary" onclick="stopCamera()">Cancel</button>
-                        <button id="snapBtn" class="btn btn-primary" onclick="capturePhoto()">📸 Capture</button>
+                        <button id="snapBtn" class="btn btn-primary" onclick="capturePhoto()">&#128248; Capture</button>
                     </div>
                 </div>
-
 
                 <div class="cropper-container-wrapper" id="cropperWrapper">
                     <img id="imageToCrop" src="" style="max-width: 100%;">
                 </div>
-
                 <div class="controls-row" id="controlsRow" style="display: none;">
                     <button class="btn btn-secondary" onclick="resetApp()">Cancel</button>
                     <button class="btn btn-primary" onclick="downloadPhoto()">&#8595; Download Sized Photo</button>
@@ -246,15 +181,17 @@
             </div>
         </section>
 
-        <!-- Instructions & Ads -->
         <section class="info-grid" style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start;">
             <div class="card">
-                <h3 style="margin-bottom: 16px;">📸 Input Requirements (Crucial!)</h3>
+                <h3 style="margin-bottom: 16px;">&#128248; Photo Requirements</h3>
                 <ul style="color: var(--text-muted); padding-left: 20px; line-height: 1.6; margin-bottom: 16px;">
-                    <li><strong>No Glasses:</strong> Most countries (including US, India, and Schengen) now strictly prohibit eyeglasses in visa/passport photos.</li>
-                    <li><strong>Background:</strong> Stand 1 meter away from a plain wall matching your requirement (White). Ensure there are no patterns or objects behind you.</li>
-                    <li><strong>Lighting:</strong> Ensure even lighting on your face with no harsh shadows (facing a window during the day works best).</li>
-                    <li><strong>Expression:</strong> Keep a neutral facial expression with both eyes open. Do not smile.</li>
+                    <li><strong>Size:</strong> 40mm wide × 60mm tall. White background only.</li>
+                    <li><strong>Face coverage:</strong> Face must be centred and occupy 70–80% of the frame height.</li>
+                    <li><strong>Head covering:</strong> Women may wear a hijab; the full face from chin to hairline must be clearly visible.</li>
+                    <li><strong>No Glasses:</strong> Remove spectacles and sunglasses.</li>
+                    <li><strong>Expression:</strong> Neutral expression, mouth closed, both eyes open.</li>
+                    <li><strong>Umrah/Hajj note:</strong> The same 40×60mm spec applies for all Saudi visa types including religious visit visas.</li>
+                    <li><strong>Lighting:</strong> Even lighting on your face — no harsh shadows. Facing a window in daylight works best.</li>
                 </ul>
             </div>
             <div class="card ad-card" style="display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.2);">
@@ -288,10 +225,9 @@
     </footer>
 
     <script>
-        // Store target dimensions
-        const TARGET_WIDTH_PX = 413;
-        const TARGET_HEIGHT_PX = 531;
-        
+        const TARGET_WIDTH_PX = 472;
+        const TARGET_HEIGHT_PX = 709;
+
         const dropZone = document.getElementById('dropZone');
         const fileInput = document.getElementById('fileInput');
         const imageToCrop = document.getElementById('imageToCrop');
@@ -299,7 +235,6 @@
         const controlsRow = document.getElementById('controlsRow');
         let cropper = null;
 
-        // UI Handlers
         dropZone.addEventListener('click', (e) => { if (e.target.id === 'cameraBtn') return; fileInput.click(); });
         dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = 'var(--primary)'; });
         dropZone.addEventListener('dragleave', () => dropZone.style.borderColor = 'var(--border)');
@@ -320,13 +255,10 @@
                 dropZone.style.display = 'none';
                 cropperWrapper.style.display = 'block';
                 controlsRow.style.display = 'flex';
-                
                 if (cropper) cropper.destroy();
-                
-                // Initialize Cropper.js with exact aspect ratio
                 cropper = new Cropper(imageToCrop, {
                     aspectRatio: TARGET_WIDTH_PX / TARGET_HEIGHT_PX,
-                    viewMode: 1, // Restrict crop box to not exceed canvas
+                    viewMode: 1,
                     dragMode: 'move',
                     guides: true,
                     center: true,
@@ -341,21 +273,17 @@
 
         function downloadPhoto() {
             if (!cropper) return;
-            
-            // Generate the final canvas at the exact required pixel dimensions
             const canvas = cropper.getCroppedCanvas({
                 width: TARGET_WIDTH_PX,
                 height: TARGET_HEIGHT_PX,
                 imageSmoothingEnabled: true,
                 imageSmoothingQuality: 'high',
             });
-
-            // Convert to JPG
             canvas.toBlob((blob) => {
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `visa-photo-${TARGET_WIDTH_PX}x${TARGET_HEIGHT_PX}.jpg`;
+                a.download = 'saudi-visa-photo-472x709.jpg';
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -371,57 +299,51 @@
             controlsRow.style.display = 'none';
             dropZone.style.display = 'block';
         }
-    
-        // --- WebRTC Camera Logic ---
+
+        // WebRTC Camera
         let currentStream = null;
-        
         async function startCamera(e) {
-            if (e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
+            if (e) { e.preventDefault(); e.stopPropagation(); }
             try {
                 currentStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
-                const videoElement = document.getElementById('cameraFeed');
-                videoElement.srcObject = currentStream;
+                document.getElementById('cameraFeed').srcObject = currentStream;
                 document.getElementById('dropZone').style.display = 'none';
                 document.getElementById('cameraInterface').style.display = 'block';
             } catch (err) {
-                console.error("Camera access denied or failed:", err);
-                alert("Could not access camera. Please ensure you have granted camera permissions.");
+                alert("Could not access camera. Please ensure camera permissions are granted.");
             }
         }
-        
         function stopCamera() {
-            if (currentStream) {
-                currentStream.getTracks().forEach(track => track.stop());
-                currentStream = null;
-            }
+            if (currentStream) { currentStream.getTracks().forEach(t => t.stop()); currentStream = null; }
             document.getElementById('cameraInterface').style.display = 'none';
             document.getElementById('dropZone').style.display = 'block';
         }
-        
         function capturePhoto() {
             const video = document.getElementById('cameraFeed');
             if (!currentStream) return;
-            
             const canvas = document.createElement('canvas');
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             const ctx = canvas.getContext('2d');
-            
-            // Handle horizontal flip for front-facing camera mirror effect
             ctx.translate(canvas.width, 0);
             ctx.scale(-1, 1);
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            
             canvas.toBlob(blob => {
                 const file = new File([blob], "camera-photo.jpg", { type: "image/jpeg" });
                 stopCamera();
                 handleFile(file);
             }, 'image/jpeg', 0.95);
         }
-        // ---------------------------
+
+        // Hamburger menu
+        const hamburger = document.getElementById('visaHamburger');
+        const navLinks = document.getElementById('visaNavLinks');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                const isOpen = navLinks.classList.toggle('open');
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+        }
     </script>
 </body>
 </html>

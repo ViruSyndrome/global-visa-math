@@ -1,0 +1,587 @@
+# Generate new visa photo maker pages for GlobalVisaMath and update all existing dropdowns.
+import os
+import re
+
+BASE_URL = "https://www.globalvisamath.com"
+OUT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# ── New pages to generate ────────────────────────────────────────────────────
+PAGES = [
+    {
+        "slug": "uae-dubai-visa-photo-maker",
+        "title": "Free UAE & Dubai Visa Photo Maker | GlobalVisaMath",
+        "meta_desc": "Create a compliant 35x45mm photo for UAE tourist visa, Dubai visa, and UAE work permit applications. Free, 100% private in-browser photo maker. No signup, no upload.",
+        "h1": "UAE & Dubai Visa Photo Maker",
+        "subtitle": "Instantly crop and resize your photo to the official UAE/Dubai visa requirements. 100% private — your photo never leaves your device.",
+        "spec_mm": "35×45 mm",
+        "spec_px": "413×531 px (@300 DPI)",
+        "spec_bg": "Bg: White",
+        "target_w": 413,
+        "target_h": 531,
+        "download_name": "uae-visa-photo",
+        "dropdown_label": "UAE & Dubai Visa",
+        "instructions": [
+            "<strong>Size:</strong> 35mm wide × 45mm tall. White background only.",
+            "<strong>Face coverage:</strong> Your face and top of shoulders must fill 70–80% of the frame.",
+            "<strong>No Glasses:</strong> UAE authorities require glasses to be removed.",
+            "<strong>Head covering:</strong> Only permitted if worn for religious reasons; face must remain fully visible.",
+            "<strong>Expression:</strong> Neutral expression, both eyes open, looking directly at the camera.",
+        ],
+        "schema_desc": "Create a compliant 35x45mm photo for UAE and Dubai visa applications. 100% private, client-side execution.",
+        "schema_name": "UAE & Dubai Visa Photo Maker",
+    },
+    {
+        "slug": "saudi-arabia-visa-photo-maker",
+        "title": "Free Saudi Arabia Visa Photo Maker | GlobalVisaMath",
+        "meta_desc": "Create a compliant 40x60mm photo for Saudi Arabia tourist visa, Umrah visa, and Hajj applications. Free, 100% private in-browser photo maker. No signup required.",
+        "h1": "Saudi Arabia Visa Photo Maker",
+        "subtitle": "Crop your photo to the official Saudi Arabia visa specification — covers tourist, Umrah, and Hajj applications. 100% private — your photo never leaves your device.",
+        "spec_mm": "40×60 mm",
+        "spec_px": "472×709 px (@300 DPI)",
+        "spec_bg": "Bg: White",
+        "target_w": 472,
+        "target_h": 709,
+        "download_name": "saudi-visa-photo",
+        "dropdown_label": "Saudi Arabia Visa",
+        "instructions": [
+            "<strong>Size:</strong> 40mm wide × 60mm tall. White background only.",
+            "<strong>Face coverage:</strong> Face must be centred and occupy 70–80% of the frame height.",
+            "<strong>Head covering:</strong> Women may wear a hijab; the full face from chin to hairline must be clearly visible.",
+            "<strong>No Glasses:</strong> Remove spectacles and sunglasses.",
+            "<strong>Expression:</strong> Neutral expression, mouth closed, both eyes open.",
+            "<strong>Umrah/Hajj note:</strong> The same 40×60mm spec applies for all Saudi visa types including religious visit visas.",
+        ],
+        "schema_desc": "Create a compliant 40x60mm photo for Saudi Arabia visa and Umrah/Hajj applications. 100% private, client-side execution.",
+        "schema_name": "Saudi Arabia Visa Photo Maker",
+    },
+    {
+        "slug": "singapore-visa-photo-maker",
+        "title": "Free Singapore Visa & Pass Photo Maker | GlobalVisaMath",
+        "meta_desc": "Create a compliant 35x45mm photo for Singapore tourist visa, employment pass, and student pass applications. Free, 100% private in-browser tool. No signup.",
+        "h1": "Singapore Visa & Pass Photo Maker",
+        "subtitle": "Instantly crop and resize your photo to the official Singapore ICA (Immigration & Checkpoints Authority) requirements. 100% private — your photo never leaves your device.",
+        "spec_mm": "35×45 mm",
+        "spec_px": "413×531 px (@300 DPI)",
+        "spec_bg": "Bg: White",
+        "target_w": 413,
+        "target_h": 531,
+        "download_name": "singapore-visa-photo",
+        "dropdown_label": "Singapore Visa & Pass",
+        "instructions": [
+            "<strong>Size:</strong> 35mm wide × 45mm tall. White background only.",
+            "<strong>Face coverage:</strong> Face (from chin to top of head) must take up 70–80% of the frame.",
+            "<strong>No Glasses:</strong> Singapore ICA requires glasses to be removed for all pass and visa photos.",
+            "<strong>Background:</strong> Plain white — no patterns, no shadows on the background.",
+            "<strong>Expression:</strong> Neutral expression, both eyes fully open, looking directly at the camera.",
+            "<strong>Recency:</strong> Photo must have been taken within the last 3 months.",
+        ],
+        "schema_desc": "Create a compliant 35x45mm photo for Singapore visa and pass applications. 100% private, client-side execution.",
+        "schema_name": "Singapore Visa & Pass Photo Maker",
+    },
+    {
+        "slug": "china-visa-photo-maker",
+        "title": "Free China Visa Photo Maker | GlobalVisaMath",
+        "meta_desc": "Create a compliant 33x48mm photo for China tourist, business, or transit visa (COVA specification). Free, 100% private in-browser tool. No signup.",
+        "h1": "China Visa Photo Maker",
+        "subtitle": "Crop your photo to the official COVA (China Online Visa Application) 33×48mm specification. 100% private — your photo never leaves your device.",
+        "spec_mm": "33×48 mm",
+        "spec_px": "390×567 px (@300 DPI)",
+        "spec_bg": "Bg: White",
+        "target_w": 390,
+        "target_h": 567,
+        "download_name": "china-visa-photo",
+        "dropdown_label": "China Visa",
+        "instructions": [
+            "<strong>Size:</strong> 33mm wide × 48mm tall — this is the official COVA online application size.",
+            "<strong>Face coverage:</strong> Face must occupy 60–70% of the frame height, centred.",
+            "<strong>Background:</strong> Plain white background. Light blue is technically permitted for paper applications but white is safest for the online portal.",
+            "<strong>No Glasses:</strong> Remove glasses for the photo.",
+            "<strong>Expression:</strong> Neutral, mouth closed, both eyes open. No headwear unless worn for religious or medical reasons.",
+            "<strong>Recency:</strong> Photo must have been taken within the last 6 months.",
+        ],
+        "schema_desc": "Create a compliant 33x48mm photo for China visa (COVA) applications. 100% private, client-side execution.",
+        "schema_name": "China Visa Photo Maker",
+    },
+    {
+        "slug": "new-zealand-visa-photo-maker",
+        "title": "Free New Zealand Visa & Passport Photo Maker | GlobalVisaMath",
+        "meta_desc": "Create a compliant 35x45mm photo for New Zealand visa, NZeTA, and passport applications. Free, 100% private in-browser tool. No signup.",
+        "h1": "New Zealand Visa & Passport Photo Maker",
+        "subtitle": "Instantly crop your photo to the official New Zealand Immigration (Immigration NZ) 35×45mm requirements. 100% private — your photo never leaves your device.",
+        "spec_mm": "35×45 mm",
+        "spec_px": "413×531 px (@300 DPI)",
+        "spec_bg": "Bg: White or light grey",
+        "target_w": 413,
+        "target_h": 531,
+        "download_name": "newzealand-visa-photo",
+        "dropdown_label": "New Zealand Visa",
+        "instructions": [
+            "<strong>Size:</strong> 35mm wide × 45mm tall.",
+            "<strong>Background:</strong> Plain white or light grey — no patterns.",
+            "<strong>Face coverage:</strong> Face must take up 70–80% of the frame.",
+            "<strong>No Glasses:</strong> Remove spectacles and sunglasses.",
+            "<strong>Expression:</strong> Neutral, both eyes open, looking at the camera.",
+            "<strong>NZeTA note:</strong> The NZeTA electronic travel authority accepts the same spec via the mobile app — take a selfie with a white wall behind you.",
+        ],
+        "schema_desc": "Create a compliant 35x45mm photo for New Zealand visa and NZeTA applications. 100% private, client-side execution.",
+        "schema_name": "New Zealand Visa & Passport Photo Maker",
+    },
+    {
+        "slug": "south-korea-visa-photo-maker",
+        "title": "Free South Korea Visa Photo Maker | GlobalVisaMath",
+        "meta_desc": "Create a compliant 35x45mm photo for South Korea tourist, business, or K-ETA visa applications. Free, 100% private in-browser tool. No signup.",
+        "h1": "South Korea Visa Photo Maker",
+        "subtitle": "Crop your photo to the official South Korea visa and K-ETA requirements. 100% private — your photo never leaves your device.",
+        "spec_mm": "35×45 mm",
+        "spec_px": "413×531 px (@300 DPI)",
+        "spec_bg": "Bg: White",
+        "target_w": 413,
+        "target_h": 531,
+        "download_name": "south-korea-visa-photo",
+        "dropdown_label": "South Korea Visa (K-ETA)",
+        "instructions": [
+            "<strong>Size:</strong> 35mm wide × 45mm tall. White background only.",
+            "<strong>Face coverage:</strong> Face must occupy 60–80% of the total photo area.",
+            "<strong>No Glasses:</strong> The Korean Immigration Service (HiKorea) strictly requires glasses to be removed.",
+            "<strong>K-ETA note:</strong> K-ETA applications require the same 35×45mm specification uploaded as a JPEG file.",
+            "<strong>Expression:</strong> Neutral expression, both eyes fully open, looking directly at the camera.",
+            "<strong>Recency:</strong> Photo must have been taken within the last 6 months.",
+        ],
+        "schema_desc": "Create a compliant 35x45mm photo for South Korea visa and K-ETA applications. 100% private, client-side execution.",
+        "schema_name": "South Korea Visa Photo Maker",
+    },
+]
+
+# ── Full dropdown options (existing + new) ───────────────────────────────────
+ALL_OPTIONS = [
+    ("us-visa-passport-photo-maker.html",      "US Visa & Passport"),
+    ("indian-visa-oci-photo-maker.html",        "Indian e-Visa & OCI"),
+    ("indian-passport-photo-maker.html",        "Indian Standard Passport"),
+    ("schengen-visa-photo-maker.html",          "Schengen Visa (Europe)"),
+    ("uk-visa-passport-photo-maker.html",       "UK Visa & Passport"),
+    ("canada-visa-photo-maker.html",            "Canada Visitor Visa"),
+    ("canada-pr-passport-photo-maker.html",     "Canada PR & Passport"),
+    ("australia-visa-photo-maker.html",         "Australia Visa"),
+    ("japan-visa-photo-maker.html",             "Japan Visa"),
+    ("uae-dubai-visa-photo-maker.html",         "UAE & Dubai Visa"),
+    ("saudi-arabia-visa-photo-maker.html",      "Saudi Arabia Visa"),
+    ("singapore-visa-photo-maker.html",         "Singapore Visa & Pass"),
+    ("china-visa-photo-maker.html",             "China Visa"),
+    ("new-zealand-visa-photo-maker.html",       "New Zealand Visa"),
+    ("south-korea-visa-photo-maker.html",       "South Korea Visa (K-ETA)"),
+]
+
+EXISTING_SLUGS = [
+    "us-visa-passport-photo-maker",
+    "indian-visa-oci-photo-maker",
+    "indian-passport-photo-maker",
+    "schengen-visa-photo-maker",
+    "uk-visa-passport-photo-maker",
+    "canada-visa-photo-maker",
+    "canada-pr-passport-photo-maker",
+    "australia-visa-photo-maker",
+    "japan-visa-photo-maker",
+]
+
+# ── HTML template ─────────────────────────────────────────────────────────────
+def build_dropdown_options(selected_file):
+    lines = []
+    for fname, label in ALL_OPTIONS:
+        sel = ' selected' if fname == selected_file else ''
+        lines.append(f'                    <option value="{fname}"{sel}>{label}</option>')
+    return "\n".join(lines)
+
+def build_instructions_li(items):
+    return "\n".join(f"                    <li>{item}</li>" for item in items)
+
+def render_page(p):
+    filename = p["slug"] + ".html"
+    dropdown = build_dropdown_options(filename)
+    instructions = build_instructions_li(p["instructions"])
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{p["title"]}</title>
+    <meta name="description" content="{p["meta_desc"]}">
+    <link rel="canonical" href="{BASE_URL}/{filename}">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta name="msvalidate.01" content="FA7405A0B7623E8A404F74AE4952777C" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5KJNDPS0EG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){{dataLayer.push(arguments);}}
+      gtag("js", new Date());
+      gtag("config", "G-5KJNDPS0EG");
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {{
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "{p["schema_name"]}",
+      "url": "{BASE_URL}/{filename}",
+      "description": "{p["schema_desc"]}",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "offers": {{
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }}
+    }}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2959862133855422" crossorigin="anonymous"></script>
+    <style>
+        .photo-tool-container {{
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+        }}
+        .upload-area {{
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(15, 23, 42, 0.3);
+        }}
+        .upload-area:hover {{
+            border-color: var(--primary);
+            background: rgba(14, 165, 233, 0.05);
+        }}
+        .cropper-container-wrapper {{
+            max-width: 100%;
+            height: 400px;
+            margin: 20px 0;
+            display: none;
+            background: #0f172a;
+        }}
+        .controls-row {{
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            justify-content: center;
+        }}
+        .spec-badge {{
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--primary);
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }}
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #60a5fa; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));">
+                    <g transform="rotate(-8 12 12)">
+                        <rect x="3" y="4" width="18" height="16" rx="2" stroke="#93c5fd" stroke-width="1.8"></rect>
+                        <rect x="5" y="6" width="14" height="12" rx="1" stroke="#93c5fd" stroke-width="0.8" stroke-dasharray="2 1.5" opacity="0.5"></rect>
+                        <line x1="5" y1="12" x2="19" y2="12" stroke="#93c5fd" stroke-width="1" opacity="0.5"></line>
+                        <circle cx="9" cy="9" r="1.8" stroke="currentColor" stroke-width="0.8"></circle>
+                        <line x1="7.2" y1="9" x2="10.8" y2="9" stroke="currentColor" stroke-width="0.6" opacity="0.6"></line>
+                        <line x1="9" y1="7.2" x2="9" y2="10.8" stroke="currentColor" stroke-width="0.6" opacity="0.6"></line>
+                        <path d="M15 9l.3-.6.6-.3-.6-.3-.3-.6-.3.6-.6.3.6.3.3.6z" fill="currentColor" stroke="none"></path>
+                        <path d="M8 15.5l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"></path>
+                    </g>
+                </svg>
+                GlobalVisaMath
+            </a>
+            <button class="hamburger" id="visaHamburger" aria-label="Toggle navigation" aria-controls="visaNavLinks" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="nav-links" id="visaNavLinks">
+                <a href="index.html">All Calculators</a>
+                <div class="nav-links">
+                    <a href="schengen-calculator.html">Schengen 90/180</a>
+                    <a href="canada-crs-calculator.html">Canada CRS</a>
+                    <a href="us-visa-passport-photo-maker.html" class="active highlight-link">Visa Photo Maker</a>
+                </div>
+                <a href="green-card-renewal.html">Green Card</a>
+                <a href="j1-visa-tracker.html">J-1 Tracker</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero-section" style="padding: 40px 20px 20px; text-align: center;">
+            <h1 class="hero-title">{p["h1"]}</h1>
+            <p class="hero-subtitle">{p["subtitle"]}</p>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 16px;">
+                <span class="spec-badge">&#128207; {p["spec_mm"]}</span>
+                <span class="spec-badge">&#128424; {p["spec_px"]}</span>
+                <span class="spec-badge">&#127912; {p["spec_bg"]}</span>
+            </div>
+            <div style="text-align: center; margin: 20px 0 24px;">
+                <span style="font-size: 0.9rem; color: var(--text-muted); margin-right: 8px;">Switch Country/Visa Type:</span>
+                <select id="countrySelect" class="form-input" style="width: auto; display: inline-block; padding: 6px 32px 6px 16px; height: auto; border-radius: 20px; font-size: 0.9rem; background-color: var(--card-bg);" onchange="window.location.href=this.value">
+{dropdown}
+                </select>
+            </div>
+        </section>
+
+        <section class="tool-section">
+            <div class="photo-tool-container">
+                <div class="upload-area" id="dropZone">
+                    <h3 style="margin-bottom: 20px;">Choose an option to begin</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; position: relative; z-index: 10;">
+                        <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()" style="width: 100%; padding: 12px 24px; display: flex; align-items: center; gap: 8px; justify-content: center; font-size: 1.05rem;">&#128194; Upload Photo</button>
+                        <button class="btn btn-primary" id="cameraBtn" onclick="startCamera(event)" style="width: 100%; padding: 12px 24px; display: flex; align-items: center; gap: 8px; justify-content: center; font-size: 1.05rem;">&#128247; Use Camera</button>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 24px;">Or Drag & Drop your image anywhere in this box (JPG, PNG)</p>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div id="cameraInterface" style="display:none; text-align:center; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 8px; margin-top: 20px;">
+                    <video id="cameraFeed" autoplay playsinline style="max-width:100%; border-radius:8px; transform: scaleX(-1);"></video>
+                    <div style="margin-top: 16px; display: flex; gap: 12px; justify-content: center;">
+                        <button id="cancelCameraBtn" class="btn btn-secondary" onclick="stopCamera()">Cancel</button>
+                        <button id="snapBtn" class="btn btn-primary" onclick="capturePhoto()">&#128248; Capture</button>
+                    </div>
+                </div>
+
+                <div class="cropper-container-wrapper" id="cropperWrapper">
+                    <img id="imageToCrop" src="" style="max-width: 100%;">
+                </div>
+                <div class="controls-row" id="controlsRow" style="display: none;">
+                    <button class="btn btn-secondary" onclick="resetApp()">Cancel</button>
+                    <button class="btn btn-primary" onclick="downloadPhoto()">&#8595; Download Sized Photo</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-grid" style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start;">
+            <div class="card">
+                <h3 style="margin-bottom: 16px;">&#128248; Photo Requirements</h3>
+                <ul style="color: var(--text-muted); padding-left: 20px; line-height: 1.6; margin-bottom: 16px;">
+{instructions}
+                    <li><strong>Lighting:</strong> Even lighting on your face — no harsh shadows. Facing a window in daylight works best.</li>
+                </ul>
+            </div>
+            <div class="card ad-card" style="display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.2);">
+                <ins class="adsbygoogle"
+                     style="display:block; text-align:center; width: 100%;"
+                     data-ad-layout="in-article"
+                     data-ad-format="fluid"
+                     data-ad-client="ca-pub-2959862133855422"
+                     data-ad-slot="1234567890"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({{}});</script>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <strong>GlobalVisaMath</strong>
+                <p>Professional travel &amp; immigration compliance tools.</p>
+                <div class="footer-links" style="margin-top: 10px; display: flex; gap: 15px; font-size: 0.8rem;">
+                    <a href="about.html" style="color: #cbd5e0; text-decoration: none;">About Us</a>
+                    <a href="privacy.html" style="color: #cbd5e0; text-decoration: none;">Privacy Policy</a>
+                    <a href="terms.html" style="color: #cbd5e0; text-decoration: none;">Terms of Service</a>
+                </div>
+            </div>
+            <div class="footer-col text-right">
+                <p>All calculations are performed client-side securely.</p>
+                <p>&copy; 2026 GlobalVisaMath.com. Not legal advice.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const TARGET_WIDTH_PX = {p["target_w"]};
+        const TARGET_HEIGHT_PX = {p["target_h"]};
+
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const imageToCrop = document.getElementById('imageToCrop');
+        const cropperWrapper = document.getElementById('cropperWrapper');
+        const controlsRow = document.getElementById('controlsRow');
+        let cropper = null;
+
+        dropZone.addEventListener('click', (e) => {{ if (e.target.id === 'cameraBtn') return; fileInput.click(); }});
+        dropZone.addEventListener('dragover', (e) => {{ e.preventDefault(); dropZone.style.borderColor = 'var(--primary)'; }});
+        dropZone.addEventListener('dragleave', () => dropZone.style.borderColor = 'var(--border)');
+        dropZone.addEventListener('drop', (e) => {{
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--border)';
+            if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+        }});
+        fileInput.addEventListener('change', (e) => {{
+            if (e.target.files.length) handleFile(e.target.files[0]);
+        }});
+
+        function handleFile(file) {{
+            if (!file.type.startsWith('image/')) return alert('Please upload an image file.');
+            const reader = new FileReader();
+            reader.onload = (e) => {{
+                imageToCrop.src = e.target.result;
+                dropZone.style.display = 'none';
+                cropperWrapper.style.display = 'block';
+                controlsRow.style.display = 'flex';
+                if (cropper) cropper.destroy();
+                cropper = new Cropper(imageToCrop, {{
+                    aspectRatio: TARGET_WIDTH_PX / TARGET_HEIGHT_PX,
+                    viewMode: 1,
+                    dragMode: 'move',
+                    guides: true,
+                    center: true,
+                    highlight: false,
+                    cropBoxMovable: true,
+                    cropBoxResizable: true,
+                    toggleDragModeOnDblclick: false,
+                }});
+            }};
+            reader.readAsDataURL(file);
+        }}
+
+        function downloadPhoto() {{
+            if (!cropper) return;
+            const canvas = cropper.getCroppedCanvas({{
+                width: TARGET_WIDTH_PX,
+                height: TARGET_HEIGHT_PX,
+                imageSmoothingEnabled: true,
+                imageSmoothingQuality: 'high',
+            }});
+            canvas.toBlob((blob) => {{
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = '{p["download_name"]}-{p["target_w"]}x{p["target_h"]}.jpg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }}, 'image/jpeg', 0.95);
+        }}
+
+        function resetApp() {{
+            if (cropper) {{ cropper.destroy(); cropper = null; }}
+            imageToCrop.src = '';
+            fileInput.value = '';
+            cropperWrapper.style.display = 'none';
+            controlsRow.style.display = 'none';
+            dropZone.style.display = 'block';
+        }}
+
+        // WebRTC Camera
+        let currentStream = null;
+        async function startCamera(e) {{
+            if (e) {{ e.preventDefault(); e.stopPropagation(); }}
+            try {{
+                currentStream = await navigator.mediaDevices.getUserMedia({{ video: {{ facingMode: 'user' }} }});
+                document.getElementById('cameraFeed').srcObject = currentStream;
+                document.getElementById('dropZone').style.display = 'none';
+                document.getElementById('cameraInterface').style.display = 'block';
+            }} catch (err) {{
+                alert("Could not access camera. Please ensure camera permissions are granted.");
+            }}
+        }}
+        function stopCamera() {{
+            if (currentStream) {{ currentStream.getTracks().forEach(t => t.stop()); currentStream = null; }}
+            document.getElementById('cameraInterface').style.display = 'none';
+            document.getElementById('dropZone').style.display = 'block';
+        }}
+        function capturePhoto() {{
+            const video = document.getElementById('cameraFeed');
+            if (!currentStream) return;
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.translate(canvas.width, 0);
+            ctx.scale(-1, 1);
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            canvas.toBlob(blob => {{
+                const file = new File([blob], "camera-photo.jpg", {{ type: "image/jpeg" }});
+                stopCamera();
+                handleFile(file);
+            }}, 'image/jpeg', 0.95);
+        }}
+
+        // Hamburger menu
+        const hamburger = document.getElementById('visaHamburger');
+        const navLinks = document.getElementById('visaNavLinks');
+        if (hamburger && navLinks) {{
+            hamburger.addEventListener('click', () => {{
+                const isOpen = navLinks.classList.toggle('open');
+                hamburger.setAttribute('aria-expanded', isOpen);
+            }});
+        }}
+    </script>
+</body>
+</html>"""
+
+
+def build_new_select_block(selected_file):
+    lines = ['                <select id="countrySelect" class="form-input" style="width: auto; display: inline-block; padding: 6px 32px 6px 16px; height: auto; border-radius: 20px; font-size: 0.9rem; background-color: var(--card-bg);" onchange="window.location.href=this.value">']
+    for fname, label in ALL_OPTIONS:
+        sel = ' selected' if fname == selected_file else ''
+        lines.append(f'                    <option value="{fname}"{sel}>{label}</option>')
+    lines.append('                </select>')
+    return "\n".join(lines)
+
+
+def patch_existing_dropdown(filepath):
+    """Replace the <select id="countrySelect"> block in an existing page with the full updated dropdown."""
+    with open(filepath, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    fname = os.path.basename(filepath)
+    new_select = build_new_select_block(fname)
+
+    # Match the entire select block (from opening tag to </select>)
+    pattern = re.compile(
+        r'<select id="countrySelect".*?</select>',
+        re.DOTALL
+    )
+    new_content, n = pattern.subn(new_select, content)
+    if n == 0:
+        print(f"  WARNING: No countrySelect found in {fname}")
+        return False
+
+    with open(filepath, "w", encoding="utf-8") as f:
+        f.write(new_content)
+    return True
+
+
+# ── Run ───────────────────────────────────────────────────────────────────────
+if __name__ == "__main__":
+    # 1. Generate new pages
+    print("=== Generating new photo maker pages ===")
+    for p in PAGES:
+        outfile = os.path.join(OUT_DIR, p["slug"] + ".html")
+        html = render_page(p)
+        with open(outfile, "w", encoding="utf-8") as f:
+            f.write(html)
+        print(f"  Created: {p['slug']}.html  ({p['target_w']}x{p['target_h']}px)")
+
+    # 2. Patch dropdowns on all existing pages
+    print("\n=== Patching dropdowns on existing pages ===")
+    for slug in EXISTING_SLUGS:
+        fpath = os.path.join(OUT_DIR, slug + ".html")
+        if os.path.exists(fpath):
+            ok = patch_existing_dropdown(fpath)
+            status = "OK" if ok else "SKIP"
+            print(f"  [{status}] {slug}.html")
+        else:
+            print(f"  [MISSING] {slug}.html")
+
+    print("\nDone.")

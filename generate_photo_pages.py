@@ -361,8 +361,8 @@ def render_page(p):
                     <img id="imageToCrop" src="" style="max-width: 100%;">
                 </div>
                 <div class="controls-row" id="controlsRow" style="display: none;">
-                    <button class="btn btn-secondary" onclick="resetApp()">Cancel</button>
-                    <button class="btn btn-primary" onclick="downloadPhoto()">&#8595; Download Sized Photo</button>
+                    <button class="btn btn-secondary" onclick="resetApp()" style="flex: 1;">Cancel</button>
+                    <button class="btn btn-primary" onclick="downloadPhoto()" style="flex: 2;">&#8595; Download Sized Photo</button>
                 </div>
             </div>
         </section>
@@ -416,7 +416,7 @@ def render_page(p):
         const controlsRow = document.getElementById('controlsRow');
         let cropper = null;
 
-        dropZone.addEventListener('click', (e) => {{ if (e.target.id === 'cameraBtn') return; fileInput.click(); }});
+        dropZone.addEventListener('click', (e) => {{ if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return; fileInput.click(); }});
         dropZone.addEventListener('dragover', (e) => {{ e.preventDefault(); dropZone.style.borderColor = 'var(--primary)'; }});
         dropZone.addEventListener('dragleave', () => dropZone.style.borderColor = 'var(--border)');
         dropZone.addEventListener('drop', (e) => {{

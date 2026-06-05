@@ -190,7 +190,7 @@
             <!-- Other Countries Dropdown for SEO Interlinking -->
             <div style="text-align: center; margin-bottom: 24px;">
                 <span style="font-size: 0.9rem; color: var(--text-muted); margin-right: 8px;">Switch Country/Visa Type:</span>
-                                <select id="countrySelect" class="form-input" style="width: auto; display: inline-block; padding: 6px 32px 6px 16px; height: auto; border-radius: 20px; font-size: 0.9rem; background-color: var(--card-bg);" onchange="window.location.href=this.value">
+                                                                <select id="countrySelect" class="form-input" style="width: auto; display: inline-block; padding: 6px 32px 6px 16px; height: auto; border-radius: 20px; font-size: 0.9rem; background-color: var(--card-bg);" onchange="window.location.href=this.value">
                     <option value="us-visa-passport-photo-maker.html">US Visa & Passport</option>
                     <option value="indian-visa-oci-photo-maker.html">Indian e-Visa & OCI</option>
                     <option value="indian-passport-photo-maker.html" selected>Indian Standard Passport</option>
@@ -240,8 +240,8 @@
                 </div>
 
                 <div class="controls-row" id="controlsRow" style="display: none;">
-                    <button class="btn btn-secondary" onclick="resetApp()">Cancel</button>
-                    <button class="btn btn-primary" onclick="downloadPhoto()">&#8595; Download Sized Photo</button>
+                    <button class="btn btn-secondary" onclick="resetApp()" style="flex: 1;">Cancel</button>
+                    <button class="btn btn-primary" onclick="downloadPhoto()" style="flex: 2;">&#8595; Download Sized Photo</button>
                 </div>
             </div>
         </section>
@@ -300,7 +300,7 @@
         let cropper = null;
 
         // UI Handlers
-        dropZone.addEventListener('click', (e) => { if (e.target.id === 'cameraBtn') return; fileInput.click(); });
+        dropZone.addEventListener('click', (e) => { if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return; fileInput.click(); });
         dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = 'var(--primary)'; });
         dropZone.addEventListener('dragleave', () => dropZone.style.borderColor = 'var(--border)');
         dropZone.addEventListener('drop', (e) => {

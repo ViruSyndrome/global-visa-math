@@ -83,7 +83,7 @@
     <header class="navbar">
         <div class="nav-inner">
             <a href="/" class="logo">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #60a5fa; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-icon-styled">
                     <g transform="rotate(-8 12 12)">
                         <!-- Stamp outer box -->
                         <rect x="3" y="4" width="18" height="16" rx="2" stroke="#93c5fd" stroke-width="1.8"></rect>
@@ -125,8 +125,8 @@
         <section class="calculator-panel">
             <div class="calc-header">
                 <h2>Card Status</h2>
-                <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
-                    <span class="trust-badge" style="color: #4a5568; background: #edf2f7;">
+                <div class="calc-header-badges">
+                    <span class="trust-badge trust-badge-gray">
                         Rules Current as of: 2026
                     </span>
                     <span class="trust-badge">
@@ -143,14 +143,14 @@
                         <input type="date" id="gcExpiryDate" class="date-input">
                     </div>
                 </div>
-                <div class="action-row" style="margin-top: 1rem;">
+                <div class="action-row action-row-sm">
                     <button class="btn-primary" onclick="calculateGCRenewal()">Calculate Renewal Timeline</button>
                 </div>
             </div>
-            <div class="form-error" id="formError" role="alert" aria-live="assertive" style="display:none;"></div>
+            <div class="form-error" id="formError" role="alert" aria-live="assertive"></div>
 
             <!-- Results Section -->
-            <div class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-section" id="resultsSection">
                 <h3>Your Renewal Timeline</h3>
                 
                 <div class="status-card" id="gcStatusCard">
@@ -160,50 +160,50 @@
                 <p class="status-message" id="gcStatusMessage"></p>
 
                 <!-- Custom Visual Timeline -->
-                <div class="audit-trail" style="margin-bottom: 1.5rem;">
+                <div class="audit-trail audit-trail-spaced">
                     <h4>USCIS Recommended Renewal Window</h4>
                     <p class="audit-disclaimer">USCIS recommends filing Form I-90 within 180 days (6 months) before your card expires.</p>
-                    <div style="background: #e2e8f0; height: 12px; border-radius: 999px; overflow: hidden; position: relative; margin: 1.5rem 0 0.5rem 0;">
-                        <div id="timelineProgress" style="background: var(--success); height: 100%; width: 0%; transition: width 0.5s ease-out;"></div>
+                    <div class="timeline-bar-bg">
+                        <div id="timelineProgress" class="timeline-bar-fill"></div>
                     </div>
-                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted);">
+                    <div class="timeline-labels">
                         <span>Filing Window Opens (180 Days Prior)</span>
                         <span>Expiration Date</span>
                     </div>
                 </div>
 
-                <div class="audit-trail" style="margin-bottom: 1.5rem;">
+                <div class="audit-trail audit-trail-spaced">
                     <h4>Official Form I-90 Fees (Effective April 2024)</h4>
-                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+                    <table class="fees-table">
                         <thead>
-                            <tr style="border-bottom: 2px solid var(--border); color: var(--primary);">
-                                <th style="padding: 0.5rem;">Filing Method</th>
-                                <th style="padding: 0.5rem;">Fee</th>
-                                <th style="padding: 0.5rem;">Biometrics</th>
-                                <th style="padding: 0.5rem; text-align: right;">Total Cost</th>
+                            <tr>
+                                <th>Filing Method</th>
+                                <th>Fee</th>
+                                <th>Biometrics</th>
+                                <th>Total Cost</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="border-bottom: 1px solid var(--border);">
-                                <td style="padding: 0.5rem;">Online Filing</td>
-                                <td style="padding: 0.5rem;">$415</td>
-                                <td style="padding: 0.5rem;">$0 (Included)</td>
-                                <td style="padding: 0.5rem; font-weight: bold; text-align: right;">$415</td>
+                            <tr>
+                                <td>Online Filing</td>
+                                <td>$415</td>
+                                <td>$0 (Included)</td>
+                                <td>$415</td>
                             </tr>
-                            <tr style="border-bottom: 1px solid var(--border);">
-                                <td style="padding: 0.5rem;">Paper Filing</td>
-                                <td style="padding: 0.5rem;">$465</td>
-                                <td style="padding: 0.5rem;">$0 (Included)</td>
-                                <td style="padding: 0.5rem; font-weight: bold; text-align: right;">$465</td>
+                            <tr>
+                                <td>Paper Filing</td>
+                                <td>$465</td>
+                                <td>$0 (Included)</td>
+                                <td>$465</td>
                             </tr>
                         </tbody>
                     </table>
-                    <p class="audit-disclaimer" style="margin-top: 0.5rem; font-size: 0.8rem;">* Note: Fee waivers are available for eligible applicants filing paper Form I-912.</p>
+                    <p class="audit-disclaimer audit-disclaimer-sm">* Note: Fee waivers are available for eligible applicants filing paper Form I-912.</p>
                 </div>
 
                 <div class="audit-trail">
                     <h4>Required Document Checklist</h4>
-                    <ul id="gcDocChecklist" style="list-style: none; font-size: 0.9rem; line-height: 1.6;">
+                    <ul id="gcDocChecklist" class="gc-doc-list">
                         <!-- Filled dynamically -->
                     </ul>
                 </div>
@@ -214,29 +214,29 @@
         <section class="info-section">
             <h2>About Green Card (Form I-90) Renewal</h2>
             <p>A Permanent Resident Card (commonly known as a Green Card) is typically issued with a 10-year validity period. Keeping your card updated is crucial for proving your authorization to live and work in the United States, traveling internationally, and applying for U.S. citizenship.</p>
-            <p style="margin-top: 1.5rem;">Under USCIS regulations, you should file Form I-90 (Application to Replace Permanent Resident Card) within the 6-month window before your card expires. If you file too early (more than 180 days before expiration), USCIS may reject your application and return your fee. If you file after expiration, your proof of status may lapse until you obtain an ADIT stamp or a receipt notice extension.</p>
+            <p class="info-p-spaced">Under USCIS regulations, you should file Form I-90 (Application to Replace Permanent Resident Card) within the 6-month window before your card expires. If you file too early (more than 180 days before expiration), USCIS may reject your application and return your fee. If you file after expiration, your proof of status may lapse until you obtain an ADIT stamp or a receipt notice extension.</p>
 
-            <div style="margin-top: 1.5rem; padding: 1rem 1.25rem; background: rgba(43, 108, 176, 0.04); border: 1px solid var(--border); border-radius: 8px;">
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">
-                    📋 <strong>Official Source:</strong> For official forms, online filing portals, and fees breakdown, visit the official <a href="https://www.uscis.gov/i-90" target="_blank" rel="noopener noreferrer" style="color: var(--accent); font-weight: 500;">USCIS Form I-90 Page</a>.
-                    If you notice policy updates or fee changes, please notify us at <a href="mailto:hello@globalvisamath.com" style="color: var(--accent); font-weight: 500;">hello@globalvisamath.com</a>.
+            <div class="note-box">
+                <p class="note-p">
+                    📋 <strong>Official Source:</strong> For official forms, online filing portals, and fees breakdown, visit the official <a href="https://www.uscis.gov/i-90" target="_blank" rel="noopener noreferrer" class="note-link">USCIS Form I-90 Page</a>.
+                    If you notice policy updates or fee changes, please notify us at <a href="mailto:hello@globalvisamath.com" class="note-link">hello@globalvisamath.com</a>.
                 </p>
             </div>
         </section>
 
-        <section class="info-section" style="margin-top: 2rem;">
-            <h2 style="margin-bottom: 1.5rem;">Frequently Asked Questions</h2>
-            <div style="border-bottom: 1px solid var(--border); padding: 1rem 0;">
-                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">When should I file my I-90 renewal application?</h4>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">You should file within 180 days (6 months) before your current card expires. Filing earlier than 180 days may result in USCIS rejecting your application and returning your fee.</p>
+        <section class="info-section faq-sec-spaced">
+            <h2 class="faq-h2">Frequently Asked Questions</h2>
+            <div class="faq-item-border">
+                <h4 class="faq-h4">When should I file my I-90 renewal application?</h4>
+                <p class="faq-p">You should file within 180 days (6 months) before your current card expires. Filing earlier than 180 days may result in USCIS rejecting your application and returning your fee.</p>
             </div>
-            <div style="border-bottom: 1px solid var(--border); padding: 1rem 0;">
-                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">What is the filing fee for Form I-90?</h4>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">Under the current fee schedule (effective April 2024), the fee is $415 if you file online, or $465 if you file a paper application by mail. There is no separate biometric services fee.</p>
+            <div class="faq-item-border">
+                <h4 class="faq-h4">What is the filing fee for Form I-90?</h4>
+                <p class="faq-p">Under the current fee schedule (effective April 2024), the fee is $415 if you file online, or $465 if you file a paper application by mail. There is no separate biometric services fee.</p>
             </div>
-            <div style="padding: 1rem 0 0 0;">
-                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">What if my card is already expired?</h4>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">Your lawful permanent resident status does not expire when your card does, but your official proof of status does. File Form I-90 immediately. Your I-797 receipt notice extension acts as temporary proof of status while your case is pending.</p>
+            <div class="faq-item-last">
+                <h4 class="faq-h4">What if my card is already expired?</h4>
+                <p class="faq-p">Your lawful permanent resident status does not expire when your card does, but your official proof of status does. File Form I-90 immediately. Your I-797 receipt notice extension acts as temporary proof of status while your case is pending.</p>
             </div>
         </section>
     </main>
@@ -246,10 +246,10 @@
             <div class="footer-col">
                 <strong>GlobalVisaMath</strong>
                 <p>Professional travel &amp; immigration compliance tools.</p>
-                <div class="footer-links" style="margin-top: 10px; display: flex; gap: 15px; font-size: 0.8rem;">
-                    <a href="about.html" style="color: #cbd5e0; text-decoration: none;">About Us</a>
-                    <a href="privacy.html" style="color: #cbd5e0; text-decoration: none;">Privacy Policy</a>
-                    <a href="terms.html" style="color: #cbd5e0; text-decoration: none;">Terms of Service</a>
+                <div class="footer-links-row">
+                    <a href="about.html" class="footer-link-item">About Us</a>
+                    <a href="privacy.html" class="footer-link-item">Privacy Policy</a>
+                    <a href="terms.html" class="footer-link-item">Terms of Service</a>
                 </div>
             </div>
             <div class="footer-col text-right">

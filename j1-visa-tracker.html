@@ -83,7 +83,7 @@
     <header class="navbar">
         <div class="nav-inner">
             <a href="/" class="logo">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #60a5fa; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-icon-styled">
                     <g transform="rotate(-8 12 12)">
                         <!-- Stamp outer box -->
                         <rect x="3" y="4" width="18" height="16" rx="2" stroke="#93c5fd" stroke-width="1.8"></rect>
@@ -125,8 +125,8 @@
         <section class="calculator-panel">
             <div class="calc-header">
                 <h2>Program Parameters</h2>
-                <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
-                    <span class="trust-badge" style="color: #4a5568; background: #edf2f7;">
+                <div class="calc-header-badges">
+                    <span class="trust-badge trust-badge-gray">
                         Rules Current as of: 2026
                     </span>
                     <span class="trust-badge">
@@ -162,7 +162,7 @@
                     </div>
                 </div>
 
-                <div class="action-row" style="margin-top: 1rem;">
+                <div class="action-row action-row-sm">
                     <div class="input-group">
                         <label for="assessmentDate" data-tooltip="The date on which you want to verify your active legal status">Date of Evaluation ⓘ</label>
                         <input type="date" id="assessmentDate" class="date-input">
@@ -170,10 +170,10 @@
                     <button class="btn-primary" onclick="calculateJ1Compliance()" data-tooltip="Verify status compliance, grace periods and health insurance criteria">Calculate Compliance Status</button>
                 </div>
             </div>
-            <div class="form-error" id="formError" role="alert" aria-live="assertive" style="display:none;"></div>
+            <div class="form-error" id="formError" role="alert" aria-live="assertive"></div>
 
             <!-- Results Section -->
-            <div class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-section" id="resultsSection">
                 <h3>Your Program Status &amp; Timeline</h3>
                 
                 <div class="status-card" id="j1StatusCard">
@@ -183,12 +183,12 @@
                 <p class="status-message" id="j1StatusMessage"></p>
 
                 <!-- Travel Grace Period Alert -->
-                <div class="audit-trail" style="margin-bottom: 1.5rem; background: #fffaf0; border: 1px solid #feebc8; border-left: 5px solid #dd6b20; border-radius: 4px; padding: 1.25rem;">
-                    <h4 style="color: #c05621; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <div class="audit-trail audit-trail-grace">
+                    <h4>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                         Critical 30-Day Travel &amp; Stay Window
                     </h4>
-                    <ul style="list-style: disc; padding-left: 1.25rem; font-size: 0.88rem; color: #7b341e; line-height: 1.6;">
+                    <ul class="audit-trail-grace-ul">
                         <li><strong>Grace Period Window:</strong> <span id="gracePeriodDates">Pending calculation</span></li>
                         <li><strong>Stay Status:</strong> You are legally allowed to remain in the U.S. and prepare for departure during this window.</li>
                         <li><strong>Travel Warning:</strong> You cannot travel outside the U.S. and re-enter in J-1 status during the 30-day grace period. Work authorization is strictly prohibited.</li>
@@ -196,23 +196,21 @@
                 </div>
 
                 <!-- Insurance Requirements -->
-                <div class="audit-trail" style="margin-bottom: 1.5rem;">
+                <div class="audit-trail audit-trail-insurance">
                     <h4>USDOS Mandated Health Insurance Check</h4>
-                    <p class="audit-disclaimer" style="margin-bottom: 0.75rem;">Your insurance policy must meet the following minimum criteria to maintain valid J-1 status:</p>
-                    <ul style="list-style: none; font-size: 0.9rem; padding: 0; line-height: 1.6;">
-                        <li style="display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            Medical benefits of at least <strong>$100,000 per accident or illness</strong>
+                    <p class="audit-disclaimer audit-disclaimer-spaced">Your insurance policy must meet the following minimum criteria to maintain valid J-1 status:</p>
+                    <ul class="audit-trail-insurance-list">
+                        <li class="audit-insurance-item">
                         </li>
-                        <li style="display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0;">
+                        <li class="audit-insurance-item">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             Repatriation of remains coverage in the amount of <strong>$25,000</strong>
                         </li>
-                        <li style="display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0;">
+                        <li class="audit-insurance-item">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             Expenses associated with the medical evacuation in the amount of <strong>$50,000</strong>
                         </li>
-                        <li style="display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0;">
+                        <li class="audit-insurance-item">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             A deductible not to exceed <strong>$500 per accident or sickness</strong>
                         </li>
@@ -221,7 +219,7 @@
 
                 <div class="audit-trail">
                     <h4>Required Compliance Audit</h4>
-                    <ul id="j1AuditChecklist" style="list-style: none; font-size: 0.9rem; line-height: 1.6;">
+                    <ul id="j1AuditChecklist" class="audit-checklist">
                         <!-- Dynamically filled -->
                     </ul>
                 </div>
@@ -232,29 +230,29 @@
         <section class="info-section">
             <h2>About the J-1 Exchange Visitor Program</h2>
             <p>The J-1 visa is a non-immigrant visa category administered by the U.S. Department of State (DOS) designed to promote educational and cultural exchange. Exchange visitors are required to adhere to strict regulatory compliance parameters to maintain valid status.</p>
-            <p style="margin-top: 1.5rem;">Key requirements include holding active, qualifying health insurance coverage for the principal applicant and all J-2 dependents, maintaining a valid travel signature on Form DS-2019 for any international departures, and understanding whether the exchange visitor is subject to the two-year home-country physical presence requirement (Section 212(e)) before being eligible to change status inside the U.S. or apply for certain other visas.</p>
+            <p class="info-p-spaced">Key requirements include holding active, qualifying health insurance coverage for the principal applicant and all J-2 dependents, maintaining a valid travel signature on Form DS-2019 for any international departures, and understanding whether the exchange visitor is subject to the two-year home-country physical presence requirement (Section 212(e)) before being eligible to change status inside the U.S. or apply for certain other visas.</p>
 
-            <div style="margin-top: 1.5rem; padding: 1rem 1.25rem; background: rgba(43, 108, 176, 0.04); border: 1px solid var(--border); border-radius: 8px;">
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">
-                    📋 <strong>Official Source:</strong> For official regulations on J-1 status, grace periods, and insurance requirements, visit the <a href="https://j1visa.state.gov/sponsors/current/regulations-legislation/" target="_blank" rel="noopener noreferrer" style="color: var(--accent); font-weight: 500;">U.S. Department of State J-1 Exchange Visitor Regulations</a>.
-                    If you notice policy updates or discrepancies, please notify us at <a href="mailto:hello@globalvisamath.com" style="color: var(--accent); font-weight: 500;">hello@globalvisamath.com</a>.
+            <div class="note-box">
+                <p class="note-p">
+                    📋 <strong>Official Source:</strong> For official regulations on J-1 status, grace periods, and insurance requirements, visit the <a href="https://j1visa.state.gov/sponsors/current/regulations-legislation/" target="_blank" rel="noopener noreferrer" class="note-link">U.S. Department of State J-1 Exchange Visitor Regulations</a>.
+                    If you notice policy updates or discrepancies, please notify us at <a href="mailto:hello@globalvisamath.com" class="note-link">hello@globalvisamath.com</a>.
                 </p>
             </div>
         </section>
 
-        <section class="info-section" style="margin-top: 2rem;">
-            <h2 style="margin-bottom: 1.5rem;">Frequently Asked Questions</h2>
-            <div style="border-bottom: 1px solid var(--border); padding: 1rem 0;">
-                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">What is the J-1 visa 30-day grace period?</h4>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">After your DS-2019 program ends, you have an automatic 30-day grace period to travel inside the U.S. and prepare for departure. You cannot work, nor can you travel internationally and re-enter the U.S. on J-1 status during this grace period.</p>
+        <section class="info-section faq-sec-spaced">
+            <h2 class="faq-h2">Frequently Asked Questions</h2>
+            <div class="faq-item-border">
+                <h4 class="faq-h4">What is the J-1 visa 30-day grace period?</h4>
+                <p class="faq-p">After your DS-2019 program ends, you have an automatic 30-day grace period to travel inside the U.S. and prepare for departure. You cannot work, nor can you travel internationally and re-enter the U.S. on J-1 status during this grace period.</p>
             </div>
-            <div style="border-bottom: 1px solid var(--border); padding: 1rem 0;">
-                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">What are the USDOS health insurance requirements?</h4>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">J-1 and J-2 visa holders must have coverage that includes: medical benefits of at least $100,000 per accident/illness, repatriation of remains of $25,000, medical evacuation of $50,000, and a deductible of $500 or less per accident/illness.</p>
+            <div class="faq-item-border">
+                <h4 class="faq-h4">What are the USDOS health insurance requirements?</h4>
+                <p class="faq-p">J-1 and J-2 visa holders must have coverage that includes: medical benefits of at least $100,000 per accident/illness, repatriation of remains of $25,000, medical evacuation of $50,000, and a deductible of $500 or less per accident/illness.</p>
             </div>
-            <div style="padding: 1rem 0 0 0;">
-                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">What is Section 212(e) (Two-Year Home Residency)?</h4>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">Some J-1 visitors are subject to a requirement to return to their home country for at least two years after their program. Until this is completed or waived, they cannot change to H, L, or Green Card statuses.</p>
+            <div class="faq-item-last">
+                <h4 class="faq-h4">What is Section 212(e) (Two-Year Home Residency)?</h4>
+                <p class="faq-p">Some J-1 visitors are subject to a requirement to return to their home country for at least two years after their program. Until this is completed or waived, they cannot change to H, L, or Green Card statuses.</p>
             </div>
         </section>
     </main>
@@ -264,10 +262,10 @@
             <div class="footer-col">
                 <strong>GlobalVisaMath</strong>
                 <p>Professional travel &amp; immigration compliance tools.</p>
-                <div class="footer-links" style="margin-top: 10px; display: flex; gap: 15px; font-size: 0.8rem;">
-                    <a href="about.html" style="color: #cbd5e0; text-decoration: none;">About Us</a>
-                    <a href="privacy.html" style="color: #cbd5e0; text-decoration: none;">Privacy Policy</a>
-                    <a href="terms.html" style="color: #cbd5e0; text-decoration: none;">Terms of Service</a>
+                <div class="footer-links-row">
+                    <a href="about.html" class="footer-link-item">About Us</a>
+                    <a href="privacy.html" class="footer-link-item">Privacy Policy</a>
+                    <a href="terms.html" class="footer-link-item">Terms of Service</a>
                 </div>
             </div>
             <div class="footer-col text-right">

@@ -288,6 +288,7 @@ button {
     padding: 1rem 1.25rem;
     margin: 1rem 0;
     font-size: 0.95rem;
+    display: none;
 }
 
 /* Results */
@@ -295,6 +296,7 @@ button {
     margin-top: 2rem;
     padding-top: 2rem;
     border-top: 2px dashed var(--border);
+    display: none;
 }
 
 .results-section h3 {
@@ -534,8 +536,8 @@ a[data-tooltip] {
   left: 50%;
   transform: translate(-50%, 6px);
   background: rgba(15, 23, 42, 0.95);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   border: 1px solid rgba(43, 108, 176, 0.25);
   color: #fff;
   font-size: 0.78rem;
@@ -639,3 +641,64 @@ a[data-tooltip] {
 .faq-p { color: var(--text-muted); font-size: 0.95rem; }
 .footer-links-row { margin-top: 10px; display: flex; gap: 15px; font-size: 0.8rem; }
 .footer-link-item { color: #cbd5e0; text-decoration: none; }
+.footer-link-bold { font-weight: 700; }
+
+/* =============================================
+   ADDITIONAL STATIC PAGE & COMPONENT STYLES
+   ============================================= */
+.gvm-h1 { color: var(--primary); font-size: 2.2rem; margin-bottom: 1.5rem; text-align: center; }
+.gvm-date { font-size: 0.9rem; color: var(--text-muted); text-align: center; margin-bottom: 2rem; }
+.info-h2-spaced { margin-top: 2rem; }
+.info-h2-legal { margin-top: 1.5rem; }
+.sources-box { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-top: 1.5rem; }
+.sources-list { list-style: none; padding-left: 0; }
+.sources-item { margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+.sources-item-last { margin-bottom: 0; padding-bottom: 0; }
+.contribute-section { margin-top: 60px; padding: 30px; background: rgba(0,0,0,0.02); border-radius: 16px; text-align: center; border: 1px dashed var(--primary); }
+.contribute-section h2 { margin-top: 0; font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+.contribute-section p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 24px; line-height: 1.8; }
+.btn-support { display: inline-block; font-size: 1.1rem; padding: 12px 30px; background: linear-gradient(135deg, var(--primary), #6366f1); color: #fff; border-radius: 12px; font-weight: 700; text-decoration: none; transition: opacity 0.2s; }
+.calc-header-badges { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+.trust-badge-gray { color: #4a5568; background: #edf2f7; }
+.form-title-spaced { margin-top: 1.5rem; }
+.spouse-section { display: none; border-top: 1px solid var(--border); padding-top: 1.5rem; margin-top: 1.5rem; }
+.date-row-wrap { flex-wrap: wrap; }
+.input-group-min { min-width: 200px; }
+.action-row-lg { margin-top: 2rem; padding-top: 0; border-top: none; }
+.action-row-sm { margin-top: 1rem; padding-top: 0; border-top: none; }
+.status-label-styled { font-weight: 600; margin-top: 0.5rem; }
+.audit-trail-spaced { margin-bottom: 1.5rem; }
+.audit-trail-warning { background: #fffdf5; border-color: #f6e05e; }
+.audit-trail-warning h4 { color: #b7791f; }
+.audit-trail-warning ul { list-style: disc; padding-left: 1.2rem; color: #744210; font-size: 0.9rem; line-height: 1.6; }
+.audit-trail-warning-list { list-style: disc; padding-left: 1.2rem; color: #744210; font-size: 0.9rem; line-height: 1.6; }
+.audit-trail-grace { margin-bottom: 1.5rem; background: #fffaf0; border: 1px solid #feebc8; border-left: 5px solid #dd6b20; border-radius: 4px; padding: 1.25rem; }
+.audit-trail-grace h4 { color: #c05621; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+.audit-trail-grace ul { list-style: disc; padding-left: 1.25rem; font-size: 0.88rem; color: #7b341e; line-height: 1.6; }
+.audit-trail-grace-ul { list-style: disc; padding-left: 1.25rem; font-size: 0.88rem; color: #7b341e; line-height: 1.6; }
+.audit-trail-insurance { margin-bottom: 1.5rem; }
+.audit-trail-insurance ul { list-style: none; font-size: 0.9rem; padding: 0; line-height: 1.6; }
+.audit-trail-insurance li { display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0; }
+.audit-trail-insurance-list { list-style: none; font-size: 0.9rem; padding: 0; line-height: 1.6; }
+.audit-insurance-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0; }
+.audit-disclaimer-spaced { margin-bottom: 0.75rem; }
+.audit-checklist { list-style: none; font-size: 0.9rem; line-height: 1.6; }
+.note-box { margin-top: 1.5rem; padding: 1rem 1.25rem; background: rgba(43, 108, 176, 0.04); border: 1px solid var(--border); border-radius: 8px; }
+.note-p { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
+.note-link { color: var(--accent); font-weight: 500; }
+.info-p-spaced { margin-top: 1.5rem; }
+.terms-warning-p { background: #fff5f5; border-left: 4px solid var(--danger); padding: 1rem; border-radius: 4px; margin-top: 1rem; font-weight: 500; }
+/* Green Card table styles */
+.fees-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left; }
+.fees-table thead tr { border-bottom: 2px solid var(--border); color: var(--primary); }
+.fees-table th { padding: 0.5rem; }
+.fees-table th:last-child { text-align: right; }
+.fees-table tbody tr { border-bottom: 1px solid var(--border); }
+.fees-table td { padding: 0.5rem; }
+.fees-table td:last-child { font-weight: bold; text-align: right; }
+/* Timeline */
+.timeline-bar-bg { background: #e2e8f0; height: 12px; border-radius: 999px; overflow: hidden; position: relative; margin: 1.5rem 0 0.5rem 0; }
+.timeline-bar-fill { height: 100%; width: 0%; transition: width 0.5s ease-out; background: var(--success); }
+.timeline-labels { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); }
+.gc-doc-list { list-style: none; font-size: 0.9rem; line-height: 1.6; }
+.audit-disclaimer-sm { margin-top: 0.5rem; font-size: 0.8rem; }

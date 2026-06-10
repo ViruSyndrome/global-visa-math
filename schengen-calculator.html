@@ -91,7 +91,7 @@
     <header class="navbar">
         <div class="nav-inner">
             <a href="/" class="logo">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #60a5fa; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-icon-styled">
                     <g transform="rotate(-8 12 12)">
                         <!-- Stamp outer box -->
                         <rect x="3" y="4" width="18" height="16" rx="2" stroke="#93c5fd" stroke-width="1.8"></rect>
@@ -133,8 +133,8 @@
         <section class="calculator-panel">
             <div class="calc-header">
                 <h2>Travel History</h2>
-                <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
-                    <span class="trust-badge" style="color: #4a5568; background: #edf2f7;">
+                <div class="calc-header-badges">
+                    <span class="trust-badge trust-badge-gray">
                         Rules Current as of: 2026
                     </span>
                     <span class="trust-badge">
@@ -166,9 +166,9 @@
                     <button class="btn-primary" id="calculateBtn" data-tooltip="Check rolling 180-day limits & calculate compliance">Calculate Status</button>
                 </div>
             </div>
-            <div class="form-error" id="formError" role="alert" aria-live="assertive" style="display:none;"></div>
+            <div class="form-error" id="formError" role="alert" aria-live="assertive"></div>
 
-            <div class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-section" id="resultsSection">
                 <h3>Compliance Status</h3>
                 <div class="status-card" id="statusCard">
                     <div class="score-circle-container">
@@ -178,7 +178,7 @@
                         </svg>
                         <div id="daysUsed" class="score-value">0</div>
                     </div>
-                    <div class="status-label" style="font-weight: 600; margin-top: 0.5rem;">Days used in the last 180 days (Limit: 90)</div>
+                    <div class="status-label status-label-styled">Days used in the last 180 days (Limit: 90)</div>
                 </div>
                 <p class="status-message" id="statusMessage"></p>
                 
@@ -193,33 +193,33 @@
         <section class="info-section">
             <h2>Understanding the 90/180 Rule</h2>
             <p>Under the Schengen Borders Code, non-EU citizens may stay in the Schengen Area for a maximum of <strong>90 days within any 180-day period</strong>. This is a "rolling" window — rather than a fixed calendar period, the 180 days are counted backwards from every single day you are present. This means you cannot simply reset your count on January 1st or after returning home briefly.</p>
-            <p style="margin-top: 1.5rem;">The rule applies to the <strong>entire Schengen Area as a single zone</strong>, covering 27 European countries. Days spent in any Schengen country count toward the same 90-day total. Entry and exit days both count as full days of presence. Common mistakes include ignoring very short trips, forgetting that transit days count, or assuming different Schengen countries have separate limits — they do not. Overstaying can result in entry bans, fines, and future visa refusals.</p>
+            <p class="info-p-spaced">The rule applies to the <strong>entire Schengen Area as a single zone</strong>, covering 27 European countries. Days spent in any Schengen country count toward the same 90-day total. Entry and exit days both count as full days of presence. Common mistakes include ignoring very short trips, forgetting that transit days count, or assuming different Schengen countries have separate limits — they do not. Overstaying can result in entry bans, fines, and future visa refusals.</p>
 
-            <div style="margin-top: 1.5rem; padding: 1rem 1.25rem; background: rgba(43, 108, 176, 0.04); border: 1px solid var(--border); border-radius: 8px;">
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">
-                    📋 <strong>Official Source:</strong> For full legal texts, see the European Parliament's <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32016R0399" target="_blank" rel="noopener noreferrer" style="color: var(--accent); font-weight: 500;">Regulation (EU) 2016/399 (Schengen Borders Code)</a>.
-                    If you notice policy updates or discrepancies, please notify us at <a href="mailto:hello@globalvisamath.com" style="color: var(--accent); font-weight: 500;">hello@globalvisamath.com</a>.
+            <div class="note-box">
+                <p class="note-p">
+                    📋 <strong>Official Source:</strong> For full legal texts, see the European Parliament's <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32016R0399" target="_blank" rel="noopener noreferrer" class="note-link">Regulation (EU) 2016/399 (Schengen Borders Code)</a>.
+                    If you notice policy updates or discrepancies, please notify us at <a href="mailto:hello@globalvisamath.com" class="note-link">hello@globalvisamath.com</a>.
                 </p>
             </div>
         </section>
 
-        <section class="info-section" style="margin-top: 2rem;">
-            <h2 style="margin-bottom: 1.5rem;">Frequently Asked Questions</h2>
-            <div style="border-bottom: 1px solid var(--border); padding: 1rem 0;">
-                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Do entry and exit days count in the calculation?</h4>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">Yes. Both your entry day and exit day each count as a full day of presence in the Schengen Area, as confirmed by European Court of Justice case law and the Schengen Borders Code.</p>
+        <section class="info-section faq-sec-spaced">
+            <h2 class="faq-h2">Frequently Asked Questions</h2>
+            <div class="faq-item-border">
+                <h4 class="faq-h4">Do entry and exit days count in the calculation?</h4>
+                <p class="faq-p">Yes. Both your entry day and exit day each count as a full day of presence in the Schengen Area, as confirmed by European Court of Justice case law and the Schengen Borders Code.</p>
             </div>
-            <div style="border-bottom: 1px solid var(--border); padding: 1rem 0;">
-                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Does my 90-day count reset after I leave the Schengen Area?</h4>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">No. The rule is a rolling window — your count never simply resets on departure or at the start of a new year. The 180 days are always counted backwards from the day being assessed.</p>
+            <div class="faq-item-border">
+                <h4 class="faq-h4">Does my 90-day count reset after I leave the Schengen Area?</h4>
+                <p class="faq-p">No. The rule is a rolling window — your count never simply resets on departure or at the start of a new year. The 180 days are always counted backwards from the day being assessed.</p>
             </div>
-            <div style="border-bottom: 1px solid var(--border); padding: 1rem 0;">
-                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Does the rule apply across all Schengen countries?</h4>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">Yes. All 27 Schengen countries are treated as a single zone. Days spent in France, Germany, Italy or any other Schengen member all count toward the same 90-day total.</p>
+            <div class="faq-item-border">
+                <h4 class="faq-h4">Does the rule apply across all Schengen countries?</h4>
+                <p class="faq-p">Yes. All 27 Schengen countries are treated as a single zone. Days spent in France, Germany, Italy or any other Schengen member all count toward the same 90-day total.</p>
             </div>
-            <div style="padding: 1rem 0 0 0;">
-                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">What happens if I overstay the 90-day limit?</h4>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">Overstaying can result in fines, deportation, a Schengen-wide entry ban of 1–5 years, and future visa refusals. It is recorded in the Schengen Information System (SIS).</p>
+            <div class="faq-item-last">
+                <h4 class="faq-h4">What happens if I overstay the 90-day limit?</h4>
+                <p class="faq-p">Overstaying can result in fines, deportation, a Schengen-wide entry ban of 1–5 years, and future visa refusals. It is recorded in the Schengen Information System (SIS).</p>
             </div>
         </section>
     </main>
@@ -229,10 +229,10 @@
             <div class="footer-col">
                 <strong>GlobalVisaMath</strong>
                 <p>Professional travel compliance tools.</p>
-                <div class="footer-links" style="margin-top: 10px; display: flex; gap: 15px; font-size: 0.8rem;">
-                    <a href="about.html" style="color: #cbd5e0; text-decoration: none;">About Us</a>
-                    <a href="privacy.html" style="color: #cbd5e0; text-decoration: none;">Privacy Policy</a>
-                    <a href="terms.html" style="color: #cbd5e0; text-decoration: none;">Terms of Service</a>
+                <div class="footer-links-row">
+                    <a href="about.html" class="footer-link-item">About Us</a>
+                    <a href="privacy.html" class="footer-link-item">Privacy Policy</a>
+                    <a href="terms.html" class="footer-link-item">Terms of Service</a>
                 </div>
             </div>
             <div class="footer-col text-right">

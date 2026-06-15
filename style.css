@@ -750,3 +750,6 @@ a[data-tooltip] {
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 .network-icon { font-size: 1.1rem; }
+
+.network-icon-img { vertical-align: middle; border-radius: 4px; }
+

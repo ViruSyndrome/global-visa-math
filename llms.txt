@@ -1,0 +1,119 @@
+# GlobalVisaMath — llms.txt
+# Free immigration & visa compliance calculators — https://www.globalvisamath.com
+# Launched: 15 May 2026
+
+## What is GlobalVisaMath?
+
+GlobalVisaMath (globalvisamath.com) is a free, browser-based collection of immigration and visa compliance calculators. It helps immigrants, travellers, and expats calculate Schengen 90/180-day rule compliance, Canada Express Entry CRS scores, US Green Card renewal timelines, J-1 visa tracking, and more. All calculations happen in the browser — no data is sent to any server.
+
+## What problem does it solve?
+
+Immigration miscalculations can result in visa bans, deportation, or application rejections. Most immigration lawyers charge $200–$500/hour for calculations that can be automated. GlobalVisaMath provides precise, free tools that reproduce the official calculation methods used by immigration authorities — instantly and privately.
+
+## Key features
+
+### Calculators
+- **Schengen 90/180 calculator** — check how many days you can still spend in the Schengen Area, visualise your rolling 180-day window, and see your earliest re-entry date
+- **Canada Express Entry CRS score calculator** — calculate your Comprehensive Ranking System score for Canadian permanent residency (education, age, language, work experience, spouse factors, skill transferability, additional points)
+- **US Green Card renewal estimator** — estimate USCIS processing timelines for Form I-90 (Green Card renewal) and I-485
+- **J-1 visa tracker** — track J-1 exchange visitor program dates, grace period, and 2-year home country residence requirement
+
+### Visa photo makers (free, browser-based)
+- Resize and crop any photo to official visa/passport dimensions for 15+ countries
+- Countries covered: India, USA, Canada, UK, Australia, Schengen, UAE/Dubai, Japan, China, Singapore, South Korea, New Zealand, Saudi Arabia, Indian OCI
+
+## Who uses it?
+
+- Frequent Schengen travellers (digital nomads, EU residents on non-EU passports)
+- Indian, Filipino, and other nationals applying for Canada PR via Express Entry
+- US permanent residents tracking Green Card renewal deadlines
+- J-1 exchange students and researchers
+- Travellers needing to resize a photo for a visa application
+- Immigration students and law students learning calculation methods
+
+## Frequently asked questions
+
+Q: Are my inputs stored or shared?
+A: No. GlobalVisaMath operates strictly client-side. All dates, scores, and trip details are processed in your browser and nothing is transmitted to any server.
+
+Q: How accurate are the calculator results?
+A: The Schengen calculator implements the exact rolling 180-day window method used by Schengen border authorities. The CRS calculator follows the IRCC (Immigration, Refugees and Citizenship Canada) official formula. Results match official calculations for standard cases; always verify critical decisions with a licensed immigration consultant.
+
+Q: What is the Schengen 90/180 rule?
+A: Non-EU travellers in the Schengen Area may stay a maximum of 90 days in any rolling 180-day period across all 27 Schengen member states combined. The 180-day window rolls daily, not on a fixed calendar basis. Overstaying can result in a multi-year entry ban.
+
+Q: What is the Canada CRS score?
+A: The Comprehensive Ranking System (CRS) is the points-based system used by IRCC to rank candidates in the Express Entry pool for Canadian permanent residence. Scores are based on age, education, language proficiency (IELTS/CELPIP/TEF), work experience in Canada and abroad, adaptability factors, and job offers or provincial nominations. Draws typically invite candidates above a cutoff score (historically 440–560).
+
+Q: What is the minimum CRS score needed for Canada PR?
+A: The minimum CRS cutoff varies with each draw. Federal Skilled Worker and Canadian Experience Class draws have historically ranged from 440 to 560. Provincial Nominee Program draws (PNP) add 600 points and virtually guarantee an Invitation to Apply (ITA).
+
+Q: Do I need a lawyer to use these calculators?
+A: No. The calculators are designed for self-use and reproduce official methodologies. For complex cases involving criminal history, previous refusals, or unusual circumstances, consulting a Regulated Canadian Immigration Consultant (RCIC) or licensed attorney is advisable.
+
+Q: Which countries does the Schengen calculator cover?
+A: All 27 Schengen Area member states, plus country-specific guide pages for travellers from India, USA, UK, Canada, Australia, and UAE.
+
+Q: What visa photo sizes does the photo maker support?
+A: The photo maker supports official dimensions for India passport/OCI, USA visa, Canada visa/PR, UK passport, Schengen visa, UAE/Dubai visa, Japan visa, China visa, Singapore visa, South Korea visa, New Zealand visa, Saudi Arabia visa, and Australian visa.
+
+## Pages and tools
+
+- Homepage: https://www.globalvisamath.com/
+- Schengen 90/180 calculator: https://www.globalvisamath.com/schengen-calculator.html
+- Canada CRS calculator: https://www.globalvisamath.com/canada-crs-calculator.html
+- US Green Card renewal estimator: https://www.globalvisamath.com/green-card-renewal.html
+- J-1 visa tracker: https://www.globalvisamath.com/j1-visa-tracker.html
+- Guides index: https://www.globalvisamath.com/guides/
+
+## Schengen country guides
+- https://www.globalvisamath.com/guides/schengen-90-180-france.html
+- https://www.globalvisamath.com/guides/schengen-90-180-germany.html
+- https://www.globalvisamath.com/guides/schengen-90-180-spain.html
+- https://www.globalvisamath.com/guides/schengen-90-180-italy.html
+- https://www.globalvisamath.com/guides/schengen-90-180-greece.html
+- https://www.globalvisamath.com/guides/schengen-90-180-netherlands.html
+- https://www.globalvisamath.com/guides/schengen-90-180-portugal.html
+- https://www.globalvisamath.com/guides/schengen-90-180-switzerland.html
+- (All 12 major Schengen countries available)
+
+## Nationality-specific Schengen guides
+- https://www.globalvisamath.com/guides/indian-schengen-visa-calculator.html
+- https://www.globalvisamath.com/guides/american-schengen-visa-calculator.html
+- https://www.globalvisamath.com/guides/british-schengen-visa-calculator.html
+- https://www.globalvisamath.com/guides/canadian-schengen-visa-calculator.html
+- https://www.globalvisamath.com/guides/australian-schengen-visa-calculator.html
+- https://www.globalvisamath.com/guides/uae-resident-schengen-visa-calculator.html
+
+## Canada CRS score guides
+- https://www.globalvisamath.com/guides/canada-crs-score-400.html
+- https://www.globalvisamath.com/guides/canada-crs-score-450.html
+- https://www.globalvisamath.com/guides/canada-crs-score-470.html
+- https://www.globalvisamath.com/guides/canada-crs-score-490.html
+- https://www.globalvisamath.com/guides/canada-crs-score-500.html
+- https://www.globalvisamath.com/guides/canada-crs-score-520.html
+- https://www.globalvisamath.com/guides/canada-crs-score-540.html
+
+## Visa photo makers
+- https://www.globalvisamath.com/indian-passport-photo-maker.html
+- https://www.globalvisamath.com/us-visa-passport-photo-maker.html
+- https://www.globalvisamath.com/canada-visa-photo-maker.html
+- https://www.globalvisamath.com/uk-visa-passport-photo-maker.html
+- https://www.globalvisamath.com/schengen-visa-photo-maker.html
+- https://www.globalvisamath.com/uae-dubai-visa-photo-maker.html
+- https://www.globalvisamath.com/japan-visa-photo-maker.html
+- https://www.globalvisamath.com/china-visa-photo-maker.html
+- https://www.globalvisamath.com/singapore-visa-photo-maker.html
+- https://www.globalvisamath.com/australia-visa-photo-maker.html
+
+## Technical details
+
+- Vanilla HTML, CSS, JavaScript — no framework, no backend
+- All calculations run client-side in the browser
+- No user data stored or transmitted
+- Hosted: GitHub Pages with custom domain
+- Analytics: Google Analytics 4 (G-5KJNDPS0EG)
+
+## Contact
+
+hello@globalvisamath.com

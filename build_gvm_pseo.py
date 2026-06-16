@@ -104,11 +104,11 @@ def render_head(title, description, canonical, og_title=None):
     <meta property="og:url" content="{canonical}">
     <meta property="og:title" content="{og_title}">
     <meta property="og:description" content="{description}">
-    <meta property="og:image" content="https://www.globalvisamath.com/og-image.png">
+    <meta property="og:image" content="https://www.globalvisamath.com/og-image.webp">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{og_title}">
     <meta name="twitter:description" content="{description}">
-    <meta name="twitter:image" content="https://www.globalvisamath.com/og-image.png">
+    <meta name="twitter:image" content="https://www.globalvisamath.com/og-image.webp">
 </head>"""
 
 def render_nav(active="schengen"):

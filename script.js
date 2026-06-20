@@ -151,6 +151,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (hasErrors) return;
+        
+        if (trips.length === 0 && rows.length > 0) {
+            showToolError('Please enter at least one trip with both entry and exit dates.');
+            return;
+        }
 
         let totalDaysUsed = 0;
         const auditLog = [];
@@ -229,10 +234,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // ==========================================
 // 2. Canada Express Entry CRS Calculator
 // ==========================================
-function calculateCRS() {
-    clearToolError();
-    const maritalStatus = document.getElementById('maritalStatus').value;
-    const isMarried = maritalStatus === 'married';
+    function calculateCRS() {
+        clearToolError();
+        const maritalStatusEl = document.getElementById('maritalStatus');
+        if (!maritalStatusEl) return; // guard for wrong page
+        const maritalStatus = maritalStatusEl.value;
+        const isMarried = maritalStatus === 'married';
 
     // Age points
     const ageVal = document.getElementById('age').value;

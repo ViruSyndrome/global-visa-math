@@ -74,6 +74,11 @@ body {
     color: white;
 }
 
+.nav-links a.highlight-link {
+    color: #60a5fa;
+    font-weight: 600;
+}
+
 /* Hamburger Button */
 .hamburger {
     display: none;
@@ -710,7 +715,7 @@ a[data-tooltip] {
   margin: 40px auto 20px;
   padding: 24px;
   background: var(--bg-card, #ffffff);
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border, #e2e8f0);
   border-radius: 12px;
   text-align: center;
 }
@@ -734,13 +739,13 @@ a[data-tooltip] {
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  background: var(--bg-secondary, #f8fafc);
-  color: var(--text-primary, #1e293b);
+  background: var(--bg-main, #f8fafc);
+  color: var(--text-main, #1e293b);
   text-decoration: none;
   border-radius: 8px;
   font-size: 0.95rem;
   font-weight: 500;
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border, #e2e8f0);
   transition: all 0.2s ease;
 }
 .network-link:hover {

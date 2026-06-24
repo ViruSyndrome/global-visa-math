@@ -336,7 +336,7 @@ def render_page(p):
             <nav class="nav-links" id="visaNavLinks">
                 <a href="index.html">All Calculators</a>
                 <div class="nav-links">
-                    <a href="schengen-calculator.html">Schengen 90/180</a>
+                    <a href="index.html">Schengen Calculator</a>
                     <a href="canada-crs-calculator.html">Canada CRS</a>
                     <a href="us-visa-passport-photo-maker.html" class="active highlight-link">Visa Photo Maker</a>
                 </div>
@@ -650,6 +650,7 @@ if __name__ == "__main__":
             print(f"  [MISSING] {slug}.html")
 
     print("\nDone.")
+
 
 
 

@@ -593,15 +593,6 @@ def render_page(p):
             }});
         }}
     </script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdowns = document.querySelectorAll('.nav-dropdown');
-    dropdowns.forEach(d => {
-        d.addEventListener('mouseenter', () => d.querySelector('.dropdown-content').style.display = 'block');
-        d.addEventListener('mouseleave', () => d.querySelector('.dropdown-content').style.display = 'none');
-    });
-});
-</script>
 </body>
 </html>"""
 
@@ -661,4 +652,6 @@ if __name__ == "__main__":
             print(f"  [MISSING] {slug}.html")
 
     print("\nDone.")
+
+
 

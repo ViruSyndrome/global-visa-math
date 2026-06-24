@@ -116,39 +116,39 @@
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2959862133855422" crossorigin="anonymous"></script>
     <style>
-        .photo-tool-container {{
+        .photo-tool-container {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 24px;
             margin-top: 24px;
-        }}
-        .upload-area {{
+        }
+        .upload-area {
             border: 2px dashed var(--border);
             border-radius: 8px;
             padding: 24px 16px;
             text-align: center;
             transition: all 0.2s ease;
             background: rgba(15, 23, 42, 0.3);
-        }}
-        .upload-area:hover {{
+        }
+        .upload-area:hover {
             border-color: var(--primary);
             background: rgba(14, 165, 233, 0.05);
-        }}
-        .cropper-container-wrapper {{
+        }
+        .cropper-container-wrapper {
             max-width: 100%;
             height: 400px;
             margin: 20px 0;
             display: none;
             background: #0f172a;
-        }}
-        .controls-row {{
+        }
+        .controls-row {
             display: flex;
             gap: 12px;
             margin-top: 16px;
             justify-content: center;
-        }}
-        .spec-badge {{
+        }
+        .spec-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -158,7 +158,7 @@
             border-radius: 99px;
             font-size: 0.85rem;
             font-weight: 600;
-        }}
+        }
     </style>
     <script src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
 
@@ -255,7 +255,7 @@
                 </div>
 
 
-                <div class="cropper-container-wrapper" id="cropperWrapper">
+                <div class="cropper-container-wrapper" id="cropperWrapper" style="display: none;">
                     <img id="imageToCrop" src="" style="max-width: 100%;">
                 </div>
 
@@ -506,5 +506,7 @@
     </script>
 </body>
 </html>
+
+
 
 

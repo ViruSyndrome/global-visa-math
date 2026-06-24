@@ -81,7 +81,9 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
+      "@graph": [
+        {
+          "@type": "WebApplication",
       "name": "Indian e-Visa & OCI Photo Maker",
       "url": "https://www.globalvisamath.com/indian-visa-oci-photo-maker.html",
       "description": "Perfect 2x2 inch (51x51 mm) photo for Indian e-Visa, OCI card, and passports. 100% private, client-side execution.",
@@ -91,7 +93,26 @@
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
-      }
+        },
+        {
+          "@type": "HowTo",
+          "name": "How to make a compliant visa photo at home",
+          "step": [
+            {
+              "@type": "HowToStep",
+              "text": "Stand against a plain white background with even lighting."
+            },
+            {
+              "@type": "HowToStep",
+              "text": "Upload your photo or use the camera to take a selfie."
+            },
+            {
+              "@type": "HowToStep",
+              "text": "Align your face within the crop box and click Download Sized Photo."
+            }
+          ]
+        }
+      ]
     }
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2959862133855422" crossorigin="anonymous"></script>
@@ -143,8 +164,8 @@
     </style>
     <script src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
 
-    <meta property="og:image" content="https://www.globalvisamath.com/og-image.webp">
-    <meta name="twitter:image" content="https://www.globalvisamath.com/og-image.webp">
+    <meta property="og:image" content="https://www.globalvisamath.com/og-photo-maker.png">
+    <meta name="twitter:image" content="https://www.globalvisamath.com/og-photo-maker.png">
 </head>
 <body>
     <header class="navbar">
@@ -181,7 +202,7 @@
     <main class="container">
         <section class="hero-section" style="padding: 40px 20px 20px; text-align: center;">
             <h1 class="hero-title">Indian e-Visa & OCI Photo Maker</h1>
-            <p class="hero-subtitle">Instantly crop and resize your selfie to the exact official requirements. 100% private — your photo never leaves your device.</p>
+            <p class="hero-subtitle">Instantly crop and resize your selfie to the exact official requirements. 100% private — your photo never leaves your device.</p> <p style="color: var(--primary); font-weight: bold; margin-top: 8px;">Supports 15+ countries and visa types perfectly.</p>
             
             <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 16px;">
                 <span class="spec-badge">📏 51x51 mm</span>
@@ -192,7 +213,7 @@
             <!-- Other Countries Dropdown for SEO Interlinking -->
             <div style="text-align: center; margin-bottom: 24px;">
                 <span style="font-size: 0.9rem; color: var(--text-muted); margin-right: 8px;">Switch Country/Visa Type:</span>
-                                                                <select id="countrySelect" class="form-input" style="width: auto; display: inline-block; padding: 6px 32px 6px 16px; height: auto; border-radius: 20px; font-size: 0.9rem; background-color: var(--card-bg);" onchange="window.location.href=this.value">
+                                                                                <select id="countrySelect" class="form-input" style="width: auto; display: inline-block; padding: 6px 32px 6px 16px; height: auto; border-radius: 20px; font-size: 0.9rem; background-color: var(--card-bg);" onchange="window.location.href=this.value">
                     <option value="us-visa-passport-photo-maker.html">US Visa & Passport</option>
                     <option value="indian-visa-oci-photo-maker.html" selected>Indian e-Visa & OCI</option>
                     <option value="indian-passport-photo-maker.html">Indian Standard Passport</option>
@@ -249,6 +270,47 @@
         </section>
 
         <!-- Instructions & Ads -->
+
+        <section class="examples-section reveal-scroll" style="margin-top: 60px; text-align: center;">
+            <h2 style="margin-bottom: 24px;">Compliant vs. Non-Compliant Examples</h2>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <div style="background: rgba(239,68,68,0.05); border: 1px solid var(--danger); padding: 16px; border-radius: 12px; max-width: 300px; width: 100%;">
+                    <div style="background: #1e293b; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-bottom: 12px; overflow: hidden; position: relative;">
+                        <div style="width: 100px; height: 120px; background: #475569; border-radius: 50px 50px 10px 10px; position: absolute; bottom: 0;"></div>
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.5), transparent);"></div>
+                        <span style="color: var(--danger); font-size: 3rem; position: relative; z-index: 2;">&#10060;</span>
+                    </div>
+                    <h4 style="color: var(--danger); margin-bottom: 8px;">Incorrect</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Shadows on background, poor lighting, glasses worn, or face off-center.</p>
+                </div>
+                <div style="background: rgba(34,197,94,0.05); border: 1px solid var(--success); padding: 16px; border-radius: 12px; max-width: 300px; width: 100%;">
+                    <div style="background: #f8fafc; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-bottom: 12px; overflow: hidden; position: relative;">
+                        <div style="width: 100px; height: 120px; background: #94a3b8; border-radius: 50px 50px 10px 10px; position: absolute; bottom: 0;"></div>
+                        <span style="color: var(--success); font-size: 3rem; position: relative; z-index: 2;">&#9989;</span>
+                    </div>
+                    <h4 style="color: var(--success); margin-bottom: 8px;">Correct</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Plain white/off-white background, even lighting, neutral expression, centered face.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section reveal-scroll" style="margin-top: 60px; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <h2 style="text-align: center; margin-bottom: 32px;">Frequently Asked Questions</h2>
+            <div style="background: var(--card-bg); padding: 32px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                <h4 style="margin-bottom: 8px; color: var(--text-main); font-size: 1.1rem;">Can I wear glasses in my visa photo?</h4>
+                <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.6;">For US visas, US passports, and many others (like Schengen and Singapore), you <strong>cannot</strong> wear glasses. Always remove them to prevent rejection due to glare or frame obstruction.</p>
+                
+                <h4 style="margin-bottom: 8px; color: var(--text-main); font-size: 1.1rem;">What background should I use?</h4>
+                <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.6;">Stand flat against a plain white or off-white wall. Ensure there are no patterns, textures, or shadows behind your head. Avoid standing too far from the wall to prevent deep shadows.</p>
+                
+                <h4 style="margin-bottom: 8px; color: var(--text-main); font-size: 1.1rem;">Can I smile?</h4>
+                <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.6;">You must maintain a neutral expression with both eyes open and your mouth closed. While a natural, unexaggerated smile is technically permitted for US passports, a neutral expression is the safest globally and strictly required for Schengen and Chinese visas.</p>
+                
+                <h4 style="margin-bottom: 8px; color: var(--text-main); font-size: 1.1rem;">Is this tool really private?</h4>
+                <p style="color: var(--text-muted); margin-bottom: 0; font-size: 0.95rem; line-height: 1.6;">Yes. Unlike other tools that upload your photo to a cloud server, GlobalVisaMath runs the cropping algorithm completely inside your browser using Javascript. Your image data never leaves your device.</p>
+            </div>
+        </section>
+
         <section class="info-grid" style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start;">
             <div class="card">
                 <h3 style="margin-bottom: 16px;">📸 Input Requirements (Crucial!)</h3>

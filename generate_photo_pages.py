@@ -222,20 +222,47 @@ def render_page(p):
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta property="og:title" content="{p["title"]}">
+    <meta property="og:description" content="{p["meta_desc"]}">
+    <meta property="og:image" content="{BASE_URL}/og-photo-maker.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{BASE_URL}/og-photo-maker.png">
     <script type="application/ld+json">
     {{
       "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "{p["schema_name"]}",
-      "url": "{BASE_URL}/{filename}",
-      "description": "{p["schema_desc"]}",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "All",
-      "offers": {{
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }}
+      "@graph": [
+        {{
+          "@type": "WebApplication",
+          "name": "{p["schema_name"]}",
+          "url": "{BASE_URL}/{filename}",
+          "description": "{p["schema_desc"]}",
+          "applicationCategory": "UtilityApplication",
+          "operatingSystem": "All",
+          "offers": {{
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          }}
+        }},
+        {{
+          "@type": "HowTo",
+          "name": "How to make a compliant {p["dropdown_label"]} photo at home",
+          "step": [
+            {{
+              "@type": "HowToStep",
+              "text": "Stand against a plain white background with even lighting."
+            }},
+            {{
+              "@type": "HowToStep",
+              "text": "Upload your photo or use the camera to take a selfie."
+            }},
+            {{
+              "@type": "HowToStep",
+              "text": "Align your face within the crop box and click Download Sized Photo."
+            }}
+          ]
+        }}
+      ]
     }}
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2959862133855422" crossorigin="anonymous"></script>
@@ -323,7 +350,7 @@ def render_page(p):
     <main class="container">
         <section class="hero-section" style="padding: 40px 20px 20px; text-align: center;">
             <h1 class="hero-title">{p["h1"]}</h1>
-            <p class="hero-subtitle">{p["subtitle"]}</p>
+            <p class="hero-subtitle">{p["subtitle"]} <br><strong style="color: var(--primary);">Supports 15+ countries and visa types perfectly.</strong></p>
             <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 16px;">
                 <span class="spec-badge">&#128207; {p["spec_mm"]}</span>
                 <span class="spec-badge">&#128424; {p["spec_px"]}</span>
@@ -367,7 +394,47 @@ def render_page(p):
             </div>
         </section>
 
-        <section class="info-grid" style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start;">
+        <section class="examples-section reveal-scroll" style="margin-top: 60px; text-align: center;">
+            <h2 style="margin-bottom: 24px;">Compliant vs. Non-Compliant Examples</h2>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <div style="background: rgba(239,68,68,0.05); border: 1px solid var(--danger); padding: 16px; border-radius: 12px; max-width: 300px; width: 100%;">
+                    <div style="background: #1e293b; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-bottom: 12px; overflow: hidden; position: relative;">
+                        <div style="width: 100px; height: 120px; background: #475569; border-radius: 50px 50px 10px 10px; position: absolute; bottom: 0;"></div>
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.5), transparent);"></div>
+                        <span style="color: var(--danger); font-size: 3rem; position: relative; z-index: 2;">&#10060;</span>
+                    </div>
+                    <h4 style="color: var(--danger); margin-bottom: 8px;">Incorrect</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Shadows on background, poor lighting, glasses worn, or face off-center.</p>
+                </div>
+                <div style="background: rgba(34,197,94,0.05); border: 1px solid var(--success); padding: 16px; border-radius: 12px; max-width: 300px; width: 100%;">
+                    <div style="background: #f8fafc; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-bottom: 12px; overflow: hidden; position: relative;">
+                        <div style="width: 100px; height: 120px; background: #94a3b8; border-radius: 50px 50px 10px 10px; position: absolute; bottom: 0;"></div>
+                        <span style="color: var(--success); font-size: 3rem; position: relative; z-index: 2;">&#9989;</span>
+                    </div>
+                    <h4 style="color: var(--success); margin-bottom: 8px;">Correct</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Plain white/off-white background, even lighting, neutral expression, centered face.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section reveal-scroll" style="margin-top: 60px; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <h2 style="text-align: center; margin-bottom: 32px;">Frequently Asked Questions</h2>
+            <div style="background: var(--card-bg); padding: 32px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                <h4 style="margin-bottom: 8px; color: var(--text-main); font-size: 1.1rem;">Can I wear glasses in my visa photo?</h4>
+                <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.6;">For US visas, US passports, and many others (like Schengen and Singapore), you <strong>cannot</strong> wear glasses. Always remove them to prevent rejection due to glare or frame obstruction.</p>
+                
+                <h4 style="margin-bottom: 8px; color: var(--text-main); font-size: 1.1rem;">What background should I use?</h4>
+                <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.6;">Stand flat against a plain white or off-white wall. Ensure there are no patterns, textures, or shadows behind your head. Avoid standing too far from the wall to prevent deep shadows.</p>
+                
+                <h4 style="margin-bottom: 8px; color: var(--text-main); font-size: 1.1rem;">Can I smile?</h4>
+                <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.6;">You must maintain a neutral expression with both eyes open and your mouth closed. While a natural, unexaggerated smile is technically permitted for US passports, a neutral expression is the safest globally and strictly required for Schengen and Chinese visas.</p>
+                
+                <h4 style="margin-bottom: 8px; color: var(--text-main); font-size: 1.1rem;">Is this tool really private?</h4>
+                <p style="color: var(--text-muted); margin-bottom: 0; font-size: 0.95rem; line-height: 1.6;">Yes. Unlike other tools that upload your photo to a cloud server, GlobalVisaMath runs the cropping algorithm completely inside your browser using Javascript. Your image data never leaves your device.</p>
+            </div>
+        </section>
+
+        <section class="info-grid reveal-scroll" style="margin-top: 60px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start;">
             <div class="card">
                 <h3 style="margin-bottom: 16px;">&#128248; Photo Requirements</h3>
                 <ul style="color: var(--text-muted); padding-left: 20px; line-height: 1.6; margin-bottom: 16px;">

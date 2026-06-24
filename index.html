@@ -144,8 +144,8 @@
                 <span></span><span></span><span></span>
             </button>
             <nav class="nav-links" id="visaNavLinks">
-                <a href="index.html" class="active">All Calculators</a>
-                <a href="schengen-calculator.html">Schengen 90/180</a>
+                <a href="index.html" class="active">Schengen Calculator</a>
+                <a href="#other-tools">Other Tools</a>
                 <a href="canada-crs-calculator.html">Canada CRS</a>
                 <a href="us-visa-passport-photo-maker.html" class="highlight-link">Visa Photo Maker</a>
                 <a href="green-card-renewal.html">Green Card</a>
@@ -165,24 +165,75 @@
         </div>
 
 
-        <section class="tool-intro container tool-intro-section">
+        <section class="calculator-panel">
+            <div class="calc-header">
+                <h2>Travel History</h2>
+                <div class="calc-header-badges">
+                    <span class="trust-badge trust-badge-gray">
+                        Rules Current as of: 2026
+                    </span>
+                    <span class="trust-badge">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        Privacy First: No Data Stored
+                    </span>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <div class="entry-list" id="entryList">
+                    <div class="date-row">
+                        <div class="input-group">
+                            <label for="entry_0" data-tooltip="The day you crossed the border into the Schengen Area (from passport stamp)">Date of Entry ⓘ</label>
+                            <input type="date" id="entry_0" class="date-input">
+                        </div>
+                        <div class="input-group">
+                            <label for="exit_0" data-tooltip="The day you exited the Schengen Area (from passport stamp)">Date of Exit ⓘ</label>
+                            <input type="date" id="exit_0" class="date-input">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-secondary" id="addTripBtn">+ Add Another Trip</button>
+                <div class="action-row">
+                    <div class="input-group">
+                        <label for="controlDate" data-tooltip="The date from which you want to check your rolling 180-day compliance (usually today)">Date of Assessment (Today) ⓘ</label>
+                        <input type="date" id="controlDate" class="date-input">
+                    </div>
+                    <button class="btn-primary" id="calculateBtn" data-tooltip="Check rolling 180-day limits & calculate compliance">Calculate Status</button>
+                </div>
+            </div>
+            <div class="form-error" id="formError" role="alert" aria-live="assertive"></div>
+
+            <div class="results-section" id="resultsSection">
+                <h3>Compliance Status</h3>
+                <div class="status-card" id="statusCard">
+                    <div class="score-circle-container">
+                        <svg class="score-svg" viewBox="0 0 100 100">
+                            <circle class="score-bg" cx="50" cy="50" r="45"></circle>
+                            <circle class="score-fill" id="schengenCircle" cx="50" cy="50" r="45"></circle>
+                        </svg>
+                        <div id="daysUsed" class="score-value">0</div>
+                    </div>
+                    <div class="status-label status-label-styled">Days used in the last 180 days (Limit: 90)</div>
+                </div>
+                <p class="status-message" id="statusMessage"></p>
+                
+                <div class="audit-trail">
+                    <h4>Calculation Audit</h4>
+                    <p class="audit-disclaimer">Based on the rolling 180-day window looking back from your Date of Assessment.</p>
+                    <ul id="auditList"></ul>
+                </div>
+            </div>
+        </section>
+
+<section class="tool-intro container tool-intro-section">
           <h2 class="tool-intro-h2">Why GlobalVisaMath helps travelers</h2>
           <p class="tool-intro-p">These calculators are built for people who need accurate visa and immigration planning without a lawyer or a registration form. We explain the rules behind Schengen stay limits, Express Entry points, Green Card renewal timelines, and J-1 compliance so you can make decisions with confidence.</p>
           <p class="tool-intro-p-last">All calculations run in your browser, which means no personal data leaves your device. That makes GlobalVisaMath a private alternative for visa research and trip compliance planning.</p>
         </section>
 
         <!-- Dashboard Cards Grid -->
+        <h2 id="other-tools" style="text-align: center; margin-top: 3rem; margin-bottom: 2rem;">Explore Other Immigration Tools</h2>
         <div class="tools-grid" id="toolsGrid">
-            <!-- Schengen Card -->
-            <div class="tool-card" data-tags="schengen visa calculator europe rolling 180 day stay travel">
-                <div class="card-icon icon-accent">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                </div>
-                <h3>Schengen 90/180 Calculator</h3>
-                <p>Calculate your stay duration within the European Schengen Area under the rolling 90/180-day rule to avoid penalties.</p>
-                <a href="schengen-calculator.html" class="btn-card">Use Schengen Tool</a>
-            </div>
-
             <!-- Canada CRS Card -->
             <div class="tool-card" data-tags="canada crs calculator express entry points immigration permanent residency">
                 <div class="card-icon icon-red">
@@ -223,6 +274,44 @@
                 <a href="j1-visa-tracker.html" class="btn-card">Use J-1 Tracker Tool</a>
             </div>
         </div>
+
+        <!-- Country-Specific Guides Directory -->
+        <section class="info-section reveal-scroll info-sec-spaced" style="background-color: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem;">
+            <h2 style="margin-top: 0;">Country-Specific Schengen Guides</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Explore how the 90/180 rule applies when visiting specific countries or traveling with specific passports:</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <!-- European Destinations -->
+                <div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text-main);">Popular Destinations</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 1.8;">
+                        <li><a href="guides/schengen-90-180-france.html" style="color: var(--primary); text-decoration: none;">France Schengen Guide</a></li>
+                        <li><a href="guides/schengen-90-180-germany.html" style="color: var(--primary); text-decoration: none;">Germany Schengen Guide</a></li>
+                        <li><a href="guides/schengen-90-180-italy.html" style="color: var(--primary); text-decoration: none;">Italy Schengen Guide</a></li>
+                        <li><a href="guides/schengen-90-180-spain.html" style="color: var(--primary); text-decoration: none;">Spain Schengen Guide</a></li>
+                        <li><a href="guides/schengen-90-180-switzerland.html" style="color: var(--primary); text-decoration: none;">Switzerland Schengen Guide</a></li>
+                        <li><a href="guides/schengen-90-180-netherlands.html" style="color: var(--primary); text-decoration: none;">Netherlands Schengen Guide</a></li>
+                        <li><a href="guides/schengen-90-180-portugal.html" style="color: var(--primary); text-decoration: none;">Portugal Schengen Guide</a></li>
+                        <li><a href="guides/schengen-90-180-greece.html" style="color: var(--primary); text-decoration: none;">Greece Schengen Guide</a></li>
+                        <li><a href="guides/schengen-90-180-austria.html" style="color: var(--primary); text-decoration: none;">Austria Schengen Guide</a></li>
+                        <li><a href="guides/schengen-90-180-belgium.html" style="color: var(--primary); text-decoration: none;">Belgium Schengen Guide</a></li>
+                        <li><a href="guides/schengen-90-180-czech-republic.html" style="color: var(--primary); text-decoration: none;">Czech Republic Schengen Guide</a></li>
+                        <li><a href="guides/schengen-90-180-poland.html" style="color: var(--primary); text-decoration: none;">Poland Schengen Guide</a></li>
+                    </ul>
+                </div>
+                <!-- Nationality Guides -->
+                <div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text-main);">Guides by Nationality</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 1.8;">
+                        <li><a href="guides/indian-schengen-visa-calculator.html" style="color: var(--primary); text-decoration: none;">For Indian Citizens</a></li>
+                        <li><a href="guides/american-schengen-visa-calculator.html" style="color: var(--primary); text-decoration: none;">For US Citizens</a></li>
+                        <li><a href="guides/british-schengen-visa-calculator.html" style="color: var(--primary); text-decoration: none;">For UK Citizens</a></li>
+                        <li><a href="guides/canadian-schengen-visa-calculator.html" style="color: var(--primary); text-decoration: none;">For Canadian Citizens</a></li>
+                        <li><a href="guides/australian-schengen-visa-calculator.html" style="color: var(--primary); text-decoration: none;">For Australian Citizens</a></li>
+                        <li><a href="guides/uae-resident-schengen-visa-calculator.html" style="color: var(--primary); text-decoration: none;">For UAE Residents</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
         <!-- Rich SEO Information Section -->
         <section class="info-section reveal-scroll info-sec-spaced">

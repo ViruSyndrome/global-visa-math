@@ -206,10 +206,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (daysUsed > 90) {
             daysUsedEl.style.color = 'var(--danger)';
-            statusMessage.innerHTML = `<span style="color: var(--danger)">You have exceeded the 90-day limit by ${daysUsed - 90} days.</span>`;
+            statusMessage.innerHTML = `<span style="display:inline-block; background-color: var(--danger); color: white; padding: 4px 12px; border-radius: 99px; font-weight: 700; margin-bottom: 8px; font-size: 0.9rem;">STATUS: OVER 90 DAYS ❌</span><br><span style="color: var(--danger)">You have exceeded the 90-day limit by ${daysUsed - 90} days.</span>`;
         } else {
             daysUsedEl.style.color = 'var(--primary)';
-            statusMessage.innerHTML = `<span style="color: var(--success)">You are compliant. You have ${daysLeft} days remaining in this window.</span>`;
+            statusMessage.innerHTML = `<span style="display:inline-block; background-color: var(--success); color: white; padding: 4px 12px; border-radius: 99px; font-weight: 700; margin-bottom: 8px; font-size: 0.9rem;">STATUS: SAFE ✅</span><br><span style="color: var(--success)">You are compliant. You have ${daysLeft} days remaining in this window.</span>`;
         }
 
         const auditList = document.getElementById('auditList');

@@ -277,9 +277,8 @@ def render_page(p):
         .upload-area {{
             border: 2px dashed var(--border);
             border-radius: 8px;
-            padding: 40px 20px;
+            padding: 24px 16px;
             text-align: center;
-            cursor: pointer;
             transition: all 0.2s ease;
             background: rgba(15, 23, 42, 0.3);
         }}
@@ -367,12 +366,12 @@ def render_page(p):
         <section class="tool-section">
             <div class="photo-tool-container">
                 <div class="upload-area" id="dropZone">
-                    <h3 style="margin-bottom: 20px;">Choose an option to begin</h3>
+                    <h3 style="margin-bottom: 16px;">Choose an option to begin</h3>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; position: relative; z-index: 10;">
                         <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()" style="width: 100%; padding: 12px 24px; display: flex; align-items: center; gap: 8px; justify-content: center; font-size: 1.05rem;">&#128194; Upload Photo</button>
                         <button class="btn btn-primary" id="cameraBtn" onclick="startCamera(event)" style="width: 100%; padding: 12px 24px; display: flex; align-items: center; gap: 8px; justify-content: center; font-size: 1.05rem;">&#128247; Use Camera</button>
                     </div>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 24px;">Or Drag & Drop your image anywhere in this box (JPG, PNG)</p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 16px;">Or Drag & Drop your image anywhere in this box (JPG, PNG)</p>
                     <input type="file" id="fileInput" accept="image/*" style="display: none;">
                 </div>
 
@@ -483,7 +482,6 @@ def render_page(p):
         const controlsRow = document.getElementById('controlsRow');
         let cropper = null;
 
-        dropZone.addEventListener('click', (e) => {{ if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return; fileInput.click(); }});
         dropZone.addEventListener('dragover', (e) => {{ e.preventDefault(); dropZone.style.borderColor = 'var(--primary)'; }});
         dropZone.addEventListener('dragleave', () => dropZone.style.borderColor = 'var(--border)');
         dropZone.addEventListener('drop', (e) => {{

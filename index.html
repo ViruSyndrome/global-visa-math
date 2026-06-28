@@ -197,7 +197,10 @@
                         <label for="controlDate" data-tooltip="The date from which you want to check your rolling 180-day compliance (usually today)">Date of Assessment (Today) ⓘ</label>
                         <input type="date" id="controlDate" class="date-input">
                     </div>
-                    <button class="btn-primary" id="calculateBtn" data-tooltip="Check rolling 180-day limits & calculate compliance">Calculate Status</button>
+                    <div style="display:flex; gap:0.5rem; align-items:flex-end;">
+                        <button class="btn-primary" id="calculateBtn" data-tooltip="Check rolling 180-day limits & calculate compliance">Calculate Status</button>
+                        <button class="btn-secondary" id="resetBtn" onclick="location.reload()" style="background-color: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border);">Reset</button>
+                    </div>
                 </div>
             </div>
             <div class="form-error" id="formError" role="alert" aria-live="assertive"></div>
@@ -375,7 +378,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
     <script>
 
         // ── Native High-Performance Scroll-Reveal ──

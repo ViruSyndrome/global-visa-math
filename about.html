@@ -65,7 +65,7 @@
                 </svg>
                 GlobalVisaMath
             </a>
-            <button class="hamburger" id="visaHamburger" aria-label="Toggle navigation">
+            <button class="hamburger" id="visaHamburger" aria-label="Toggle navigation" aria-controls="visaNavLinks" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
                                     <nav class="nav-links" id="visaNavLinks">
@@ -189,8 +189,35 @@
           });
         });
     </script>
-</body>
+<script>
+(function(){
+  var hamburger = document.getElementById('visaHamburger');
+  var navLinks = document.getElementById('visaNavLinks');
+  if (hamburger && navLinks) {
+    var menuOpen = false;
+    function closeMenu() {
+      menuOpen = false;
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+      hamburger.setAttribute('aria-expanded','false');
+    }
+    hamburger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      menuOpen = !menuOpen;
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', menuOpen ? 'true' : 'false');
+    });
+    document.addEventListener('click', function(e) {
+      if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) closeMenu();
+    });
+    navLinks.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+  }
+})();
+</script></body>
 </html>
+
+
 
 
 

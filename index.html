@@ -194,7 +194,10 @@
                 <button class="btn-secondary" id="addTripBtn">+ Add Another Trip</button>
                 <div class="action-row">
                     <div class="input-group">
-                        <label for="controlDate" data-tooltip="The date from which you want to check your rolling 180-day compliance (usually today)">Date of Assessment (Today) ⓘ</label>
+                        <label for="controlDate" data-tooltip="The date from which you want to check your rolling 180-day compliance (usually today)" style="display:flex; justify-content:space-between; align-items:center;">
+                            Date of Assessment (Today) ⓘ
+                            <button type="button" class="btn-secondary" style="padding: 2px 8px; font-size: 0.75rem; border-radius: 4px;" onclick="document.getElementById('controlDate').value = new Date().toISOString().split('T')[0]">Use Today</button>
+                        </label>
                         <input type="date" id="controlDate" class="date-input">
                     </div>
                     <div style="display:flex; gap:0.5rem; align-items:flex-end;">

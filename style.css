@@ -147,6 +147,12 @@ body {
         text-align: center;
         margin-left: 0;
     }
+
+    .nav-links .btn-primary {
+        margin-left: 0 !important;
+        align-self: center;
+        flex: none;
+    }
 }
 
 /* Layout */

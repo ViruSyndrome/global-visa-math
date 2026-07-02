@@ -17,58 +17,6 @@
     
     <meta name="msvalidate.01" content="FA7405A0B7623E8A404F74AE4952777C" />
     <!-- Google tag (gtag.js) -->
-    <script>
-        // --- WebRTC Camera Logic ---
-        let currentStream = null;
-        
-        async function startCamera(e) {
-            if (e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-            try {
-                currentStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
-                const videoElement = document.getElementById('cameraFeed');
-                videoElement.srcObject = currentStream;
-                document.getElementById('dropZone').style.display = 'none';
-                document.getElementById('cameraInterface').style.display = 'block';
-            } catch (err) {
-                console.error("Camera access denied or failed:", err);
-                alert("Could not access camera. Please ensure you have granted camera permissions.");
-            }
-        }
-        
-        function stopCamera() {
-            if (currentStream) {
-                currentStream.getTracks().forEach(track => track.stop());
-                currentStream = null;
-            }
-            document.getElementById('cameraInterface').style.display = 'none';
-            document.getElementById('dropZone').style.display = 'block';
-        }
-        
-        function capturePhoto() {
-            const video = document.getElementById('cameraFeed');
-            if (!currentStream) return;
-            
-            const canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            const ctx = canvas.getContext('2d');
-            
-            // Handle horizontal flip for front-facing camera mirror effect
-            ctx.translate(canvas.width, 0);
-            ctx.scale(-1, 1);
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            
-            canvas.toBlob(blob => {
-                const file = new File([blob], "camera-photo.jpg", { type: "image/jpeg" });
-                stopCamera();
-                handleFile(file);
-            }, 'image/jpeg', 0.95);
-        }
-        // ---------------------------
-    </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5KJNDPS0EG"></script>
     <script>
       window.dataLayer = window.dataLayer || [];

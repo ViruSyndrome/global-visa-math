@@ -338,6 +338,21 @@
         const controlsRow = document.getElementById('controlsRow');
         let cropper = null;
 
+        function showToolError(msg) {
+            let el = document.getElementById('toolError');
+            if (!el) {
+                el = document.createElement('div');
+                el.id = 'toolError';
+                el.setAttribute('role', 'alert');
+                el.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#dc2626;color:#fff;padding:12px 20px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.15);z-index:9999;font-size:14px;max-width:90%;text-align:center;';
+                document.body.appendChild(el);
+            }
+            el.textContent = msg;
+            el.style.display = 'block';
+            clearTimeout(el._timer);
+            el._timer = setTimeout(() => { el.style.display = 'none'; }, 5000);
+        }
+
         // UI Handlers
         
         dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = 'var(--primary)'; });
@@ -352,7 +367,7 @@
         });
 
         function handleFile(file) {
-            if (!file.type.startsWith('image/')) return alert('Please upload an image file.');
+            if (!file.type.startsWith('image/')) return showToolError('Please upload an image file.');
             const reader = new FileReader();
             reader.onload = (e) => {
                 imageToCrop.src = e.target.result;
@@ -427,7 +442,7 @@
                 document.getElementById('cameraInterface').style.display = 'block';
             } catch (err) {
                 console.error("Camera access denied or failed:", err);
-                alert("Could not access camera. Please ensure you have granted camera permissions.");
+                showToolError("Could not access camera. Please grant camera permissions and try again.");
             }
         }
         

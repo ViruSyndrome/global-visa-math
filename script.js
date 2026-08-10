@@ -228,6 +228,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         resultsSection.scrollIntoView({ behavior: 'smooth' });
+
+        // Cross-sell CTA
+        var existingCta = resultsSection.querySelector('.cross-sell-cta');
+        if (!existingCta) {
+            var ctaDiv = document.createElement('div');
+            ctaDiv.className = 'cross-sell-cta';
+            ctaDiv.innerHTML = '<span class="cta-icon">📸</span><div class="cta-text"><strong>Applying for a Schengen visa?</strong><p>Get a compliant visa photo in 60 seconds — free, 100% private, no uploads.</p></div><a href="schengen-visa-photo-maker.html" class="btn-cta">Make Photo →</a>';
+            resultsSection.appendChild(ctaDiv);
+        }
     }
 });
 
@@ -442,6 +451,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
     trackEvent('calculate_crs', { score: grandTotal, marital_status: maritalStatus });
+
+    var crsResults = document.getElementById('resultsSection');
+    var existingCta = crsResults.querySelector('.cross-sell-cta');
+    if (!existingCta) {
+        var ctaDiv = document.createElement('div');
+        ctaDiv.className = 'cross-sell-cta';
+        ctaDiv.innerHTML = '<span class="cta-icon">📸</span><div class="cta-text"><strong>Preparing your Express Entry application?</strong><p>Create a compliant Canada PR photo — free, 100% private.</p></div><a href="canada-pr-passport-photo-maker.html" class="btn-cta">Make Photo →</a>';
+        crsResults.appendChild(ctaDiv);
+    }
 }
 
 // ==========================================
@@ -520,6 +538,15 @@ function calculateGCRenewal() {
 
     resultsSection.scrollIntoView({ behavior: 'smooth' });
     trackEvent('calculate_gc_renewal', { days_remaining: diffDays });
+
+    var gcResults = document.getElementById('resultsSection');
+    var existingCta = gcResults.querySelector('.cross-sell-cta');
+    if (!existingCta) {
+        var ctaDiv = document.createElement('div');
+        ctaDiv.className = 'cross-sell-cta';
+        ctaDiv.innerHTML = '<span class="cta-icon">📸</span><div class="cta-text"><strong>Renewing your Green Card?</strong><p>Get a compliant US passport photo in 60 seconds — free, no uploads.</p></div><a href="us-visa-passport-photo-maker.html" class="btn-cta">Make Photo →</a>';
+        gcResults.appendChild(ctaDiv);
+    }
 }
 
 // ==========================================
@@ -610,4 +637,13 @@ function calculateJ1Compliance() {
 
     resultsSection.scrollIntoView({ behavior: 'smooth' });
     trackEvent('calculate_j1_compliance');
+
+    var j1Results = document.getElementById('resultsSection');
+    var existingCta = j1Results.querySelector('.cross-sell-cta');
+    if (!existingCta) {
+        var ctaDiv = document.createElement('div');
+        ctaDiv.className = 'cross-sell-cta';
+        ctaDiv.innerHTML = '<span class="cta-icon">📸</span><div class="cta-text"><strong>Need a J-1 visa photo?</strong><p>Create a compliant US visa photo in 60 seconds — free, 100% private.</p></div><a href="us-visa-passport-photo-maker.html" class="btn-cta">Make Photo →</a>';
+        j1Results.appendChild(ctaDiv);
+    }
 }

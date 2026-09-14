@@ -292,6 +292,12 @@ button {
     flex: 1;
 }
 
+.partner-offers .btn-primary {
+    flex: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 .btn-primary:hover {
     background: var(--primary-hover);
 }

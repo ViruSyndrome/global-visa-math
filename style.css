@@ -289,12 +289,16 @@ button {
     padding: 0.85rem 1.5rem;
     border-radius: 4px;
     font-size: 1rem;
+}
+
+.action-row .btn-primary {
     flex: 1;
 }
 
 .partner-offers .btn-primary {
     flex: none;
-    width: 100%;
+    height: auto;
+    align-self: stretch;
     box-sizing: border-box;
 }
 

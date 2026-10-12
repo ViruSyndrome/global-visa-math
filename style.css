@@ -665,7 +665,7 @@ a[data-tooltip] {
 .faq-item-last { padding: 1rem 0 0 0; }
 .faq-h4 { color: var(--primary); margin-bottom: 0.5rem; }
 .faq-p { color: var(--text-muted); font-size: 0.95rem; }
-.footer-links-row { margin-top: 10px; display: flex; gap: 15px; font-size: 0.8rem; }
+.footer-links-row { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px 15px; font-size: 0.8rem; }
 .footer-link-item { color: #cbd5e0; text-decoration: none; }
 .footer-link-bold { font-weight: 700; }
 

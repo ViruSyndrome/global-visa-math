@@ -16,7 +16,7 @@
       gtag('js', new Date());
       gtag('config', 'G-5KJNDPS0EG');
     </script>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../style.css?v=3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -43,10 +43,10 @@
   </style>
 
 </head><body>
-    <header class="navbar">
+        <header class="navbar">
         <div class="nav-inner">
-            <a href="/" class="logo">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #60a5fa; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));">
+            <a href="../index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-icon-styled">
                     <g transform="rotate(-8 12 12)">
                         <rect x="3" y="4" width="18" height="16" rx="2" stroke="#93c5fd" stroke-width="1.8"></rect>
                         <rect x="5" y="6" width="14" height="12" rx="1" stroke="#93c5fd" stroke-width="0.8" stroke-dasharray="2 1.5" opacity="0.5"></rect>
@@ -64,11 +64,12 @@
                 <span></span><span></span><span></span>
             </button>
             <nav class="nav-links" id="visaNavLinks">
-                <a href="/">All Calculators</a>
-                <a href="../index.html" class="active">Schengen 90/180</a>
-                <a href="../canada-crs-calculator.html" class="">Canada CRS</a>
+                <a href="../index.html">Schengen Calculator</a>
+                <a href="../canada-crs-calculator.html">Canada CRS</a>
                 <a href="../green-card-renewal.html">Green Card</a>
                 <a href="../j1-visa-tracker.html">J-1 Tracker</a>
+                <a href="index.html" class="active" aria-current="page">Guides</a>
+                <a href="../us-visa-passport-photo-maker.html" class="btn-primary" style="margin-left:auto; padding:8px 16px; border-radius:6px; text-decoration:none; font-size:0.95rem; display:inline-block; line-height:normal;">Free Photo Maker</a>
             </nav>
         </div>
     </header>
@@ -167,8 +168,7 @@
         </section>
     </main>
     
-      <!-- Cross-Linking Footer Network -->
-  <div class="network-footer">
+        <div class="network-footer">
     <p class="network-title">Explore Our Other Free Tools</p>
     <div class="network-links">
       <a href="https://www.getatsready.com/" title="Free ATS Resume Checker" class="network-link" data-id="ats">
@@ -190,15 +190,17 @@
         <div class="footer-inner">
             <div class="footer-col">
                 <strong>GlobalVisaMath</strong>
-                <p>Professional travel compliance tools.</p>
-                <div class="footer-links" style="margin-top: 10px; display: flex; gap: 15px; font-size: 0.8rem;">
-                    <a href="../about.html" style="color: #cbd5e0; text-decoration: none;">About Us</a>
-                    <a href="../privacy.html" style="color: #cbd5e0; text-decoration: none;">Privacy Policy</a>
-                    <a href="../terms.html" style="color: #cbd5e0; text-decoration: none;">Terms of Service</a>
+                <p>Professional travel &amp; immigration compliance tools.</p>
+                <div class="footer-links footer-links-row">
+                    <a href="../about.html" class="footer-link-item">About Us</a>
+                    <a href="../contact.html" class="footer-link-item">Contact</a>
+                    <a href="../privacy.html" class="footer-link-item">Privacy Policy</a>
+                    <a href="../terms.html" class="footer-link-item">Terms of Service</a>
+                    <a href="../affiliate-disclosure.html" class="footer-link-item">Affiliate Disclosure</a>
                 </div>
             </div>
             <div class="footer-col text-right">
-                <p>Calculations strictly follow <strong>Regulation (EU) 2016/399</strong> of the European Parliament.</p>
+                <p>All calculations are performed client-side securely.</p>
                 <p>&copy; 2026 GlobalVisaMath.com. Not legal advice.</p>
             </div>
         </div>
@@ -214,10 +216,6 @@
         });
       }, { threshold: 0.05, rootMargin: '0px 0px -10px 0px' });
       targets.forEach(target => { target.classList.add('reveal-scroll'); observer.observe(target); });
-    });
-    document.getElementById('visaHamburger').addEventListener('click', function() {
-      this.classList.toggle('open');
-      document.getElementById('visaNavLinks').classList.toggle('open');
     });
     </script>
 </body>

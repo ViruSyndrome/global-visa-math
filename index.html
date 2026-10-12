@@ -17,7 +17,7 @@
     <meta name="description" content="Calculate visa compliance and renewal timelines using free, 100% private tools. Includes Schengen 90/180 calculator, Canada Express Entry CRS score calculator, USCIS Green Card renewal estimator, and J1 visa tracker.">
     <link rel="canonical" href="https://www.globalvisamath.com/">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -35,7 +35,7 @@
           "name": "Are my inputs stored or shared?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. GlobalVisaMath operates strictly client-side. The tools process all dates, education parameters, and trip details in your local browser memory, and nothing is transmitted to any server."
+            "text": "Dates, scores, and photos stay in this browser and are not sent to our server. The page does load Google Analytics, Google AdSense, and Sentry, which can set their own cookies."
           }
         },
         {
@@ -107,24 +107,18 @@
     <noscript>
       <div class="noscript-warning">This site requires JavaScript for the calculator tools. Please enable JavaScript in your browser.</div>
     </noscript>
-    <header class="navbar">
+        <header class="navbar">
         <div class="nav-inner">
             <a href="index.html" class="logo">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-icon-styled">
                     <g transform="rotate(-8 12 12)">
-                        <!-- Stamp outer box -->
                         <rect x="3" y="4" width="18" height="16" rx="2" stroke="#93c5fd" stroke-width="1.8"></rect>
-                        <!-- Stamp inner dashed border -->
                         <rect x="5" y="6" width="14" height="12" rx="1" stroke="#93c5fd" stroke-width="0.8" stroke-dasharray="2 1.5" opacity="0.5"></rect>
-                        <!-- Horizontal divider -->
                         <line x1="5" y1="12" x2="19" y2="12" stroke="#93c5fd" stroke-width="1" opacity="0.5"></line>
-                        <!-- Top-left mini globe -->
                         <circle cx="9" cy="9" r="1.8" stroke="currentColor" stroke-width="0.8"></circle>
                         <line x1="7.2" y1="9" x2="10.8" y2="9" stroke="currentColor" stroke-width="0.6" opacity="0.6"></line>
                         <line x1="9" y1="7.2" x2="9" y2="10.8" stroke="currentColor" stroke-width="0.6" opacity="0.6"></line>
-                        <!-- Top-right mini star -->
                         <path d="M15 9l.3-.6.6-.3-.6-.3-.3-.6-.3.6-.6.3.6.3.3.6z" fill="currentColor" stroke="none"></path>
-                        <!-- Bottom checkmark representing calculation check -->
                         <path d="M8 15.5l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"></path>
                     </g>
                 </svg>
@@ -133,8 +127,8 @@
             <button class="hamburger" id="visaHamburger" aria-label="Toggle navigation" aria-controls="visaNavLinks" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
-                                    <nav class="nav-links" id="visaNavLinks">
-                <a href="index.html">Schengen Calculator</a>
+            <nav class="nav-links" id="visaNavLinks">
+                <a href="index.html" class="active" aria-current="page">Schengen Calculator</a>
                 <a href="canada-crs-calculator.html">Canada CRS</a>
                 <a href="green-card-renewal.html">Green Card</a>
                 <a href="j1-visa-tracker.html">J-1 Tracker</a>
@@ -248,7 +242,7 @@
 <section class="tool-intro container tool-intro-section">
           <h2 class="tool-intro-h2">Why GlobalVisaMath helps travelers</h2>
           <p class="tool-intro-p">These calculators are built for people who need accurate visa and immigration planning without a lawyer or a registration form. We explain the rules behind Schengen stay limits, Express Entry points, Green Card renewal timelines, and J-1 compliance so you can make decisions with confidence.</p>
-          <p class="tool-intro-p-last">All calculations run in your browser, which means no personal data leaves your device. That makes GlobalVisaMath a private alternative for visa research and trip compliance planning.</p>
+          <p class="tool-intro-p-last">The calculations run in your browser. Travel dates, scores, and photos are not sent to our server. Google Analytics, Google AdSense, and Sentry still load on the page.</p>
         </section>
 
         <!-- Visa Photo Tools Section -->
@@ -358,7 +352,7 @@
         <!-- Rich SEO Information Section -->
         <section class="info-section reveal-scroll info-sec-spaced">
             <h2>About GlobalVisaMath Calculators</h2>
-            <p>Our visa calculation engines provide instantaneous, local processing for international travelers and immigration applicants. By utilizing advanced client-side JavaScript execution, we guarantee that your travel itineraries, passport dates, and personal profile data never leave your browser.</p>
+            <p>The calculators run in your browser. Travel dates, scores, and photos are not sent to our server. Google Analytics, Google AdSense, and Sentry still load on the page.</p>
             <p class="info-sec-p-spaced">Whether you are tracking a rolling 180-day window to comply with the European Union's Schengen Border Code, estimating your points for Canadian immigration under the Express Entry system, calculating the timeline for USCIS permanent resident card renewal, or tracking a J-1 program's active dates, our tools offer a zero-signup, high-fidelity experience.</p>
         </section>
 
@@ -367,7 +361,7 @@
             <h2 class="faq-h2">Frequently Asked Questions</h2>
             <div class="faq-item faq-item-border">
                 <h4 class="faq-h4">Are my inputs stored or shared?</h4>
-                <p class="faq-p">No. GlobalVisaMath operates strictly client-side. The tools process all dates, education parameters, and trip details in your local memory, and nothing is transmitted to any server.</p>
+                <p class="faq-p">Dates, scores, and photos stay in this browser and are not sent to our server. The page does load Google Analytics, Google AdSense, and Sentry, which can set their own cookies.</p>
             </div>
             <div class="faq-item faq-item-border">
                 <h4 class="faq-h4">How accurate are the calculator results?</h4>
@@ -393,8 +387,7 @@
     </main>
 
     
-      <!-- Cross-Linking Footer Network -->
-  <div class="network-footer">
+        <div class="network-footer">
     <p class="network-title">Explore Our Other Free Tools</p>
     <div class="network-links">
       <a href="https://www.getatsready.com/" title="Free ATS Resume Checker" class="network-link" data-id="ats">
@@ -422,6 +415,7 @@
                     <a href="contact.html" class="footer-link-item">Contact</a>
                     <a href="privacy.html" class="footer-link-item">Privacy Policy</a>
                     <a href="terms.html" class="footer-link-item">Terms of Service</a>
+                    <a href="affiliate-disclosure.html" class="footer-link-item">Affiliate Disclosure</a>
                 </div>
             </div>
             <div class="footer-col text-right">

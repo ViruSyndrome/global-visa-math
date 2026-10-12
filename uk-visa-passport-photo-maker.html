@@ -24,7 +24,7 @@
       gtag("js", new Date());
       gtag("config", "G-5KJNDPS0EG");
     </script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3">
     
     <!-- Cropper.js for reliable client-side cropping -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
@@ -124,10 +124,10 @@
     <meta name="twitter:image" content="https://www.globalvisamath.com/og-photo-maker.webp">
 </head>
 <body>
-    <header class="navbar">
+        <header class="navbar">
         <div class="nav-inner">
             <a href="index.html" class="logo">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #60a5fa; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-icon-styled">
                     <g transform="rotate(-8 12 12)">
                         <rect x="3" y="4" width="18" height="16" rx="2" stroke="#93c5fd" stroke-width="1.8"></rect>
                         <rect x="5" y="6" width="14" height="12" rx="1" stroke="#93c5fd" stroke-width="0.8" stroke-dasharray="2 1.5" opacity="0.5"></rect>
@@ -144,7 +144,7 @@
             <button class="hamburger" id="visaHamburger" aria-label="Toggle navigation" aria-controls="visaNavLinks" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
-                                    <nav class="nav-links" id="visaNavLinks">
+            <nav class="nav-links" id="visaNavLinks">
                 <a href="index.html">Schengen Calculator</a>
                 <a href="canada-crs-calculator.html">Canada CRS</a>
                 <a href="green-card-renewal.html">Green Card</a>
@@ -290,8 +290,7 @@
     </main>
 
     
-      <!-- Cross-Linking Footer Network -->
-  <div class="network-footer">
+        <div class="network-footer">
     <p class="network-title">Explore Our Other Free Tools</p>
     <div class="network-links">
       <a href="https://www.getatsready.com/" title="Free ATS Resume Checker" class="network-link" data-id="ats">
@@ -314,11 +313,12 @@
             <div class="footer-col">
                 <strong>GlobalVisaMath</strong>
                 <p>Professional travel &amp; immigration compliance tools.</p>
-                <div class="footer-links" style="margin-top: 10px; display: flex; gap: 15px; font-size: 0.8rem;">
-                    <a href="about.html" style="color: #cbd5e0; text-decoration: none;">About Us</a>
-                    <a href="contact.html" style="color: #cbd5e0; text-decoration: none;">Contact</a>
-                    <a href="privacy.html" style="color: #cbd5e0; text-decoration: none;">Privacy Policy</a>
-                    <a href="terms.html" style="color: #cbd5e0; text-decoration: none;">Terms of Service</a>
+                <div class="footer-links footer-links-row">
+                    <a href="about.html" class="footer-link-item">About Us</a>
+                    <a href="contact.html" class="footer-link-item">Contact</a>
+                    <a href="privacy.html" class="footer-link-item">Privacy Policy</a>
+                    <a href="terms.html" class="footer-link-item">Terms of Service</a>
+                    <a href="affiliate-disclosure.html" class="footer-link-item">Affiliate Disclosure</a>
                 </div>
             </div>
             <div class="footer-col text-right">
@@ -479,6 +479,7 @@
         }
         // ---------------------------
     </script>
+    <script src="script.js" defer></script>
 </body>
 </html>
 

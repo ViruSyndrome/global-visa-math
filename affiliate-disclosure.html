@@ -8,7 +8,7 @@
     <link rel="canonical" href="https://www.globalvisamath.com/affiliate-disclosure.html">
     
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,7 +46,7 @@
     </style>
 </head>
 <body>
-    <header class="navbar">
+        <header class="navbar">
         <div class="nav-inner">
             <a href="index.html" class="logo">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-icon-styled">
@@ -63,12 +63,16 @@
                 </svg>
                 GlobalVisaMath
             </a>
-            <nav class="nav-links">
+            <button class="hamburger" id="visaHamburger" aria-label="Toggle navigation" aria-controls="visaNavLinks" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="nav-links" id="visaNavLinks">
                 <a href="index.html">Schengen Calculator</a>
                 <a href="canada-crs-calculator.html">Canada CRS</a>
                 <a href="green-card-renewal.html">Green Card</a>
                 <a href="j1-visa-tracker.html">J-1 Tracker</a>
                 <a href="guides/">Guides</a>
+                <a href="us-visa-passport-photo-maker.html" class="btn-primary" style="margin-left:auto; padding:8px 16px; border-radius:6px; text-decoration:none; font-size:0.95rem; display:inline-block; line-height:normal;">Free Photo Maker</a>
             </nav>
         </div>
     </header>
@@ -83,7 +87,7 @@
 
             <h2>2. Our Core Principles</h2>
             <ul>
-                <li><strong>No personal data collection:</strong> All our calculators (Schengen 90/180, Canada CRS, etc.) run entirely in your browser. We do not store, log, or transmit your visa, travel history, or personal data to any server.</li>
+                <li><strong>Calculator inputs stay in the browser:</strong> Schengen dates, CRS answers, and photos are not sent to our server. The pages do load Google Analytics, Google AdSense, and Sentry, which can set their own cookies. Details are in the <a href="privacy.html">privacy policy</a>.</li>
                 <li><strong>Tool accuracy first:</strong> Our calculation logic is based on official government regulations (EU Regulation 2016/399, IRCC CRS point allocation, USCIS timelines) and is not influenced by affiliate partnerships.</li>
                 <li><strong>Clear monetization:</strong> We earn revenue through affiliate commissions on third-party services. This does not change your cost when using these services.</li>
             </ul>
@@ -143,34 +147,43 @@
         </article>
     </main>
 
-    <footer class="footer">
+      <div class="network-footer">
+    <p class="network-title">Explore Our Other Free Tools</p>
+    <div class="network-links">
+      <a href="https://www.getatsready.com/" title="Free ATS Resume Checker" class="network-link" data-id="ats">
+        <img src="https://www.getatsready.com/favicon.svg" alt="" class="network-icon-img" width="18" height="18"> <span class="network-text">ATS Resume Checker</span>
+      </a>
+      <a href="https://www.getniftyready.com/" title="Nifty 50 Market Tracker" class="network-link" data-id="nifty">
+        <img src="https://www.getniftyready.com/favicon.svg" alt="" class="network-icon-img" width="18" height="18"> <span class="network-text">Nifty Market Tracker</span>
+      </a>
+      <a href="https://www.pregnancyweektracker.com/" title="Pregnancy Week by Week Tracker" class="network-link" data-id="pwt">
+        <img src="https://www.pregnancyweektracker.com/favicon.svg" alt="" class="network-icon-img" width="18" height="18"> <span class="network-text">Pregnancy Tracker</span>
+      </a>
+      <a href="https://www.gpscamstamp.com/" title="Free GPS Photo Stamp Tool" class="network-link" data-id="gps">
+        <img src="https://www.gpscamstamp.com/assets/favicon.svg" alt="" class="network-icon-img" width="18" height="18"> <span class="network-text">GPS Cam Stamp</span>
+      </a>
+    </div>
+  </div>
+
+<footer class="footer">
         <div class="footer-inner">
-            <div class="footer-column">
-                <h4>GlobalVisaMath</h4>
-                <p>Free visa calculators and immigration tools. 100% private, browser-based.</p>
+            <div class="footer-col">
+                <strong>GlobalVisaMath</strong>
+                <p>Professional travel &amp; immigration compliance tools.</p>
+                <div class="footer-links footer-links-row">
+                    <a href="about.html" class="footer-link-item">About Us</a>
+                    <a href="contact.html" class="footer-link-item">Contact</a>
+                    <a href="privacy.html" class="footer-link-item">Privacy Policy</a>
+                    <a href="terms.html" class="footer-link-item">Terms of Service</a>
+                    <a href="affiliate-disclosure.html" class="footer-link-item">Affiliate Disclosure</a>
+                </div>
             </div>
-            <div class="footer-column">
-                <h4>Links</h4>
-                <ul>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms of Service</a></li>
-                    <li><a href="affiliate-disclosure.html">Affiliate Disclosure</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
+            <div class="footer-col text-right">
+                <p>All calculations are performed client-side securely.</p>
+                <p>&copy; 2026 GlobalVisaMath.com. Not legal advice.</p>
             </div>
-            <div class="footer-column">
-                <h4>Tools</h4>
-                <ul>
-                    <li><a href="/">Schengen 90/180</a></li>
-                    <li><a href="/canada-crs-calculator.html">Canada CRS</a></li>
-                    <li><a href="/us-visa-passport-photo-maker.html">Photo Maker</a></li>
-                    <li><a href="/guides/">Guides</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024–2026 GlobalVisaMath. Not legal advice. Consult immigration professionals for your specific situation.</p>
         </div>
     </footer>
+    <script src="script.js" defer></script>
 </body>
 </html>

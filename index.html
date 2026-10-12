@@ -145,23 +145,9 @@
     </header>
 
     <main class="container">
-        <div class="hero">
-            <h1>Immigration &amp; Visa Calculators</h1>
-            <p class="hero-subtitle">100% free, private tools for digital nomads, expats, and travelers. Calculate Schengen 90/180 compliance, Canadian Express Entry CRS points, or instantly format your Visa Photos without your data ever leaving your browser.</p>
-            <div class="hero-buttons hero-btns-wrap">
-                <a href="#toolsGrid" class="btn btn-primary hero-btn-common">Explore Calculators</a>
-                <a href="us-visa-passport-photo-maker.html" class="btn btn-secondary hero-btn-common hero-btn-secondary">Visa Photo Maker</a>
-            </div>
-            <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:14px;">
-                <a href="us-visa-passport-photo-maker.html" style="text-decoration:none; padding:5px 12px; background:rgba(14,165,233,0.1); color:var(--text-muted); border:1px solid var(--border); border-radius:20px; font-size:0.82rem; transition:all 0.2s;">🇺🇸 US Visa</a>
-                <a href="uk-visa-passport-photo-maker.html" style="text-decoration:none; padding:5px 12px; background:rgba(14,165,233,0.1); color:var(--text-muted); border:1px solid var(--border); border-radius:20px; font-size:0.82rem; transition:all 0.2s;">🇬🇧 UK Visa</a>
-                <a href="schengen-visa-photo-maker.html" style="text-decoration:none; padding:5px 12px; background:rgba(14,165,233,0.1); color:var(--text-muted); border:1px solid var(--border); border-radius:20px; font-size:0.82rem; transition:all 0.2s;">🇪🇺 Schengen</a>
-                <a href="australia-visa-photo-maker.html" style="text-decoration:none; padding:5px 12px; background:rgba(14,165,233,0.1); color:var(--text-muted); border:1px solid var(--border); border-radius:20px; font-size:0.82rem; transition:all 0.2s;">🇦🇺 Australia</a>
-                <a href="canada-visa-photo-maker.html" style="text-decoration:none; padding:5px 12px; background:rgba(14,165,233,0.1); color:var(--text-muted); border:1px solid var(--border); border-radius:20px; font-size:0.82rem; transition:all 0.2s;">🇨🇦 Canada</a>
-                <a href="indian-passport-photo-maker.html" style="text-decoration:none; padding:5px 12px; background:rgba(14,165,233,0.1); color:var(--text-muted); border:1px solid var(--border); border-radius:20px; font-size:0.82rem; transition:all 0.2s;">🇮🇳 India</a>
-                <a href="japan-visa-photo-maker.html" style="text-decoration:none; padding:5px 12px; background:rgba(14,165,233,0.1); color:var(--text-muted); border:1px solid var(--border); border-radius:20px; font-size:0.82rem; transition:all 0.2s;">🇯🇵 Japan</a>
-              <a href="guides/" style="text-decoration:none; padding:5px 12px; background:rgba(15,23,42,0.05); color:var(--text-muted); border:1px solid var(--border); border-radius:20px; font-size:0.82rem; transition:all 0.2s;">📚 All Guides</a>
-            </div>
+        <div class="hero" style="margin-bottom: 0.75rem;">
+            <h1>Schengen 90/180 calculator</h1>
+            <p class="hero-subtitle">Enter the days you were in the Schengen Area. The count stays in this browser.</p>
         </div>
 
 
@@ -209,32 +195,10 @@
             </div>
             <div class="form-error" id="formError" role="alert" aria-live="assertive"></div>
 
-            <!-- Affiliate Disclosure -->
-            <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(217, 119, 6, 0.3); border-radius: 8px; padding: 14px 16px; margin: 24px auto; max-width: 900px; font-size: 0.9rem; color: var(--text-color);">
-                <strong>Disclosure:</strong> GlobalVisaMath may earn affiliate commissions when you purchase through links to third-party services like Yesim and SafetyWing. This does not affect your cost. Our tool calculations remain 100% free and unbiased. <a href="affiliate-disclosure.html" style="color: var(--primary); text-decoration: underline;">Read our full affiliate policy</a>.
-            </div>
-
-            <!-- Affiliate Banners -->
-            <div class="partner-offers" style="margin: 32px auto; max-width: 900px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
-                
-                                <!-- Travel eSIM -->
-                <div style="background: linear-gradient(135deg, #fef2f2, #ffffff); border: 2px solid #ef4444; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15); display: flex; flex-direction: column; justify-content: space-between;">
-                    <div>
-                        <h3 style="color: #ef4444; font-size: 1.15rem; margin-top: 0; margin-bottom: 8px;">Yesim travel eSIM</h3>
-                        <p style="margin: 0 0 16px 0; font-size: 0.9rem; color: var(--text-color); line-height: 1.5;">Skip airport SIM kiosks and roaming fees. Install a Yesim eSIM in about two minutes before you board — data in 200+ destinations, no physical SIM.</p>
-                    </div>
-                    <a href="https://genesisgroupag.sjv.io/c/7764517/3925693/53874" id="esimAffiliateLink" target="_blank" rel="noopener sponsored" class="btn-primary" style="flex:none; background-color: #ef4444; border:none; text-decoration: none; padding: 10px 16px; display: inline-block; text-align: center; font-size: 0.95rem; font-weight: 600;">Get a Yesim travel eSIM</a>
-                </div>
-
-                <!-- SafetyWing / Insurance -->
-                <div style="background: linear-gradient(135deg, #f0fdf4, #ffffff); border: 2px solid #22c55e; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15); display: flex; flex-direction: column; justify-content: space-between;">
-                    <div>
-                        <h3 style="color: #16a34a; font-size: 1.15rem; margin-top: 0; margin-bottom: 8px;">Nomad Insurance Essential</h3>
-                        <p style="margin: 0 0 16px 0; font-size: 0.9rem; color: var(--text-color); line-height: 1.5;">Schengen visa applications typically require €30,000+ in medical cover. Nomad Insurance Essential is travel medical insurance. Confirm the quote against your embassy’s rules before you apply.</p>
-                    </div>
-                    <a href="https://safetywing.com/nomad-insurance?referenceID=26596195&amp;campaign=globalvisamath&amp;utm_campaign=globalvisamath&amp;utm_source=26596195&amp;utm_medium=Ambassador" target="_blank" rel="noopener sponsored" class="btn-primary" style="flex:none; background-color: #16a34a; text-decoration: none; padding: 10px 16px; display: inline-block; text-align: center; font-size: 0.95rem; font-weight: 600;">Get a travel medical quote</a>
-                    <a href="https://explore.safetywing.com/nomad-insurance-complete?selectedPlan=NOMAD_INSURANCE_COMPLETE&amp;referenceID=26596195&amp;campaign=globalvisamath&amp;utm_campaign=globalvisamath&amp;utm_source=26596195&amp;utm_medium=Ambassador" target="_blank" rel="noopener sponsored" style="display:block; margin-top:10px; text-align:center; color:#16a34a; font-size:0.85rem;">Need full health and travel cover? Nomad Insurance Complete</a>
-                </div>
+            <div class="hero-btns-wrap" style="margin-top: 1.25rem;">
+                <a href="green-card-renewal.html" class="btn-secondary hero-btn-common" style="margin-bottom:0; display:inline-block; text-decoration:none;">Green Card renewal</a>
+                <a href="canada-crs-calculator.html" class="btn-secondary hero-btn-common" style="margin-bottom:0; display:inline-block; text-decoration:none;">Canada CRS</a>
+                <a href="us-visa-passport-photo-maker.html" class="btn-secondary hero-btn-common" style="margin-bottom:0; display:inline-block; text-decoration:none;">US visa photo</a>
             </div>
 
             <div class="results-section" id="resultsSection" aria-live="polite" aria-atomic="true">
@@ -255,6 +219,28 @@
                     <h4>Calculation Audit</h4>
                     <p class="audit-disclaimer">Based on the rolling 180-day window looking back from your Date of Assessment.</p>
                     <ul id="auditList"></ul>
+                </div>
+            </div>
+
+            <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(217, 119, 6, 0.3); border-radius: 8px; padding: 14px 16px; margin: 24px auto 0; max-width: 900px; font-size: 0.9rem; color: var(--text-color);">
+                <strong>Disclosure:</strong> GlobalVisaMath may earn affiliate commissions when you purchase through links to third-party services like Yesim and SafetyWing. This does not affect your cost. Our tool calculations remain 100% free and unbiased. <a href="affiliate-disclosure.html" style="color: var(--primary); text-decoration: underline;">Read our full affiliate policy</a>.
+            </div>
+
+            <div class="partner-offers" style="margin: 16px auto 0; max-width: 900px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+                <div style="background: linear-gradient(135deg, #fef2f2, #ffffff); border: 2px solid #ef4444; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h3 style="color: #ef4444; font-size: 1.15rem; margin-top: 0; margin-bottom: 8px;">Yesim travel eSIM</h3>
+                        <p style="margin: 0 0 16px 0; font-size: 0.9rem; color: var(--text-color); line-height: 1.5;">Skip airport SIM kiosks and roaming fees. Install a Yesim eSIM in about two minutes before you board — data in 200+ destinations, no physical SIM.</p>
+                    </div>
+                    <a href="https://genesisgroupag.sjv.io/c/7764517/3925693/53874" id="esimAffiliateLink" target="_blank" rel="noopener sponsored" class="btn-primary" style="flex:none; background-color: #ef4444; border:none; text-decoration: none; padding: 10px 16px; display: inline-block; text-align: center; font-size: 0.95rem; font-weight: 600;">Get a Yesim travel eSIM</a>
+                </div>
+                <div style="background: linear-gradient(135deg, #f0fdf4, #ffffff); border: 2px solid #22c55e; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h3 style="color: #16a34a; font-size: 1.15rem; margin-top: 0; margin-bottom: 8px;">Nomad Insurance Essential</h3>
+                        <p style="margin: 0 0 16px 0; font-size: 0.9rem; color: var(--text-color); line-height: 1.5;">Schengen visa applications typically require €30,000+ in medical cover. Nomad Insurance Essential is travel medical insurance. Confirm the quote against your embassy’s rules before you apply.</p>
+                    </div>
+                    <a href="https://safetywing.com/nomad-insurance?referenceID=26596195&amp;campaign=globalvisamath&amp;utm_campaign=globalvisamath&amp;utm_source=26596195&amp;utm_medium=Ambassador" target="_blank" rel="noopener sponsored" class="btn-primary" style="flex:none; background-color: #16a34a; text-decoration: none; padding: 10px 16px; display: inline-block; text-align: center; font-size: 0.95rem; font-weight: 600;">Get a travel medical quote</a>
+                    <a href="https://explore.safetywing.com/nomad-insurance-complete?selectedPlan=NOMAD_INSURANCE_COMPLETE&amp;referenceID=26596195&amp;campaign=globalvisamath&amp;utm_campaign=globalvisamath&amp;utm_source=26596195&amp;utm_medium=Ambassador" target="_blank" rel="noopener sponsored" style="display:block; margin-top:10px; text-align:center; color:#16a34a; font-size:0.85rem;">Need full health and travel cover? Nomad Insurance Complete</a>
                 </div>
             </div>
         </section>

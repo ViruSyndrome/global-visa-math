@@ -97,7 +97,8 @@
 
             <h2>1. No account — calculators run in your browser</h2>
             <p>GlobalVisaMath does not require signup, login, or email verification. Trip dates, CRS inputs, Green Card dates, J-1 program dates, and photo crops are processed in your browser with client-side JavaScript. We do not operate a backend that stores those calculator inputs in a database.</p>
-            <p>Closing or reloading the tab clears that session data from memory. This is not the same as “no data is ever collected anywhere”: third-party scripts on the page can still receive standard web analytics and advertising signals, as described below.</p>
+            <p>Schengen trip entry/exit dates you enter may be saved in <code>localStorage</code> on this device under the key <code>gvm_schengen_trips</code> so they restore on the next visit; clear site data or that key to remove them.</p>
+            <p>Closing or reloading the tab clears in-memory session data. Values in localStorage remain until you clear them. This is not the same as “no data is ever collected anywhere”: third-party scripts on the page can still receive standard web analytics and advertising signals, as described below.</p>
 
             <h2 class="info-h2-legal">2. Google Analytics (GA4)</h2>
             <p>We use Google Analytics 4 (measurement ID <code>G-5KJNDPS0EG</code>) to understand traffic and feature use. In addition to standard page views, our tools may send custom events such as calculator runs (for example Schengen day counts, CRS scores, Green Card remaining days, or J-1 checks). Event payloads are aggregate usage metrics, not passport scans or uploaded photos.</p>

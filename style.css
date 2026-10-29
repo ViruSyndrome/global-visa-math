@@ -306,6 +306,16 @@ button {
     background: var(--primary-hover);
 }
 
+.row-warn {
+    flex: 1 1 100%;
+    margin: 0.25rem 0 0;
+    padding: 0.45rem 0.65rem;
+    font-size: 0.8rem;
+    color: #92400e;
+    background: #fffbeb;
+    border: 1px solid #fcd34d;
+    border-radius: 6px;
+}
 .form-error {
     background: rgba(254, 202, 202, 0.35);
     border: 1px solid #fca5a5;

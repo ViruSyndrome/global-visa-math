@@ -138,44 +138,160 @@ document.addEventListener('DOMContentLoaded', () => {
     const addTripBtn = document.getElementById('addTripBtn');
     const calculateBtn = document.getElementById('calculateBtn');
     const controlDateInput = document.getElementById('controlDate');
+    const GVM_TRIPS_KEY = 'gvm_schengen_trips';
+    let tripCount = 0;
 
     if (controlDateInput) {
         controlDateInput.value = localYMD(new Date());
     }
 
-    if (addTripBtn && entryList) {
-        let tripCount = 0;
-        addTripBtn.addEventListener('click', () => {
-            tripCount++;
-            const row = document.createElement('div');
-            row.className = 'date-row';
-            row.innerHTML = `
+    function clearRowWarn(row) {
+        const w = row.querySelector('.row-warn');
+        if (w) w.remove();
+    }
+
+    function setRowWarn(row, message) {
+        let w = row.querySelector('.row-warn');
+        if (!w) {
+            w = document.createElement('div');
+            w.className = 'row-warn';
+            w.setAttribute('role', 'alert');
+            row.appendChild(w);
+        }
+        w.textContent = message;
+    }
+
+    function buildTripRowHtml(id, data) {
+        data = data || {};
+        return `
                 <div class="input-group">
-                    <label for="entry_${tripCount}" data-tooltip="The day you crossed the border into the Schengen Area (from passport stamp)">Date of Entry ⓘ</label>
-                    <input type="date" id="entry_${tripCount}" class="date-input">
+                    <label for="entry_${id}" data-tooltip="The day you crossed the border into the Schengen Area (from passport stamp)">Date of Entry ⓘ</label>
+                    <input type="date" id="entry_${id}" class="date-input" value="${data.entry || ''}">
                 </div>
                 <div class="input-group">
-                    <label for="exit_${tripCount}" data-tooltip="The day you exited the Schengen Area (from passport stamp)">Date of Exit ⓘ</label>
-                    <input type="date" id="exit_${tripCount}" class="date-input">
+                    <label for="exit_${id}" data-tooltip="The day you exited the Schengen Area (from passport stamp)">Date of Exit ⓘ</label>
+                    <input type="date" id="exit_${id}" class="date-input" value="${data.exit || ''}">
                 </div>
                 <div class="input-group" style="flex:0 0 auto; justify-content:flex-end;">
                     <label style="display:flex; align-items:center; gap:0.35rem; white-space:nowrap; font-size:0.85rem;">
-                        <input type="checkbox" class="still-in-schengen" id="still_${tripCount}"> Still in Schengen?
+                        <input type="checkbox" class="still-in-schengen" id="still_${id}"${data.still ? ' checked' : ''}> Still in Schengen?
                     </label>
                 </div>
-                <button type="button" class="btn-secondary" style="margin-bottom:0; color:var(--danger); border-color:var(--danger);" onclick="this.parentElement.remove()">Remove</button>
+                <button type="button" class="btn-secondary" style="margin-bottom:0; color:var(--danger); border-color:var(--danger);" onclick="this.closest('.date-row').remove(); if(typeof window.gvmSaveSchengenTrips==='function') window.gvmSaveSchengenTrips();">Remove</button>
             `;
-            entryList.appendChild(row);
+    }
+
+    function addTripRow(data) {
+        if (!entryList) return;
+        tripCount++;
+        const row = document.createElement('div');
+        row.className = 'date-row date-row-wrap';
+        row.innerHTML = buildTripRowHtml(tripCount, data);
+        entryList.appendChild(row);
+        bindTripRowEvents(row);
+        return row;
+    }
+
+    function bindTripRowEvents(row) {
+        row.querySelectorAll('input').forEach((inp) => {
+            inp.addEventListener('change', () => {
+                clearRowWarn(row);
+                saveSchengenTrips();
+            });
+            inp.addEventListener('input', () => saveSchengenTrips());
         });
+    }
+
+    function collectTripsForStorage() {
+        if (!entryList) return [];
+        const out = [];
+        entryList.querySelectorAll('.date-row').forEach((row) => {
+            const entryInput = row.querySelector('input[id^="entry_"]');
+            const exitInput = row.querySelector('input[id^="exit_"]');
+            const stillIn = row.querySelector('.still-in-schengen');
+            out.push({
+                entry: entryInput ? entryInput.value : '',
+                exit: exitInput ? exitInput.value : '',
+                still: !!(stillIn && stillIn.checked)
+            });
+        });
+        return out;
+    }
+
+    function saveSchengenTrips() {
+        try {
+            localStorage.setItem(GVM_TRIPS_KEY, JSON.stringify(collectTripsForStorage()));
+        } catch (e) {}
+    }
+    window.gvmSaveSchengenTrips = saveSchengenTrips;
+
+    function restoreSchengenTrips() {
+        if (!entryList) return;
+        let saved = null;
+        try {
+            saved = JSON.parse(localStorage.getItem(GVM_TRIPS_KEY) || 'null');
+        } catch (e) { saved = null; }
+        if (!Array.isArray(saved) || saved.length === 0) {
+            const first = entryList.querySelector('.date-row');
+            if (first) bindTripRowEvents(first);
+            return;
+        }
+        entryList.innerHTML = '';
+        tripCount = -1;
+        saved.forEach((t) => addTripRow(t));
+        if (entryList.children.length === 0) {
+            tripCount = -1;
+            addTripRow({});
+        }
+    }
+
+    if (addTripBtn && entryList) {
+        addTripBtn.addEventListener('click', () => {
+            addTripRow({});
+            saveSchengenTrips();
+        });
+        restoreSchengenTrips();
+    }
+
+    if (controlDateInput) {
+        controlDateInput.addEventListener('change', saveSchengenTrips);
     }
 
     if (calculateBtn) {
         calculateBtn.addEventListener('click', calculateSchengen);
     }
 
+    function countUniqueDaysInWindow(trips, assessmentDate) {
+        const windowStart = new Date(assessmentDate);
+        windowStart.setDate(assessmentDate.getDate() - 179);
+        const uniqueDays = new Set();
+        trips.forEach((trip) => {
+            const overlapStart = trip.entry > windowStart ? trip.entry : windowStart;
+            const overlapEnd = trip.exit < assessmentDate ? trip.exit : assessmentDate;
+            if (overlapStart <= overlapEnd) {
+                eachDayYMD(overlapStart, overlapEnd).forEach((d) => uniqueDays.add(d));
+            }
+        });
+        return { uniqueDays, windowStart, daysUsed: uniqueDays.size };
+    }
+
+    function earliestDayFreesUp(uniqueDays) {
+        if (!uniqueDays || uniqueDays.size === 0) return null;
+        const sorted = Array.from(uniqueDays).sort();
+        const oldest = parseLocalDate(sorted[0]);
+        if (!oldest) return null;
+        // Oldest day O drops when assessment A satisfies A − 179 > O → A ≥ O + 180
+        const freeOn = new Date(oldest);
+        freeOn.setDate(oldest.getDate() + 180);
+        return freeOn;
+    }
+
     function calculateSchengen() {
+        if (!controlDateInput || !entryList) return;
         const controlDateVal = controlDateInput.value;
         clearToolError();
+        entryList.querySelectorAll('.date-row').forEach(clearRowWarn);
+
         if (!controlDateVal) {
             showToolError('Please select a Date of Assessment.');
             return;
@@ -187,42 +303,68 @@ document.addEventListener('DOMContentLoaded', () => {
         // trips (entry after assessment) still count if they fall inside that same window;
         // set assessment to your planned exit to model a future stay. Open stays use
         // assessment as exit when "Still in Schengen?" is checked.
-        const windowStart = new Date(controlDate);
-        windowStart.setDate(controlDate.getDate() - 179);
-
         const trips = [];
+        const plannedFutureTrips = [];
         const rows = entryList.querySelectorAll('.date-row');
         let hasErrors = false;
         let openStayWarned = false;
+        let halfFilled = false;
 
         rows.forEach((row, index) => {
             const entryInput = row.querySelector('input[id^="entry_"]');
             const exitInput = row.querySelector('input[id^="exit_"]');
             const stillIn = row.querySelector('.still-in-schengen');
-            if (!entryInput || !entryInput.value) return;
+            const entryVal = entryInput ? entryInput.value : '';
+            const exitRaw = exitInput ? exitInput.value : '';
+            const stillChecked = !!(stillIn && stillIn.checked);
 
-            let exitVal = exitInput ? exitInput.value : '';
-            if (!exitVal && stillIn && stillIn.checked) {
+            if (!entryVal) {
+                if (exitRaw || stillChecked) {
+                    setRowWarn(row, `Trip ${index + 1}: Entry date is missing (exit or “Still in Schengen?” is filled).`);
+                    halfFilled = true;
+                    hasErrors = true;
+                }
+                return;
+            }
+
+            let exitVal = exitRaw;
+            if (!exitVal && stillChecked) {
                 exitVal = controlDateVal;
                 openStayWarned = true;
             }
 
             if (!exitVal) {
+                setRowWarn(row, `Trip ${index + 1}: Enter an exit date, or check “Still in Schengen?” if you have not left yet.`);
                 showToolError(`Trip ${index + 1}: Enter an exit date, or check "Still in Schengen?" if you have not left yet.`);
                 hasErrors = true;
                 return;
             }
 
-            const entryDate = parseLocalDate(entryInput.value);
+            const entryDate = parseLocalDate(entryVal);
             const exitDate = parseLocalDate(exitVal);
 
             if (exitDate < entryDate) {
+                setRowWarn(row, `Trip ${index + 1}: Exit date cannot be before Entry date.`);
                 showToolError(`Error in Trip ${index + 1}: Exit date cannot be before Entry date.`);
                 hasErrors = true;
             } else {
-                trips.push({ entry: entryDate, exit: exitDate, openStay: !!(stillIn && stillIn.checked && !(exitInput && exitInput.value)) });
+                const trip = {
+                    entry: entryDate,
+                    exit: exitDate,
+                    openStay: !!(stillChecked && !exitRaw),
+                    plannedExitYmd: exitRaw || null,
+                    entryYmd: entryVal
+                };
+                trips.push(trip);
+                if (entryDate > controlDate) {
+                    plannedFutureTrips.push(trip);
+                }
             }
         });
+
+        if (halfFilled && !document.getElementById('formError')?.textContent) {
+            showToolError('Some trip rows are incomplete — see the yellow warnings on each row.');
+        }
 
         if (hasErrors) return;
 
@@ -231,26 +373,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Unique calendar-day set so overlapping trips are not double-counted.
-        const uniqueDays = new Set();
+        const { uniqueDays, windowStart, daysUsed: totalDaysUsed } = countUniqueDaysInWindow(trips, controlDate);
         const auditLog = [];
 
         trips.forEach((trip, index) => {
             const overlapStart = trip.entry > windowStart ? trip.entry : windowStart;
             const overlapEnd = trip.exit < controlDate ? trip.exit : controlDate;
-            let days = 0;
-
             if (overlapStart <= overlapEnd) {
-                const dayList = eachDayYMD(overlapStart, overlapEnd);
-                dayList.forEach((d) => uniqueDays.add(d));
-                days = dayList.length;
+                const days = eachDayYMD(overlapStart, overlapEnd).length;
                 auditLog.push(`Trip ${index + 1} (${trip.entry.toLocaleDateString()} to ${trip.exit.toLocaleDateString()}${trip.openStay ? ', still in Schengen' : ''}): <strong>${days} unique day(s)</strong> overlap the window.`);
             } else {
                 auditLog.push(`Trip ${index + 1}: Fell outside the 180-day window ending on assessment date.`);
             }
         });
 
-        const totalDaysUsed = uniqueDays.size;
         if (openStayWarned) {
             auditLog.unshift('Open stay: exit treated as the assessment date ("Still in Schengen?").');
         }
@@ -258,11 +394,41 @@ document.addEventListener('DOMContentLoaded', () => {
             auditLog.push(`After merging overlaps: <strong>${totalDaysUsed}</strong> unique calendar days in the window.`);
         }
 
-        displaySchengenResults(totalDaysUsed, auditLog, windowStart, controlDate);
+        // Dual-calc for planned future stays: also model assessment = planned exit
+        let dualCalc = null;
+        if (plannedFutureTrips.length > 0) {
+            const target = plannedFutureTrips[0];
+            const plannedExit = target.plannedExitYmd
+                ? parseLocalDate(target.plannedExitYmd)
+                : target.exit;
+            if (plannedExit && plannedExit > controlDate) {
+                const alt = countUniqueDaysInWindow(trips, plannedExit);
+                dualCalc = {
+                    assessmentYmd: localYMD(controlDate),
+                    plannedExitYmd: localYMD(plannedExit),
+                    daysAtAssessment: totalDaysUsed,
+                    daysAtPlannedExit: alt.daysUsed,
+                    remainingAtAssessment: Math.max(0, 90 - totalDaysUsed),
+                    remainingAtPlannedExit: Math.max(0, 90 - alt.daysUsed)
+                };
+            }
+        }
+
+        const freeUpDate = (totalDaysUsed >= 80)
+            ? earliestDayFreesUp(uniqueDays)
+            : null;
+
+        saveSchengenTrips();
+        displaySchengenResults(totalDaysUsed, auditLog, windowStart, controlDate, {
+            freeUpDate,
+            dualCalc,
+            plannedFutureTrips
+        });
         trackEvent('calculate_schengen', { days_used: totalDaysUsed, trips_count: trips.length });
     }
 
-    function displaySchengenResults(daysUsed, auditLog, windowStart, windowEnd) {
+    function displaySchengenResults(daysUsed, auditLog, windowStart, windowEnd, extras) {
+        extras = extras || {};
         const resultsSection = document.getElementById('resultsSection');
         if (!resultsSection) return;
 
@@ -310,10 +476,51 @@ document.addEventListener('DOMContentLoaded', () => {
                 auditList.innerHTML += `<li>${log}</li>`;
             });
         }
+
+        // Planning helper
+        const helper = document.getElementById('planningHelper');
+        const helperBody = document.getElementById('planningHelperBody');
+        if (helper && helperBody) {
+            const parts = [];
+            parts.push(`<p style="margin:0 0 0.5rem;"><strong>Days used:</strong> ${daysUsed} / 90 &nbsp;·&nbsp; <strong>Remaining:</strong> ${Math.max(0, 90 - daysUsed)}</p>`);
+
+            if (extras.freeUpDate) {
+                parts.push(`<p style="margin:0 0 0.5rem;"><strong>Earliest date a day frees up:</strong> ${extras.freeUpDate.toLocaleDateString()} <span style="color:var(--text-muted);">(day after the oldest day in this 180-day window drops out)</span></p>`);
+            }
+
+            if (extras.dualCalc) {
+                const d = extras.dualCalc;
+                parts.push(`
+                    <div style="margin:0.6rem 0; padding:0.75rem; background:#fff; border:1px solid var(--border); border-radius:8px;">
+                        <p style="margin:0 0 0.4rem; font-weight:600;">Dual assessment (planned future stay)</p>
+                        <p style="margin:0 0 0.35rem;"><strong>At current assessment (${parseLocalDate(d.assessmentYmd).toLocaleDateString()}):</strong> ${d.daysAtAssessment} used, ${d.remainingAtAssessment} remaining</p>
+                        <p style="margin:0 0 0.5rem;"><strong>If assessment were planned exit (${parseLocalDate(d.plannedExitYmd).toLocaleDateString()}):</strong> ${d.daysAtPlannedExit} used, ${d.remainingAtPlannedExit} remaining</p>
+                        <button type="button" class="btn-secondary" id="setAssessmentToPlannedExit" data-exit="${d.plannedExitYmd}" style="padding:6px 12px; font-size:0.85rem;">Set assessment to planned exit to model that stay</button>
+                    </div>
+                `);
+            } else if (extras.plannedFutureTrips && extras.plannedFutureTrips.length > 0) {
+                const t = extras.plannedFutureTrips[0];
+                const exitYmd = t.plannedExitYmd || localYMD(t.exit);
+                parts.push(`<p style="margin:0.5rem 0 0;">You have a planned trip with entry after assessment. <button type="button" class="btn-secondary" id="setAssessmentToPlannedExit" data-exit="${exitYmd}" style="padding:4px 10px; font-size:0.8rem; margin-left:4px;">Set assessment to planned exit</button></p>`);
+            }
+
+            helperBody.innerHTML = parts.join('');
+            helper.style.display = 'block';
+
+            const setBtn = document.getElementById('setAssessmentToPlannedExit');
+            if (setBtn && controlDateInput) {
+                setBtn.addEventListener('click', () => {
+                    const ymd = setBtn.getAttribute('data-exit') || (extras.dualCalc && extras.dualCalc.plannedExitYmd);
+                    if (ymd) {
+                        controlDateInput.value = ymd;
+                        calculateSchengen();
+                    }
+                });
+            }
+        }
         
         resultsSection.scrollIntoView({ behavior: 'smooth' });
 
-        // Cross-sell CTA
         var existingCta = resultsSection.querySelector('.cross-sell-cta');
         if (!existingCta) {
             var ctaDiv = document.createElement('div');

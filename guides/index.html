@@ -13,6 +13,13 @@
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500
+      });
       gtag('js', new Date());
       gtag('config', 'G-5KJNDPS0EG');
     </script>
@@ -34,7 +41,14 @@
     <meta name="twitter:title" content="Immigration & Visa Guides | GlobalVisaMath">
     <meta name="twitter:description" content="Free immigration guides: Schengen 90/180 rules by country, CRS scores explained, and nationality-specific visa calculators.">
     <meta name="twitter:image" content="https://www.globalvisamath.com/og-large.jpg">
-    <script src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script>
+      window.sentryOnLoad = function () {
+        if (typeof Sentry !== 'undefined' && Sentry.init) {
+          Sentry.init({ replaysSessionSampleRate: 0, replaysOnErrorSampleRate: 0 });
+        }
+      };
+    </script>
 
   <style>
   /* Cross-Linking Footer Network CSS */

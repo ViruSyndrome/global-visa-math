@@ -21,6 +21,13 @@
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500
+      });
       gtag("js", new Date());
       gtag("config", "G-5KJNDPS0EG");
     </script>
@@ -118,7 +125,14 @@
             font-weight: 600;
         }
     </style>
-    <script src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script>
+      window.sentryOnLoad = function () {
+        if (typeof Sentry !== 'undefined' && Sentry.init) {
+          Sentry.init({ replaysSessionSampleRate: 0, replaysOnErrorSampleRate: 0 });
+        }
+      };
+    </script>
 
     <meta property="og:image" content="https://www.globalvisamath.com/og-photo-maker.webp">
     <meta name="twitter:image" content="https://www.globalvisamath.com/og-photo-maker.webp">
@@ -278,13 +292,7 @@
                 </ul>
             </div>
             <div class="card ad-card" style="display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.2);">
-                <ins class="adsbygoogle"
-                     style="display:block; text-align:center; width: 100%;"
-                     data-ad-layout="in-article"
-                     data-ad-format="fluid"
-                     data-ad-client="ca-pub-2959862133855422"
-                     data-ad-slot="1234567890"></ins>
-                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
             </div>
         </section>
     </main>
@@ -330,8 +338,8 @@
 
     <script>
         // Store target dimensions
-        const TARGET_WIDTH_PX = 413;
-        const TARGET_HEIGHT_PX = 531;
+        const TARGET_WIDTH_PX = 600;
+        const TARGET_HEIGHT_PX = 750;
         
         const dropZone = document.getElementById('dropZone');
         const fileInput = document.getElementById('fileInput');
@@ -437,7 +445,7 @@
                 e.stopPropagation();
             }
             try {
-                currentStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+                currentStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1920 }, height: { ideal: 1080 } } });
                 const videoElement = document.getElementById('cameraFeed');
                 videoElement.srcObject = currentStream;
                 document.getElementById('dropZone').style.display = 'none';
@@ -466,9 +474,7 @@
             canvas.height = video.videoHeight;
             const ctx = canvas.getContext('2d');
             
-            // Handle horizontal flip for front-facing camera mirror effect
-            ctx.translate(canvas.width, 0);
-            ctx.scale(-1, 1);
+            // Preview may be CSS-mirrored; do NOT mirror the saved canvas (true orientation).
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
             
             canvas.toBlob(blob => {

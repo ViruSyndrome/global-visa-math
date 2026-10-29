@@ -13,6 +13,13 @@
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500
+      });
       gtag("js", new Date());
       gtag("config", "G-5KJNDPS0EG");
     </script>
@@ -24,9 +31,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <meta property="og:title" content="Free Saudi Arabia Visa Photo Maker | GlobalVisaMath">
     <meta property="og:description" content="Create a compliant 40x60mm photo for Saudi Arabia tourist visa, Umrah visa, and Hajj applications. Free, 100% private in-browser photo maker. No signup required.">
-    <meta property="og:image" content="https://www.globalvisamath.com/og-photo-maker.png">
+    <meta property="og:image" content="https://www.globalvisamath.com/og-large.jpg">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://www.globalvisamath.com/og-photo-maker.png">
+    <meta name="twitter:image" content="https://www.globalvisamath.com/og-large.jpg">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -259,13 +266,7 @@
                 </ul>
             </div>
             <div class="card ad-card" style="display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.2);">
-                <ins class="adsbygoogle"
-                     style="display:block; text-align:center; width: 100%;"
-                     data-ad-layout="in-article"
-                     data-ad-format="fluid"
-                     data-ad-client="ca-pub-2959862133855422"
-                     data-ad-slot="1234567890"></ins>
-                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
             </div>
         </section>
     </main>
@@ -403,7 +404,7 @@
         async function startCamera(e) {
             if (e) { e.preventDefault(); e.stopPropagation(); }
             try {
-                currentStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+                currentStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1920 }, height: { ideal: 1080 } } });
                 document.getElementById('cameraFeed').srcObject = currentStream;
                 document.getElementById('dropZone').style.display = 'none';
                 document.getElementById('cameraInterface').style.display = 'block';
@@ -423,8 +424,6 @@
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             const ctx = canvas.getContext('2d');
-            ctx.translate(canvas.width, 0);
-            ctx.scale(-1, 1);
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
             canvas.toBlob(blob => {
                 const file = new File([blob], "camera-photo.jpg", { type: "image/jpeg" });

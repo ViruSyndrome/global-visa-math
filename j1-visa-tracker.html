@@ -9,6 +9,13 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500
+      });
     gtag('js', new Date());
     gtag('config', 'G-5KJNDPS0EG');
   </script>
@@ -72,7 +79,14 @@
     <meta name="twitter:title" content="J-1 Visa Grace Period &amp; Compliance Tracker | GlobalVisaMath">
     <meta name="twitter:description" content="Calculate your J-1 Exchange Visitor program active duration, DS-2019 expiration, 30-day grace period travel restrictions, and USDOS insurance compliance.">
     <meta name="twitter:image" content="https://www.globalvisamath.com/og-large.jpg">
-    <script src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script>
+      window.sentryOnLoad = function () {
+        if (typeof Sentry !== 'undefined' && Sentry.init) {
+          Sentry.init({ replaysSessionSampleRate: 0, replaysOnErrorSampleRate: 0 });
+        }
+      };
+    </script>
 
 </head>
 <body>
@@ -118,7 +132,7 @@
                 <h2>Program Parameters</h2>
                 <div class="calc-header-badges">
                     <span class="trust-badge trust-badge-gray">
-                        Rules Current as of: 2026
+                        Rules Current as of: October 2026
                     </span>
                     <span class="trust-badge">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
@@ -313,7 +327,7 @@
             const assessmentInput = document.getElementById('assessmentDate');
             if (assessmentInput) {
                 const today = new Date();
-                assessmentInput.value = today.toISOString().split('T')[0];
+                assessmentInput.value = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
             }
         });
 

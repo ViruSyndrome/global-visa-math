@@ -11,6 +11,13 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500
+      });
     gtag('js', new Date());
     gtag('config', 'G-5KJNDPS0EG');
   </script>
@@ -101,11 +108,23 @@
       }
     }
     </script>
-    <script src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script>
+      window.sentryOnLoad = function () {
+        if (typeof Sentry !== 'undefined' && Sentry.init) {
+          Sentry.init({ replaysSessionSampleRate: 0, replaysOnErrorSampleRate: 0 });
+        }
+      };
+    </script>
 
     <meta name='impact-site-verification' value='20507557-88d0-4e97-b373-56a4b15d1636'>
 </head>
 <body>
+    <div id="cookieConsent" class="cookie-banner">
+        <p>We use cookies for analytics and advertising. By continuing, you accept our <a href="privacy.html">Privacy Policy</a>.</p>
+        <button type="button" onclick="acceptCookies()">Accept</button>
+    </div>
+
     <noscript>
       <div class="noscript-warning">This site requires JavaScript for the calculator tools. Please enable JavaScript in your browser.</div>
     </noscript>
@@ -152,11 +171,11 @@
                 <h2>Travel History</h2>
                 <div class="calc-header-badges">
                     <span class="trust-badge trust-badge-gray">
-                        Rules Current as of: 2026
+                        Rules Current as of: October 2026
                     </span>
                     <span class="trust-badge">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                        Privacy First: No Data Stored
+                        No account. Calculators run in your browser.
                     </span>
                 </div>
             </div>
@@ -172,6 +191,11 @@
                             <label for="exit_0" data-tooltip="The day you exited the Schengen Area (from passport stamp)">Date of Exit ⓘ</label>
                             <input type="date" id="exit_0" class="date-input">
                         </div>
+                        <div class="input-group" style="flex:0 0 auto; justify-content:flex-end;">
+                            <label style="display:flex; align-items:center; gap:0.35rem; white-space:nowrap; font-size:0.85rem;">
+                                <input type="checkbox" class="still-in-schengen" id="still_0"> Still in Schengen?
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <button class="btn-secondary" id="addTripBtn">+ Add Another Trip</button>
@@ -179,7 +203,7 @@
                     <div class="input-group">
                         <label for="controlDate" data-tooltip="The date from which you want to check your rolling 180-day compliance (usually today)" style="display:flex; justify-content:space-between; align-items:center;">
                             Date of Assessment (Today) ⓘ
-                            <button type="button" class="btn-secondary" style="padding: 2px 8px; font-size: 0.75rem; border-radius: 4px;" onclick="document.getElementById('controlDate').value = new Date().toISOString().split('T')[0]">Use Today</button>
+                            <button type="button" class="btn-secondary" style="padding: 2px 8px; font-size: 0.75rem; border-radius: 4px;" onclick="(function(){var d=new Date();document.getElementById('controlDate').value=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');})()">Use Today</button>
                         </label>
                         <input type="date" id="controlDate" class="date-input">
                     </div>

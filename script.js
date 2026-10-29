@@ -1,5 +1,38 @@
 // GlobalVisaMath JS Engines
 
+// Cookie Consent — Accept grants analytics/ads storage
+function acceptCookies() {
+    try { localStorage.setItem('cookieConsent', 'true'); } catch (e) {}
+    var banner = document.getElementById('cookieConsent');
+    if (banner) banner.classList.add('hidden');
+    if (typeof gtag === 'function') {
+        gtag('consent', 'update', {
+            ad_storage: 'granted',
+            analytics_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted'
+        });
+    }
+}
+
+window.addEventListener('load', function () {
+    var banner = document.getElementById('cookieConsent');
+    if (!banner) return;
+    try {
+        if (localStorage.getItem('cookieConsent') === 'true') {
+            banner.classList.add('hidden');
+            if (typeof gtag === 'function') {
+                gtag('consent', 'update', {
+                    ad_storage: 'granted',
+                    analytics_storage: 'granted',
+                    ad_user_data: 'granted',
+                    ad_personalization: 'granted'
+                });
+            }
+        }
+    } catch (e) {}
+});
+
 // Analytics tracking helper
 function trackEvent(eventName, params = {}) {
     if (typeof gtag === 'function') {
@@ -11,6 +44,26 @@ function parseLocalDate(dateStr) {
     if (!dateStr) return null;
     const [year, month, day] = dateStr.split('-').map(Number);
     return new Date(year, month - 1, day, 0, 0, 0, 0);
+}
+
+/** Local calendar YYYY-MM-DD (avoids UTC shift from toISOString). */
+function localYMD(d) {
+    const dt = d instanceof Date ? d : new Date();
+    const y = dt.getFullYear();
+    const m = String(dt.getMonth() + 1).padStart(2, '0');
+    const day = String(dt.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+}
+
+function eachDayYMD(startDate, endDate) {
+    const days = [];
+    const cur = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+    const end = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+    while (cur <= end) {
+        days.push(localYMD(cur));
+        cur.setDate(cur.getDate() + 1);
+    }
+    return days;
 }
 
 function ensureFormErrorContainer() {
@@ -87,8 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const controlDateInput = document.getElementById('controlDate');
 
     if (controlDateInput) {
-        const today = new Date();
-        controlDateInput.value = today.toISOString().split('T')[0];
+        controlDateInput.value = localYMD(new Date());
     }
 
     if (addTripBtn && entryList) {
@@ -106,6 +158,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     <label for="exit_${tripCount}" data-tooltip="The day you exited the Schengen Area (from passport stamp)">Date of Exit ⓘ</label>
                     <input type="date" id="exit_${tripCount}" class="date-input">
                 </div>
+                <div class="input-group" style="flex:0 0 auto; justify-content:flex-end;">
+                    <label style="display:flex; align-items:center; gap:0.35rem; white-space:nowrap; font-size:0.85rem;">
+                        <input type="checkbox" class="still-in-schengen" id="still_${tripCount}"> Still in Schengen?
+                    </label>
+                </div>
                 <button type="button" class="btn-secondary" style="margin-bottom:0; color:var(--danger); border-color:var(--danger);" onclick="this.parentElement.remove()">Remove</button>
             `;
             entryList.appendChild(row);
@@ -119,60 +176,87 @@ document.addEventListener('DOMContentLoaded', () => {
     function calculateSchengen() {
         const controlDateVal = controlDateInput.value;
         clearToolError();
-    if (!controlDateVal) {
+        if (!controlDateVal) {
             showToolError('Please select a Date of Assessment.');
             return;
         }
 
         const controlDate = parseLocalDate(controlDateVal);
 
+        // Planning choice: rolling window ends on the assessment date. Days from planned
+        // trips (entry after assessment) still count if they fall inside that same window;
+        // set assessment to your planned exit to model a future stay. Open stays use
+        // assessment as exit when "Still in Schengen?" is checked.
         const windowStart = new Date(controlDate);
         windowStart.setDate(controlDate.getDate() - 179);
 
         const trips = [];
         const rows = entryList.querySelectorAll('.date-row');
         let hasErrors = false;
+        let openStayWarned = false;
 
         rows.forEach((row, index) => {
             const entryInput = row.querySelector('input[id^="entry_"]');
             const exitInput = row.querySelector('input[id^="exit_"]');
-            
-            if (entryInput.value && exitInput.value) {
-                const entryDate = parseLocalDate(entryInput.value);
-                const exitDate = parseLocalDate(exitInput.value);
+            const stillIn = row.querySelector('.still-in-schengen');
+            if (!entryInput || !entryInput.value) return;
 
-                if (exitDate < entryDate) {
-                    showToolError(`Error in Trip ${index + 1}: Exit date cannot be before Entry date.`);
-                    hasErrors = true;
-                } else {
-                    trips.push({ entry: entryDate, exit: exitDate });
-                }
+            let exitVal = exitInput ? exitInput.value : '';
+            if (!exitVal && stillIn && stillIn.checked) {
+                exitVal = controlDateVal;
+                openStayWarned = true;
+            }
+
+            if (!exitVal) {
+                showToolError(`Trip ${index + 1}: Enter an exit date, or check "Still in Schengen?" if you have not left yet.`);
+                hasErrors = true;
+                return;
+            }
+
+            const entryDate = parseLocalDate(entryInput.value);
+            const exitDate = parseLocalDate(exitVal);
+
+            if (exitDate < entryDate) {
+                showToolError(`Error in Trip ${index + 1}: Exit date cannot be before Entry date.`);
+                hasErrors = true;
+            } else {
+                trips.push({ entry: entryDate, exit: exitDate, openStay: !!(stillIn && stillIn.checked && !(exitInput && exitInput.value)) });
             }
         });
 
         if (hasErrors) return;
-        
+
         if (trips.length === 0 && rows.length > 0) {
-            showToolError('Please enter at least one trip with both entry and exit dates.');
+            showToolError('Please enter at least one trip with an entry date (and exit, or mark Still in Schengen).');
             return;
         }
 
-        let totalDaysUsed = 0;
+        // Unique calendar-day set so overlapping trips are not double-counted.
+        const uniqueDays = new Set();
         const auditLog = [];
 
         trips.forEach((trip, index) => {
             const overlapStart = trip.entry > windowStart ? trip.entry : windowStart;
             const overlapEnd = trip.exit < controlDate ? trip.exit : controlDate;
+            let days = 0;
 
             if (overlapStart <= overlapEnd) {
-                const diffTime = Math.abs(overlapEnd - overlapStart);
-                const days = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
-                totalDaysUsed += days;
-                auditLog.push(`Trip ${index + 1} (${trip.entry.toLocaleDateString()} to ${trip.exit.toLocaleDateString()}): <strong>${days} days</strong> counted in window.`);
+                const dayList = eachDayYMD(overlapStart, overlapEnd);
+                dayList.forEach((d) => uniqueDays.add(d));
+                days = dayList.length;
+                auditLog.push(`Trip ${index + 1} (${trip.entry.toLocaleDateString()} to ${trip.exit.toLocaleDateString()}${trip.openStay ? ', still in Schengen' : ''}): <strong>${days} unique day(s)</strong> overlap the window.`);
             } else {
-                auditLog.push(`Trip ${index + 1}: Fell outside the 180-day window.`);
+                auditLog.push(`Trip ${index + 1}: Fell outside the 180-day window ending on assessment date.`);
             }
         });
+
+        const totalDaysUsed = uniqueDays.size;
+        if (openStayWarned) {
+            auditLog.unshift('Open stay: exit treated as the assessment date ("Still in Schengen?").');
+        }
+        if (trips.length > 1) {
+            auditLog.push(`After merging overlaps: <strong>${totalDaysUsed}</strong> unique calendar days in the window.`);
+        }
 
         displaySchengenResults(totalDaysUsed, auditLog, windowStart, controlDate);
         trackEvent('calculate_schengen', { days_used: totalDaysUsed, trips_count: trips.length });
@@ -234,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!existingCta) {
             var ctaDiv = document.createElement('div');
             ctaDiv.className = 'cross-sell-cta';
-            ctaDiv.innerHTML = '<span class="cta-icon">📸</span><div class="cta-text"><strong>Applying for a Schengen visa?</strong><p>Get a compliant visa photo in 60 seconds — free, 100% private, no uploads.</p></div><a href="schengen-visa-photo-maker.html" class="btn-cta">Make Photo →</a>';
+            ctaDiv.innerHTML = '<span class="cta-icon">📸</span><div class="cta-text"><strong>Applying for a Schengen visa?</strong><p>Get a compliant visa photo in 60 seconds — free, processed in your browser, no photo uploads to our servers.</p></div><a href="schengen-visa-photo-maker.html" class="btn-cta">Make Photo →</a>';
             resultsSection.appendChild(ctaDiv);
         }
     }
@@ -250,21 +334,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const maritalStatus = maritalStatusEl.value;
         const isMarried = maritalStatus === 'married';
 
-    // Age points
+    // Age points — IRCC CRS grid (Oct 2026): without spouse / with spouse
     const ageVal = document.getElementById('age').value;
     let agePoints = 0;
+    // IRCC: ages 20–29 share one band (110 without spouse / 100 with).
     if (isMarried) {
         const marriedAgeMap = {
-            '17': 0, '18': 90, '19': 95, '20': 100, '30': 85, '31': 80, '32': 75, '33': 70, 
-            '34': 65, '35': 60, '36': 55, '37': 50, '38': 45, '39': 40, '40': 35, '41': 25, 
-            '42': 15, '43': 5, '44': 0, '45': 0
+            '17': 0, '18': 90, '19': 95,
+            '20': 100, '21': 100, '22': 100, '23': 100, '24': 100, '25': 100, '26': 100, '27': 100, '28': 100, '29': 100,
+            '30': 95, '31': 90, '32': 85, '33': 80, '34': 75, '35': 70, '36': 65, '37': 60, '38': 55, '39': 50,
+            '40': 45, '41': 35, '42': 25, '43': 15, '44': 5, '45': 0
         };
         agePoints = marriedAgeMap[ageVal] || 0;
     } else {
         const singleAgeMap = {
-            '17': 0, '18': 99, '19': 105, '20': 110, '30': 95, '31': 90, '32': 85, '33': 80, 
-            '34': 75, '35': 70, '36': 65, '37': 60, '38': 55, '39': 50, '40': 45, '41': 35, 
-            '42': 25, '43': 15, '44': 10, '45': 0
+            '17': 0, '18': 99, '19': 105,
+            '20': 110, '21': 110, '22': 110, '23': 110, '24': 110, '25': 110, '26': 110, '27': 110, '28': 110, '29': 110,
+            '30': 105, '31': 99, '32': 94, '33': 88, '34': 83, '35': 77, '36': 72, '37': 66, '38': 61, '39': 55,
+            '40': 50, '41': 39, '42': 28, '43': 17, '44': 6, '45': 0
         };
         agePoints = singleAgeMap[ageVal] || 0;
     }
@@ -283,30 +370,31 @@ document.addEventListener('DOMContentLoaded', () => {
         eduPoints = marriedEduMap[eduVal] || 0;
     }
 
-    // Language points (First official language)
+    // Language points (First official language) — per ability × 4; less than CLB 4 = 0
     const langVal = document.getElementById('firstLanguage').value;
     let langPoints = 0;
     const clbMap = {
-        'clb4': 6, 'clb5': 6, 'clb6': 9, 'clb7': 17, 'clb8': 23, 'clb9': 31, 'clb10': 34
+        'below4': 0, 'clb4': 6, 'clb5': 6, 'clb6': 9, 'clb7': 17, 'clb8': 23, 'clb9': 31, 'clb10': 34
     };
-    langPoints = (clbMap[langVal] || 0) * 4; // Reading, Writing, Speaking, Listening equal weight assumed
+    langPoints = (clbMap[langVal] || 0) * 4;
     if (isMarried) {
+        // Married CLB 9 is 29 per ability (not 30)
         const marriedClbMap = {
-            'clb4': 6, 'clb5': 6, 'clb6': 8, 'clb7': 16, 'clb8': 22, 'clb9': 30, 'clb10': 32
+            'below4': 0, 'clb4': 6, 'clb5': 6, 'clb6': 8, 'clb7': 16, 'clb8': 22, 'clb9': 29, 'clb10': 32
         };
         langPoints = (marriedClbMap[langVal] || 0) * 4;
     }
 
-    // Canadian work experience
+    // Canadian work experience — IRCC work-length grid (current; unchanged length points through Nov 2026)
     const canWorkVal = document.getElementById('canWork').value;
     let canWorkPoints = 0;
     const workMap = {
-        'none': 0, '1yr': 40, '2yr': 56, '3yr': 64, '4yr': 72, '5yr': 80
+        'none': 0, '1yr': 40, '2yr': 53, '3yr': 64, '4yr': 72, '5yr': 80
     };
     canWorkPoints = workMap[canWorkVal] || 0;
     if (isMarried) {
         const marriedWorkMap = {
-            'none': 0, '1yr': 35, '2yr': 48, '3yr': 56, '4yr': 64, '5yr': 70
+            'none': 0, '1yr': 35, '2yr': 46, '3yr': 56, '4yr': 63, '5yr': 70
         };
         canWorkPoints = marriedWorkMap[canWorkVal] || 0;
     }
@@ -317,11 +405,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let spouseWorkPoints = 0;
     if (isMarried) {
         const spouseEduVal = document.getElementById('spouseEducation').value;
-        const spouseEduMap = { 'none': 0, 'hs': 2, '1yr': 6, '2yr': 7, '3yr': 8, 'multi': 9, 'masters': 10 };
+        const spouseEduMap = { 'none': 0, 'hs': 2, '1yr': 6, '2yr': 7, '3yr': 8, 'multi': 9, 'masters': 10, 'phd': 10 };
         spouseEduPoints = spouseEduMap[spouseEduVal] || 0;
 
         const spouseLangVal = document.getElementById('spouseLanguage').value;
-        const spouseLangMap = { 'clb4': 0, 'clb5': 4, 'clb7': 12, 'clb9': 20 };
+        // Totals for all 4 abilities: CLB≤4:0, 5–6:4, 7–8:12, 9+:20
+        const spouseLangMap = { 'clb4': 0, 'below4': 0, 'clb5': 4, 'clb7': 12, 'clb9': 20 };
         spouseLangPoints = spouseLangMap[spouseLangVal] || 0;
 
         const spouseWorkVal = document.getElementById('spouseWork').value;
@@ -394,12 +483,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const subTotalB = Math.min(50, foreignLangPoints + foreignCanWorkPoints);
     transferabilityPoints = subTotalA + subTotalB;
 
-    // Additional points (Max 600)
+    // Additional points (Max 600). Job-offer / arranged-employment CRS points removed since 25 Mar 2025 (still 0 as of Oct 2026).
     let additionalPoints = 0;
     if (document.getElementById('siblingCanada').checked) additionalPoints += 15;
-    if (document.getElementById('frenchLanguage').checked) additionalPoints += 50;
-    if (document.getElementById('canStudy').checked) additionalPoints += 15;
-    if (document.getElementById('arrangedJob').checked) additionalPoints += 50;
+    if (document.getElementById('frenchLanguage').checked) {
+        // NCLC 7+ French: 25 if English ≤CLB 4 (or none); 50 if English CLB 5+
+        const englishAtMostClb4 = (langVal === 'below4' || langVal === 'clb4');
+        additionalPoints += englishAtMostClb4 ? 25 : 50;
+    }
+    const canStudyEl = document.getElementById('canStudy');
+    if (canStudyEl) {
+        if (canStudyEl.tagName === 'SELECT') {
+            if (canStudyEl.value === '1_2yr') additionalPoints += 15;
+            else if (canStudyEl.value === '3yr') additionalPoints += 30;
+        } else if (canStudyEl.checked) {
+            additionalPoints += 15;
+        }
+    }
+    // arrangedJob intentionally ignored — currently 0 CRS points
     if (document.getElementById('pnpNomination').checked) additionalPoints += 600;
     if (additionalPoints > 600) additionalPoints = 600;
 
@@ -457,7 +558,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!existingCta) {
         var ctaDiv = document.createElement('div');
         ctaDiv.className = 'cross-sell-cta';
-        ctaDiv.innerHTML = '<span class="cta-icon">📸</span><div class="cta-text"><strong>Preparing your Express Entry application?</strong><p>Create a compliant Canada PR photo — free, 100% private.</p></div><a href="canada-pr-passport-photo-maker.html" class="btn-cta">Make Photo →</a>';
+        ctaDiv.innerHTML = '<span class="cta-icon">📸</span><div class="cta-text"><strong>Preparing your Express Entry application?</strong><p>Create a compliant Canada PR photo — free, processed in your browser (analytics/ads may still load).</p></div><a href="canada-pr-passport-photo-maker.html" class="btn-cta">Make Photo →</a>';
         crsResults.appendChild(ctaDiv);
     }
 }
@@ -618,20 +719,17 @@ function calculateJ1Compliance() {
         statusMessage.innerHTML = `<span style="color: var(--danger)">Your J-1 program and grace period concluded ${days} days ago. Ensure you have departed or filed for adjustment of status.</span>`;
     }
 
-    // Required compliance checks
+    // Required compliance checks — unchecked; user must verify each item
     const auditChecklist = document.getElementById('j1AuditChecklist');
     auditChecklist.innerHTML = `
         <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Valid DS-2019 Form signed by Designated School Official (DSO/RO)
+            <input type="checkbox" id="j1CheckDs2019"> Valid DS-2019 Form signed by Designated School Official (DSO/RO)
         </li>
         <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Travel Signature validated within last 12 months (or 6 months for short-term scholars)
+            <input type="checkbox" id="j1CheckTravel"> Travel Signature validated within last 12 months (or 6 months for short-term scholars)
         </li>
         <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Mandatory J-1 health insurance compliant with 22 CFR 62.14
+            <input type="checkbox" id="j1CheckInsurance"> Mandatory J-1 health insurance compliant with 22 CFR 62.14
         </li>
     `;
 
@@ -643,7 +741,7 @@ function calculateJ1Compliance() {
     if (!existingCta) {
         var ctaDiv = document.createElement('div');
         ctaDiv.className = 'cross-sell-cta';
-        ctaDiv.innerHTML = '<span class="cta-icon">📸</span><div class="cta-text"><strong>Need a J-1 visa photo?</strong><p>Create a compliant US visa photo in 60 seconds — free, 100% private.</p></div><a href="us-visa-passport-photo-maker.html" class="btn-cta">Make Photo →</a>';
+        ctaDiv.innerHTML = '<span class="cta-icon">📸</span><div class="cta-text"><strong>Need a J-1 visa photo?</strong><p>Create a compliant US visa photo in 60 seconds — free, processed in your browser, no photo uploads to our servers.</p></div><a href="us-visa-passport-photo-maker.html" class="btn-cta">Make Photo →</a>';
         j1Results.appendChild(ctaDiv);
     }
 }

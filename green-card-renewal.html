@@ -9,6 +9,13 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500
+      });
     gtag('js', new Date());
     gtag('config', 'G-5KJNDPS0EG');
   </script>
@@ -72,7 +79,14 @@
     <meta name="twitter:title" content="Green Card Renewal Calculator &amp; Timeline | GlobalVisaMath">
     <meta name="twitter:description" content="Calculate your USCIS Form I-90 Green Card renewal timeline. Find out when to renew, view document checklists, and get current filing fee estimates.">
     <meta name="twitter:image" content="https://www.globalvisamath.com/og-large.jpg">
-    <script src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script>
+      window.sentryOnLoad = function () {
+        if (typeof Sentry !== 'undefined' && Sentry.init) {
+          Sentry.init({ replaysSessionSampleRate: 0, replaysOnErrorSampleRate: 0 });
+        }
+      };
+    </script>
 
 </head>
 <body>
@@ -118,7 +132,7 @@
                 <h2>Card Status</h2>
                 <div class="calc-header-badges">
                     <span class="trust-badge trust-badge-gray">
-                        Rules Current as of: 2026
+                        Rules Current as of: October 2026
                     </span>
                     <span class="trust-badge">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
@@ -219,6 +233,7 @@
             <h2>About Green Card (Form I-90) Renewal</h2>
             <p>A Permanent Resident Card (commonly known as a Green Card) is typically issued with a 10-year validity period. Keeping your card updated is crucial for proving your authorization to live and work in the United States, traveling internationally, and applying for U.S. citizenship.</p>
             <p class="info-p-spaced">Under USCIS regulations, you should file Form I-90 (Application to Replace Permanent Resident Card) within the 6-month window before your card expires. If you file too early (more than 180 days before expiration), USCIS may reject your application and return your fee. If you file after expiration, your proof of status may lapse until you obtain an ADIT stamp or a receipt notice extension.</p>
+            <p class="info-p-spaced"><strong>Conditional (2-year) residents:</strong> If you received a 2-year conditional green card (for example through marriage), you generally file Form <strong>I-751</strong> (Petition to Remove Conditions on Residence), not Form I-90, to remove conditions before the card expires.</p>
 
             <div class="note-box">
                 <p class="note-p">

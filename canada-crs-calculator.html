@@ -9,6 +9,13 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500
+      });
     gtag('js', new Date());
     gtag('config', 'G-5KJNDPS0EG');
   </script>
@@ -32,7 +39,7 @@
           "name": "How is the CRS score calculated for Express Entry?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The CRS score is calculated based on four key parts: core human capital factors (age, education, language proficiency, Canadian work experience), spousal factors (if applicable), skill transferability factors, and additional factors (such as PNP nomination, study in Canada, arranged employment, French language skills, or siblings in Canada), up to a maximum of 1,200 points."
+            "text": "The CRS score is calculated based on four key parts: core human capital factors (age, education, language proficiency, Canadian work experience), spousal factors (if applicable), skill transferability factors, and additional factors (such as PNP nomination, Canadian study, French language skills, or siblings in Canada), up to a maximum of 1,200 points. Arranged job offers currently add 0 CRS points (as of October 2026); scoring changes are planned for 3 November 2026."
           }
         },
         {
@@ -72,7 +79,14 @@
     <meta name="twitter:title" content="Canada Express Entry CRS Calculator | GlobalVisaMath">
     <meta name="twitter:description" content="Calculate your Canada Express Entry Comprehensive Ranking System (CRS) score. Find your points breakdown and get custom recommendations to improve your immigration score.">
     <meta name="twitter:image" content="https://www.globalvisamath.com/og-large.jpg">
-    <script src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script>
+      window.sentryOnLoad = function () {
+        if (typeof Sentry !== 'undefined' && Sentry.init) {
+          Sentry.init({ replaysSessionSampleRate: 0, replaysOnErrorSampleRate: 0 });
+        }
+      };
+    </script>
 
 </head>
 <body>
@@ -118,11 +132,11 @@
                 <h2>Immigration Profile</h2>
                 <div class="calc-header-badges">
                     <span class="trust-badge trust-badge-gray">
-                        Rules Current as of: 2026
+                        Rules Current as of: October 2026
                     </span>
                     <span class="trust-badge">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                        Privacy First
+                        No account. Calculators run in your browser.
                     </span>
                 </div>
             </div>
@@ -191,7 +205,8 @@
                     <div class="input-group">
                         <label for="firstLanguage" data-tooltip="Express Entry points map directly to Canadian Language Benchmark (CLB) levels">First Official Language Proficiency (CLB) ⓘ</label>
                         <select id="firstLanguage" class="date-input">
-                            <option value="clb4">CLB 4 or below</option>
+                            <option value="below4">Less than CLB 4</option>
+                            <option value="clb4">CLB 4</option>
                             <option value="clb5">CLB 5</option>
                             <option value="clb6">CLB 6</option>
                             <option value="clb7">CLB 7</option>
@@ -281,21 +296,24 @@
                 
                 <div class="date-row date-row-wrap">
                     <div class="input-group input-group-min">
-                        <label><input type="checkbox" id="siblingCanada"> Sibling in Canada (PR or Citizen)</label>
+                        <label><input type="checkbox" id="siblingCanada"> Sibling in Canada (PR or Citizen) — 15 pts</label>
                     </div>
                     <div class="input-group input-group-min">
-                        <label><input type="checkbox" id="frenchLanguage"> French Language skills (NCLC 7+)</label>
+                        <label><input type="checkbox" id="frenchLanguage"> French NCLC 7+ (25 pts if English ≤CLB 4; 50 if English CLB 5+)</label>
                     </div>
                     <div class="input-group input-group-min">
-                        <label><input type="checkbox" id="canStudy"> Canadian Post-Secondary Education</label>
+                        <label for="canStudy">Canadian post-secondary study</label>
+                        <select id="canStudy" class="date-input">
+                            <option value="none">None</option>
+                            <option value="1_2yr">1–2 year credential (15 pts)</option>
+                            <option value="3yr">3+ year credential (30 pts)</option>
+                        </select>
                     </div>
                     <div class="input-group input-group-min">
-                        <label><input type="checkbox" id="arrangedJob"> Arranged Employment Offer</label>
-                    </div>
-                    <div class="input-group input-group-min">
-                        <label><input type="checkbox" id="pnpNomination"> Provincial Nomination (PNP)</label>
+                        <label><input type="checkbox" id="pnpNomination"> Provincial Nomination (PNP) — 600 pts</label>
                     </div>
                 </div>
+                <p style="font-size:0.9rem; color:var(--text-muted); margin:0.75rem 0 0;">Job offers currently add <strong>0 CRS points</strong> (removed 25 Mar 2025). IRCC will change job-offer and Canadian work experience scoring on <strong>3 Nov 2026</strong> — see <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/changes.html" target="_blank" rel="noopener noreferrer">canada.ca Express Entry changes</a>.</p>
 
                 <div class="action-row action-row-lg">
                     <button type="submit" class="btn-primary">Calculate CRS Score</button>
@@ -354,8 +372,7 @@
 
             <div class="note-box">
                 <p class="note-p">
-                    📋 <strong>Official Source:</strong> For ministerial instructions and complete scoring grids, visit the official <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/eligibility/criteria-comprehensive-ranking-system.html" target="_blank" rel="noopener noreferrer" class="note-link">IRCC Express Entry CRS Criteria</a>.
-                    If you notice policy updates or discrepancies, please notify us at <a href="mailto:hello@globalvisamath.com" class="note-link">hello@globalvisamath.com</a>.
+                    📋 <strong>Official Source:</strong> Scoring follows the <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score/crs-criteria.html" target="_blank" rel="noopener noreferrer" class="note-link">IRCC CRS criteria</a> (rules current as of October 2026). Job offers add 0 CRS points today; see upcoming <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/changes.html" target="_blank" rel="noopener noreferrer" class="note-link">3 Nov 2026 changes</a>. Questions: <a href="mailto:hello@globalvisamath.com" class="note-link">hello@globalvisamath.com</a>.
                 </p>
             </div>
         </section>
@@ -364,7 +381,7 @@
             <h2 class="faq-h2">Frequently Asked Questions</h2>
             <div class="faq-item-border">
                 <h4 class="faq-h4">How is the CRS score calculated?</h4>
-                <p class="faq-p">The score is based on four parts: core human capital (age, education, language, Canadian experience), spouse factors (if applicable), skill transferability, and additional factors (like PNP, arranged employment, or sibling in Canada) for a total maximum of 1,200 points.</p>
+                <p class="faq-p">The score is based on four parts: core human capital (age, education, language, Canadian experience), spouse factors (if applicable), skill transferability, and additional factors (PNP, Canadian study, French, sibling in Canada) for a total maximum of 1,200 points. Job offers currently add 0 CRS points; IRCC will change job-offer and Canadian work experience scoring on 3 Nov 2026.</p>
             </div>
             <div class="faq-item-border">
                 <h4 class="faq-h4">Should I apply as married or single?</h4>

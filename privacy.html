@@ -9,10 +9,17 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500
+      });
     gtag('js', new Date());
     gtag('config', 'G-5KJNDPS0EG');
   </script>
-    <meta name="description" content="Read the Privacy Policy for GlobalVisaMath. Discover how our tools process all calculations strictly client-side without storing or transmitting personal data.">
+    <meta name="description" content="Privacy Policy for GlobalVisaMath — how calculators run in your browser, and what third-party services (Analytics, AdSense, Sentry, fonts, CDNs, affiliates) may load.">
     <link rel="canonical" href="https://www.globalvisamath.com/privacy.html">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     
@@ -27,7 +34,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.globalvisamath.com/privacy.html">
     <meta property="og:title" content="Privacy Policy - GlobalVisaMath">
-    <meta property="og:description" content="Read the Privacy Policy for GlobalVisaMath. Discover how our tools process all calculations strictly client-side without storing or transmitting personal data.">
+    <meta property="og:description" content="Privacy Policy for GlobalVisaMath — how calculators run in your browser, and what third-party services may load.">
     <meta property="og:image" content="https://www.globalvisamath.com/og-large.jpg">
     <meta property="og:image:secure_url" content="https://www.globalvisamath.com/og-large.jpg">
     <meta property="og:image:type" content="image/jpeg">
@@ -38,9 +45,17 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://www.globalvisamath.com/privacy.html">
     <meta name="twitter:title" content="Privacy Policy - GlobalVisaMath">
-    <meta name="twitter:description" content="Read the Privacy Policy for GlobalVisaMath. Discover how our tools process all calculations strictly client-side without storing or transmitting personal data.">
+    <meta name="twitter:description" content="Privacy Policy for GlobalVisaMath — how calculators run in your browser, and what third-party services may load.">
     <meta name="twitter:image" content="https://www.globalvisamath.com/og-large.jpg">
-    <script src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script>
+      window.sentryOnLoad = function () {
+        Sentry.init({
+          replaysSessionSampleRate: 0,
+          replaysOnErrorSampleRate: 0
+        });
+      };
+    </script>
 
 </head>
 <body>
@@ -78,27 +93,39 @@
     <main class="container">
         <section class="info-section">
             <h1 class="gvm-h1">Privacy Policy</h1>
-            <p class="gvm-date">Last Updated: May 2026</p>
+            <p class="gvm-date">Last Updated: October 2026</p>
 
-            <h2>1. Zero Data Collection Architecture</h2>
-            <p>GlobalVisaMath is designed with a strict privacy-first model. We do not require any signup, account registration, or email verification to access our tools. No travel histories, passport details, test dates, ages, or immigration status data are ever sent to our servers or stored in any remote database.</p>
+            <h2>1. No account — calculators run in your browser</h2>
+            <p>GlobalVisaMath does not require signup, login, or email verification. Trip dates, CRS inputs, Green Card dates, J-1 program dates, and photo crops are processed in your browser with client-side JavaScript. We do not operate a backend that stores those calculator inputs in a database.</p>
+            <p>Closing or reloading the tab clears that session data from memory. This is not the same as “no data is ever collected anywhere”: third-party scripts on the page can still receive standard web analytics and advertising signals, as described below.</p>
 
-            <h2 class="info-h2-legal">2. Client-Side Execution</h2>
-            <p>All calculations, date parsing, and score summaries are executed entirely within your web browser using standard client-side JavaScript. Once you close or reload the browser tab, the data processed in your session memory is permanently discarded.</p>
+            <h2 class="info-h2-legal">2. Google Analytics (GA4)</h2>
+            <p>We use Google Analytics 4 (measurement ID <code>G-5KJNDPS0EG</code>) to understand traffic and feature use. In addition to standard page views, our tools may send custom events such as calculator runs (for example Schengen day counts, CRS scores, Green Card remaining days, or J-1 checks). Event payloads are aggregate usage metrics, not passport scans or uploaded photos.</p>
+            <p>Google may set cookies or use similar identifiers subject to Google’s privacy policy. You can limit ad personalization via <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer">Google Ads Settings</a> and review Google’s data practices on Google’s sites.</p>
 
-            <h2 class="info-h2-legal">3. Google AdSense &amp; Analytics</h2>
-            <p>To support the maintenance and hosting of this free service, we display advertising spaces through Google AdSense. These services may collect standardized browsing metrics:</p>
+            <h2 class="info-h2-legal">3. Google AdSense</h2>
+            <p>Some pages load Google AdSense (<code>ca-pub-2959862133855422</code>) to help fund hosting. AdSense and its partners may use cookies or device signals to serve and measure ads. Users may opt out of personalized advertising at <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer">Google Ads Settings</a>.</p>
+            <p><strong>EEA/UK:</strong> A Google-certified Consent Management Platform (CMP) must also be enabled in the AdSense console for visitors in those regions; site-level Consent Mode defaults are not a substitute.</p>
+
+            <h2 class="info-h2-legal">4. Error monitoring (Sentry)</h2>
+            <p>We load Sentry’s browser SDK to capture client-side errors so we can fix broken pages. Session Replay sample rates are set to 0. Sentry may receive technical details such as URL, browser type, and stack traces when an error occurs.</p>
+
+            <h2 class="info-h2-legal">5. Fonts, CDNs, and other third parties</h2>
             <ul>
-                <li>Google, as a third-party vendor, uses cookies to serve ads based on a user's prior visits to our website.</li>
-                <li>Google's use of advertising cookies enables it and its partners to serve ads based on your visit to this site and/or other sites on the Internet.</li>
-                <li>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer">Google Ads Settings</a>.</li>
+                <li><strong>Google Fonts</strong> — pages request Inter/Outfit (or similar) from fonts.googleapis.com / fonts.gstatic.com.</li>
+                <li><strong>cdnjs / other CDNs</strong> — some tools load libraries (for example Cropper.js) from public CDNs such as cdnjs.</li>
+                <li><strong>Affiliate / partner links</strong> — outbound links (for example travel eSIM offers) may use affiliate tracking parameters when you click through. See our <a href="affiliate-disclosure.html">Affiliate Disclosure</a>.</li>
             </ul>
+            <p>Those third parties process requests under their own policies when your browser fetches their resources.</p>
 
-            <h2 class="info-h2-legal">4. Links to External Resources</h2>
-            <p>Our pages contain links pointing directly to official governmental portals (such as USCIS, IRCC, and the European Union Lex portal). We are not responsible for the privacy practices or contents of those external government sites.</p>
+            <h2 class="info-h2-legal">6. Camera and photo makers</h2>
+            <p>Visa photo tools can use your device camera via <code>getUserMedia</code> and crop images locally. Photos are not uploaded to GlobalVisaMath servers as part of the crop/download flow. Granting camera permission is optional and controlled by your browser.</p>
 
-            <h2 class="info-h2-legal">5. Contacting Us</h2>
-            <p>For questions regarding our privacy practices, you can contact us at <a href="mailto:privacy@globalvisamath.com">privacy@globalvisamath.com</a>.</p>
+            <h2 class="info-h2-legal">7. External government links</h2>
+            <p>We link to official portals (IRCC, USCIS, EU resources, and similar). We are not responsible for the privacy practices of those sites.</p>
+
+            <h2 class="info-h2-legal">8. Contact</h2>
+            <p>Questions about this policy: <a href="mailto:hello@globalvisamath.com">hello@globalvisamath.com</a>.</p>
         </section>
     </main>
 
@@ -143,7 +170,6 @@
 
     <script src="script.js" defer></script>
     <script>
-        // ── Native High-Performance Scroll-Reveal ──
         window.addEventListener('load', () => {
           const targets = document.querySelectorAll('.info-section, .footer');
           const observer = new IntersectionObserver((entries) => {
@@ -165,8 +191,3 @@
         });
     </script></body>
 </html>
-
-
-
-
-

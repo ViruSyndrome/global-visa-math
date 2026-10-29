@@ -13,6 +13,13 @@
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500
+      });
       gtag('js', new Date());
       gtag('config', 'G-5KJNDPS0EG');
     </script>
@@ -34,7 +41,14 @@
     <meta name="twitter:title" content="Schengen 90/180 Rule for Netherlands 🇳🇱 | GlobalVisaMath">
     <meta name="twitter:description" content="Can you visit Netherlands? Use our free Schengen 90/180 day calculator to check your compliance before traveling to Amsterdam or anywhere in Netherlands.">
     <meta name="twitter:image" content="https://www.globalvisamath.com/og-large.jpg">
-    <script src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script>
+      window.sentryOnLoad = function () {
+        if (typeof Sentry !== 'undefined' && Sentry.init) {
+          Sentry.init({ replaysSessionSampleRate: 0, replaysOnErrorSampleRate: 0 });
+        }
+      };
+    </script>
 
   <style>
   /* Cross-Linking Footer Network CSS */
@@ -87,10 +101,10 @@
             <div class="calc-header">
                 <h2>Check Your Netherlands Travel Compliance</h2>
                 <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
-                    <span class="trust-badge" style="color: #4a5568; background: #edf2f7;">Rules Current as of: 2026</span>
+                    <span class="trust-badge" style="color: #4a5568; background: #edf2f7;">Rules Current as of: October 2026</span>
                     <span class="trust-badge">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                        Privacy First: No Data Stored
+                        No account. Calculators run in your browser.
                     </span>
                 </div>
             </div>
@@ -141,7 +155,7 @@
         <section class="info-section">
             <h2>The 90/180 Rule and Netherlands</h2>
             <p>The Netherlands including Amsterdam is a major Schengen transit hub. Layovers in Schiphol that involve leaving the transit zone count as Schengen days.</p>
-            <p style="margin-top: 1rem;">The Schengen Area treats all 27 member countries as a single zone. Whether you enter at Amsterdam airport or travel overland from a neighbouring country, every day counts toward the same rolling 90-day limit.</p>
+            <p style="margin-top: 1rem;">The Schengen Area treats all 29 member countries as a single zone. Whether you enter at Amsterdam airport or travel overland from a neighbouring country, every day counts toward the same rolling 90-day limit.</p>
 
             <div style="margin-top: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
                 <div class="pseo-card" style="padding: 1.25rem; background: rgba(43,108,176,0.04); border: 1px solid var(--border); border-radius: 10px;">

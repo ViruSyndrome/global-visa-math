@@ -13,6 +13,13 @@
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500
+      });
       gtag('js', new Date());
       gtag('config', 'G-5KJNDPS0EG');
     </script>
@@ -34,7 +41,14 @@
     <meta name="twitter:title" content="CRS Score 540 — What Does It Mean? | GlobalVisaMath">
     <meta name="twitter:description" content="Got a CRS score of 540? Find out what your Express Entry score means, what draw cut-offs look like, and how to improve your chances of an ITA.">
     <meta name="twitter:image" content="https://www.globalvisamath.com/og-large.jpg">
-    <script src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script>
+      window.sentryOnLoad = function () {
+        if (typeof Sentry !== 'undefined' && Sentry.init) {
+          Sentry.init({ replaysSessionSampleRate: 0, replaysOnErrorSampleRate: 0 });
+        }
+      };
+    </script>
 
   <style>
   /* Cross-Linking Footer Network CSS */
@@ -109,7 +123,7 @@
                     <h3>How to Improve a CRS Score of 540</h3>
                     <ul style="color: var(--text-muted); font-size: 0.95rem; padding-left: 1.25rem; line-height: 2.2; margin-top: 0.75rem;">
                         <li><strong>Improve language scores</strong> — IELTS or CELPIP CLB 9+ gives maximum language points</li>
-                        <li><strong>Add a job offer</strong> — A valid LMIA-backed offer adds 50–200 points instantly</li>
+                        <li><strong>Job offers</strong> — Currently add <strong>0 CRS points</strong> (since 25 Mar 2025). IRCC will change job-offer and Canadian work experience scoring on 3 Nov 2026 — see <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/changes.html" target="_blank" rel="noopener noreferrer">canada.ca</a>.</li>
                         <li><strong>Provincial Nomination</strong> — A PNP nomination adds 600 points, near-guaranteeing an ITA</li>
                         <li><strong>Canadian education</strong> — A 2-year diploma or degree adds significant human capital points</li>
                         <li><strong>Spouse language score</strong> — Improving your spouse's English/French score adds adaptability points</li>

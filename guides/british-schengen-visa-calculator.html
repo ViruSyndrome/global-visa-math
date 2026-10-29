@@ -13,6 +13,13 @@
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500
+      });
       gtag('js', new Date());
       gtag('config', 'G-5KJNDPS0EG');
     </script>
@@ -34,7 +41,14 @@
     <meta name="twitter:title" content="Schengen 90/180 Calculator for British Passport Holders | GlobalVisaMath">
     <meta name="twitter:description" content="British passport holders: check your Schengen 90/180 day compliance before visiting Europe. Free, private, instant calculator.">
     <meta name="twitter:image" content="https://www.globalvisamath.com/og-large.jpg">
-    <script src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://js.sentry-cdn.com/63c1a1ec186a36c011fc831229bdf952.min.js" crossorigin="anonymous"></script>
+    <script>
+      window.sentryOnLoad = function () {
+        if (typeof Sentry !== 'undefined' && Sentry.init) {
+          Sentry.init({ replaysSessionSampleRate: 0, replaysOnErrorSampleRate: 0 });
+        }
+      };
+    </script>
 
   <style>
   /* Cross-Linking Footer Network CSS */
@@ -87,10 +101,10 @@
             <div class="calc-header">
                 <h2>Check Your Schengen Days Used</h2>
                 <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
-                    <span class="trust-badge" style="color: #4a5568; background: #edf2f7;">Rules Current as of: 2026</span>
+                    <span class="trust-badge" style="color: #4a5568; background: #edf2f7;">Rules Current as of: October 2026</span>
                     <span class="trust-badge">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                        Privacy First: No Data Stored
+                        No account. Calculators run in your browser.
                     </span>
                 </div>
             </div>
@@ -149,7 +163,7 @@
                     <li>Maximum <strong>90 days</strong> in any <strong>180-day rolling window</strong></li>
                     <li>The 180 days are counted <strong>backwards from every day</strong> you are present</li>
                     <li>Both entry and exit days count as <strong>full days</strong></li>
-                    <li>The limit is shared across <strong>all 27 Schengen countries</strong></li>
+                    <li>The limit is shared across <strong>all 29 Schengen countries</strong></li>
                     <li>Overstaying can result in fines, deportation, and future bans</li>
                 </ul>
             </div>
@@ -167,7 +181,7 @@
             </div>
             <div style="padding: 1rem 0 0 0;">
                 <h4 style="color: var(--primary); margin-bottom: 0.5rem;">What countries are included in the Schengen Area?</h4>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">27 countries: Austria, Belgium, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Italy, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Slovakia, Slovenia, Spain, Sweden, and Switzerland.</p>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">29 countries: Austria, Belgium, Bulgaria, Croatia, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Italy, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, and Switzerland.</p>
             </div>
         </section>
     </main>

@@ -133,7 +133,6 @@
       };
     </script>
 
-    <meta property="og:image" content="https://www.globalvisamath.com/og-photo-maker.webp">
     <meta name="twitter:image" content="https://www.globalvisamath.com/og-photo-maker.webp">
 </head>
 <body>
@@ -434,9 +433,17 @@
                 imageSmoothingEnabled: true,
                 imageSmoothingQuality: 'high',
             });
+            if (!canvas) {
+                showToolError('Could not crop the image. Please try another photo.');
+                return;
+            }
 
             // Convert to JPG
             canvas.toBlob((blob) => {
+                if (!blob) {
+                    showToolError('Could not generate the JPEG file. Please try again.');
+                    return;
+                }
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
@@ -489,16 +496,28 @@
         function capturePhoto() {
             const video = document.getElementById('cameraFeed');
             if (!currentStream) return;
-            
+            if (!video || video.videoWidth === 0 || video.videoHeight === 0) {
+                showToolError('Camera feed is still loading. Please wait a moment and try again.');
+                return;
+            }
+
             const canvas = document.createElement('canvas');
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             const ctx = canvas.getContext('2d');
-            
+            if (!ctx) {
+                showToolError('Could not access canvas context to capture photo.');
+                return;
+            }
+
             // Preview may be CSS-mirrored; do NOT mirror the saved canvas (true orientation).
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            
-            canvas.toBlob(blob => {
+
+            canvas.toBlob((blob) => {
+                if (!blob) {
+                    showToolError('Could not capture photo from camera. Please try again.');
+                    return;
+                }
                 const file = new File([blob], "camera-photo.jpg", { type: "image/jpeg" });
                 stopCamera();
                 handleFile(file);

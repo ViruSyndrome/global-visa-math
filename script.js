@@ -15,23 +15,38 @@ function acceptCookies() {
     }
 }
 
-window.addEventListener('load', function () {
-    var banner = document.getElementById('cookieConsent');
-    if (!banner) return;
+function initCookieConsent() {
+    var consentGranted = false;
     try {
-        if (localStorage.getItem('cookieConsent') === 'true') {
-            banner.classList.add('hidden');
-            if (typeof gtag === 'function') {
-                gtag('consent', 'update', {
-                    ad_storage: 'granted',
-                    analytics_storage: 'granted',
-                    ad_user_data: 'granted',
-                    ad_personalization: 'granted'
-                });
-            }
-        }
+        consentGranted = localStorage.getItem('cookieConsent') === 'true';
     } catch (e) {}
-});
+
+    var banner = document.getElementById('cookieConsent');
+    if (consentGranted) {
+        if (banner) banner.classList.add('hidden');
+        if (typeof gtag === 'function') {
+            gtag('consent', 'update', {
+                ad_storage: 'granted',
+                analytics_storage: 'granted',
+                ad_user_data: 'granted',
+                ad_personalization: 'granted'
+            });
+        }
+        return;
+    }
+
+    if (!banner && document.body) {
+        var isNested = window.location.pathname.indexOf('/guides/') !== -1;
+        var privacyHref = isNested ? '../privacy.html' : 'privacy.html';
+        banner = document.createElement('div');
+        banner.id = 'cookieConsent';
+        banner.className = 'cookie-banner';
+        banner.innerHTML = '<p>We use cookies for analytics and advertising. By continuing, you accept our <a href="' + privacyHref + '">Privacy Policy</a>.</p><button type="button">Accept</button>';
+        var btn = banner.querySelector('button');
+        if (btn) btn.addEventListener('click', acceptCookies);
+        document.body.insertBefore(banner, document.body.firstChild);
+    }
+}
 
 // Analytics tracking helper
 function trackEvent(eventName, params = {}) {
@@ -85,13 +100,13 @@ function ensureFormErrorContainer() {
     return error;
 }
 
-function showToolError(message) {
+function showFormError(message) {
     var error = ensureFormErrorContainer();
     error.textContent = message;
     error.style.display = 'block';
 }
 
-function clearToolError() {
+function clearFormError() {
     var error = document.getElementById('formError');
     if (error) {
         error.textContent = '';
@@ -100,6 +115,8 @@ function clearToolError() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    initCookieConsent();
+
     // Mobile Hamburger Menu Toggle
     const hamburger = document.getElementById('visaHamburger');
     const navLinks = document.getElementById('visaNavLinks');
@@ -257,8 +274,48 @@ document.addEventListener('DOMContentLoaded', () => {
         controlDateInput.addEventListener('change', saveSchengenTrips);
     }
 
+    function resetSchengen() {
+        try { localStorage.removeItem(GVM_TRIPS_KEY); } catch (e) {}
+        clearFormError();
+        if (entryList) {
+            entryList.innerHTML = '';
+            tripCount = -1;
+            addTripRow({});
+        }
+        if (controlDateInput) {
+            controlDateInput.value = localYMD(new Date());
+        }
+        const resultsSection = document.getElementById('resultsSection');
+        if (resultsSection) {
+            resultsSection.style.display = 'none';
+        }
+        const daysUsedEl = document.getElementById('daysUsed');
+        if (daysUsedEl) {
+            daysUsedEl.textContent = '0';
+            daysUsedEl.style.color = '';
+        }
+        const schengenCircle = document.getElementById('schengenCircle');
+        if (schengenCircle) {
+            schengenCircle.style.strokeDashoffset = '';
+            schengenCircle.style.stroke = '';
+        }
+        const statusMessage = document.getElementById('statusMessage');
+        if (statusMessage) statusMessage.innerHTML = '';
+        const auditList = document.getElementById('auditList');
+        if (auditList) auditList.innerHTML = '';
+        const helper = document.getElementById('planningHelper');
+        const helperBody = document.getElementById('planningHelperBody');
+        if (helper) helper.style.display = 'none';
+        if (helperBody) helperBody.innerHTML = '';
+    }
+
     if (calculateBtn) {
         calculateBtn.addEventListener('click', calculateSchengen);
+    }
+
+    const resetBtn = document.getElementById('resetBtn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', resetSchengen);
     }
 
     function countUniqueDaysInWindow(trips, assessmentDate) {
@@ -289,11 +346,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function calculateSchengen() {
         if (!controlDateInput || !entryList) return;
         const controlDateVal = controlDateInput.value;
-        clearToolError();
+        clearFormError();
         entryList.querySelectorAll('.date-row').forEach(clearRowWarn);
 
         if (!controlDateVal) {
-            showToolError('Please select a Date of Assessment.');
+            showFormError('Please select a Date of Assessment.');
             return;
         }
 
@@ -335,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!exitVal) {
                 setRowWarn(row, `Trip ${index + 1}: Enter an exit date, or check “Still in Schengen?” if you have not left yet.`);
-                showToolError(`Trip ${index + 1}: Enter an exit date, or check "Still in Schengen?" if you have not left yet.`);
+                showFormError(`Trip ${index + 1}: Enter an exit date, or check "Still in Schengen?" if you have not left yet.`);
                 hasErrors = true;
                 return;
             }
@@ -345,7 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (exitDate < entryDate) {
                 setRowWarn(row, `Trip ${index + 1}: Exit date cannot be before Entry date.`);
-                showToolError(`Error in Trip ${index + 1}: Exit date cannot be before Entry date.`);
+                showFormError(`Error in Trip ${index + 1}: Exit date cannot be before Entry date.`);
                 hasErrors = true;
             } else {
                 const trip = {
@@ -363,13 +420,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (halfFilled && !document.getElementById('formError')?.textContent) {
-            showToolError('Some trip rows are incomplete — see the yellow warnings on each row.');
+            showFormError('Some trip rows are incomplete — see the yellow warnings on each row.');
         }
 
         if (hasErrors) return;
 
         if (trips.length === 0 && rows.length > 0) {
-            showToolError('Please enter at least one trip with an entry date (and exit, or mark Still in Schengen).');
+            showFormError('Please enter at least one trip with an entry date (and exit, or mark Still in Schengen).');
             return;
         }
 
@@ -523,9 +580,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         var existingCta = resultsSection.querySelector('.cross-sell-cta');
         if (!existingCta) {
+            var photoHref = window.location.pathname.indexOf('/guides/') !== -1
+                ? '../schengen-visa-photo-maker.html'
+                : 'schengen-visa-photo-maker.html';
             var ctaDiv = document.createElement('div');
             ctaDiv.className = 'cross-sell-cta';
-            ctaDiv.innerHTML = '<span class="cta-icon">📸</span><div class="cta-text"><strong>Applying for a Schengen visa?</strong><p>Get a compliant visa photo in 60 seconds — free, processed in your browser, no photo uploads to our servers.</p></div><a href="schengen-visa-photo-maker.html" class="btn-cta">Make Photo →</a>';
+            ctaDiv.innerHTML = '<span class="cta-icon">📸</span><div class="cta-text"><strong>Applying for a Schengen visa?</strong><p>Get a compliant visa photo in 60 seconds — free, processed in your browser, no photo uploads to our servers.</p></div><a href="' + photoHref + '" class="btn-cta">Make Photo →</a>';
             resultsSection.appendChild(ctaDiv);
         }
     }
@@ -535,7 +595,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // 2. Canada Express Entry CRS Calculator
 // ==========================================
     function calculateCRS() {
-        clearToolError();
+        clearFormError();
         const maritalStatusEl = document.getElementById('maritalStatus');
         if (!maritalStatusEl) return; // guard for wrong page
         const maritalStatus = maritalStatusEl.value;
@@ -774,10 +834,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // 3. Green Card Renewal Estimator
 // ==========================================
 function calculateGCRenewal() {
-    clearToolError();
+    clearFormError();
     const expiryInput = document.getElementById('gcExpiryDate').value;
     if (!expiryInput) {
-        showToolError('Please select your Green Card expiration date.');
+        showFormError('Please select your Green Card expiration date.');
         return;
     }
 
@@ -861,13 +921,13 @@ function calculateGCRenewal() {
 // 4. J-1 Visa Compliance Tracker
 // ==========================================
 function calculateJ1Compliance() {
-    clearToolError();
+    clearFormError();
     const startInput = document.getElementById('dsStart').value;
     const endInput = document.getElementById('dsEnd').value;
     const assessmentInput = document.getElementById('assessmentDate').value;
 
     if (!startInput || !endInput || !assessmentInput) {
-        showToolError('Please complete all program date fields.');
+        showFormError('Please complete all program date fields.');
         return;
     }
 
@@ -876,7 +936,7 @@ function calculateJ1Compliance() {
     const assessmentDate = parseLocalDate(assessmentInput);
 
     if (endDate < startDate) {
-        showToolError('Error: Program end date cannot be before start date.');
+        showFormError('Error: Program end date cannot be before start date.');
         return;
     }
 
@@ -924,6 +984,50 @@ function calculateJ1Compliance() {
         daysRemainingEl.className = 'status-number danger';
         statusLabel.textContent = 'Days out of compliance';
         statusMessage.innerHTML = `<span style="color: var(--danger)">Your J-1 program and grace period concluded ${days} days ago. Ensure you have departed or filed for adjustment of status.</span>`;
+    }
+
+    // Category-specific max program duration guidance / warnings
+    const categoryEl = document.getElementById('j1Category');
+    const categoryVal = categoryEl ? categoryEl.value : 'scholar';
+    const j1CategoryRules = {
+        scholar: { label: 'Research Scholar / Professor', months: 60, capText: '5 years', note: 'Subject to the 24-month bar on repeat participation after program completion.' },
+        shortTerm: { label: 'Short-Term Scholar', months: 6, capText: '6 months', note: 'Extensions beyond 6 months are generally not permitted; travel signatures are valid for 6 months.' },
+        trainee: { label: 'Trainee', months: 18, capText: '18 months', note: 'Up to 18 months total (12 months for hospitality/tourism).' },
+        intern: { label: 'Intern', months: 12, capText: '12 months', note: 'Maximum program duration is 12 months.' },
+        student: { label: 'College / University Student', months: null, capText: 'duration of academic program', note: 'Duration depends on your degree program on DS-2019 (plus eligible Academic Training).' },
+        aupair: { label: 'Au Pair', months: 12, capText: '12 months initial', note: 'Initial period is 12 months; eligible for a 6-, 9-, or 12-month extension with sponsor approval.' }
+    };
+    const rule = j1CategoryRules[categoryVal] || j1CategoryRules.scholar;
+    const programDays = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+
+    let guidanceEl = document.getElementById('j1CategoryGuidance');
+    if (!guidanceEl && statusMessage && statusMessage.parentNode) {
+        guidanceEl = document.createElement('div');
+        guidanceEl.id = 'j1CategoryGuidance';
+        guidanceEl.style.cssText = 'margin: 1rem 0; padding: 0.9rem 1rem; border-radius: 8px; font-size: 0.9rem; line-height: 1.5;';
+        statusMessage.parentNode.insertBefore(guidanceEl, statusMessage.nextSibling);
+    }
+    if (guidanceEl) {
+        if (rule.months !== null) {
+            const maxEnd = new Date(startDate);
+            maxEnd.setMonth(maxEnd.getMonth() + rule.months);
+            if (endDate > maxEnd) {
+                guidanceEl.style.background = '#fef2f2';
+                guidanceEl.style.border = '1px solid #fecaca';
+                guidanceEl.style.color = '#991b1b';
+                guidanceEl.innerHTML = `<strong>Duration Warning (${rule.label}):</strong> Your DS-2019 dates span <strong>${programDays} days</strong>, which exceeds the standard maximum of <strong>${rule.capText}</strong> (through ${maxEnd.toLocaleDateString()}). Confirm with your RO/ARO whether an approved extension or category rule applies. ${rule.note}`;
+            } else {
+                guidanceEl.style.background = '#f0fdf4';
+                guidanceEl.style.border = '1px solid #bbf7d0';
+                guidanceEl.style.color = '#166534';
+                guidanceEl.innerHTML = `<strong>Category Guidance (${rule.label}):</strong> Your DS-2019 span of <strong>${programDays} days</strong> is within the standard maximum of <strong>${rule.capText}</strong> (cap date: ${maxEnd.toLocaleDateString()}). ${rule.note}`;
+            }
+        } else {
+            guidanceEl.style.background = '#f8fafc';
+            guidanceEl.style.border = '1px solid var(--border)';
+            guidanceEl.style.color = 'var(--text-main)';
+            guidanceEl.innerHTML = `<strong>Category Guidance (${rule.label}):</strong> Your DS-2019 span is <strong>${programDays} days</strong> (${rule.capText}). ${rule.note}`;
+        }
     }
 
     // Required compliance checks — unchecked; user must verify each item

@@ -278,7 +278,7 @@
                 </div>
 
                 <!-- Section 4: Skill Transferability -->
-                <div class="form-section-title form-title-spaced">3. Skill Transferability / Foreign Experience</div>
+                <div class="form-section-title form-title-spaced" id="skillTransferTitle">4. Skill Transferability / Foreign Experience</div>
                 
                 <div class="date-row">
                     <div class="input-group">
@@ -292,7 +292,7 @@
                 </div>
 
                 <!-- Section 5: Additional Factors -->
-                <div class="form-section-title form-title-spaced">4. Additional Points (Maximum 600)</div>
+                <div class="form-section-title form-title-spaced" id="additionalPointsTitle">5. Additional Points (Maximum 600)</div>
                 
                 <div class="date-row date-row-wrap">
                     <div class="input-group input-group-min">
@@ -438,12 +438,19 @@
         function toggleSpouseSection() {
             const status = document.getElementById('maritalStatus').value;
             const spouseSection = document.getElementById('spouseSection');
+            const skillTitle = document.getElementById('skillTransferTitle');
+            const addTitle = document.getElementById('additionalPointsTitle');
             if (status === 'married') {
                 spouseSection.style.display = 'block';
+                if (skillTitle) skillTitle.textContent = '4. Skill Transferability / Foreign Experience';
+                if (addTitle) addTitle.textContent = '5. Additional Points (Maximum 600)';
             } else {
                 spouseSection.style.display = 'none';
+                if (skillTitle) skillTitle.textContent = '3. Skill Transferability / Foreign Experience';
+                if (addTitle) addTitle.textContent = '4. Additional Points (Maximum 600)';
             }
         }
+        document.addEventListener('DOMContentLoaded', toggleSpouseSection);
 
         // ── Native High-Performance Scroll-Reveal ──
     window.addEventListener('load', () => {

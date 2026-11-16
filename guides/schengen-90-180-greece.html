@@ -119,6 +119,11 @@
                             <label for="exit_0" data-tooltip="The day you exited the Schengen Area (from passport stamp)">Date of Exit ⓘ</label>
                             <input type="date" id="exit_0" class="date-input">
                         </div>
+                        <div class="input-group" style="flex:0 0 auto; justify-content:flex-end;">
+                            <label style="display:flex; align-items:center; gap:0.35rem; white-space:nowrap; font-size:0.85rem;">
+                                <input type="checkbox" class="still-in-schengen" id="still_0"> Still in Schengen?
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <button class="btn-secondary" id="addTripBtn">+ Add Another Trip</button>
@@ -127,11 +132,14 @@
                         <label for="controlDate" data-tooltip="The date from which you want to check your rolling 180-day compliance">Date of Assessment (Today) ⓘ</label>
                         <input type="date" id="controlDate" class="date-input">
                     </div>
-                    <button class="btn-primary" id="calculateBtn">Calculate Status</button>
+                    <div style="display:flex; gap:0.5rem; align-items:flex-end;">
+                        <button class="btn-primary" id="calculateBtn">Calculate Status</button>
+                        <button type="button" class="btn-secondary" id="resetBtn" style="background-color: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border);">Reset</button>
+                    </div>
                 </div>
             </div>
             <div class="form-error" id="formError" role="alert" aria-live="assertive" style="display:none;"></div>
-            <div class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-section" id="resultsSection" aria-live="polite" aria-atomic="true" style="display: none;">
                 <h3>Compliance Status</h3>
                 <div class="status-card" id="statusCard">
                     <div class="score-circle-container">
@@ -144,10 +152,36 @@
                     <div class="status-label" style="font-weight: 600; margin-top: 0.5rem;">Days used in the last 180 days (Limit: 90)</div>
                 </div>
                 <p class="status-message" id="statusMessage"></p>
+                <div class="planning-helper" id="planningHelper" style="display:none; margin-top:1rem; padding:1rem 1.1rem; background:#f8fafc; border:1px solid var(--border); border-radius:10px;">
+                    <h4 style="margin:0 0 0.5rem; font-size:1rem;">Planning helper</h4>
+                    <div id="planningHelperBody" style="font-size:0.9rem; line-height:1.55; color:var(--text-color);"></div>
+                </div>
                 <div class="audit-trail">
                     <h4>Calculation Audit</h4>
                     <p class="audit-disclaimer">Based on the rolling 180-day window looking back from your Date of Assessment.</p>
                     <ul id="auditList"></ul>
+                </div>
+            </div>
+        
+            <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(217, 119, 6, 0.3); border-radius: 8px; padding: 14px 16px; margin: 24px auto 0; max-width: 900px; font-size: 0.9rem; color: var(--text-color);">
+                <strong>Disclosure:</strong> GlobalVisaMath may earn affiliate commissions when you purchase through links to third-party services like Yesim and SafetyWing. This does not affect your cost. Our tool calculations remain 100% free and unbiased. <a href="../affiliate-disclosure.html" style="color: var(--primary); text-decoration: underline;">Read our full affiliate policy</a>.
+            </div>
+
+            <div class="partner-offers" style="margin: 16px auto 0; max-width: 900px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+                <div style="background: linear-gradient(135deg, #fef2f2, #ffffff); border: 2px solid #ef4444; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h3 style="color: #ef4444; font-size: 1.15rem; margin-top: 0; margin-bottom: 8px;">Yesim travel eSIM</h3>
+                        <p style="margin: 0 0 16px 0; font-size: 0.9rem; color: var(--text-color); line-height: 1.5;">Skip airport SIM kiosks and roaming fees. Install a Yesim eSIM in about two minutes before you board — data in 200+ destinations, no physical SIM.</p>
+                    </div>
+                    <a href="https://genesisgroupag.sjv.io/c/7764517/3925693/53874" target="_blank" rel="noopener sponsored" class="btn-primary" style="flex:none; background-color: #ef4444; border:none; text-decoration: none; padding: 10px 16px; display: inline-block; text-align: center; font-size: 0.95rem; font-weight: 600;">Get a Yesim travel eSIM</a>
+                </div>
+                <div style="background: linear-gradient(135deg, #f0fdf4, #ffffff); border: 2px solid #22c55e; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h3 style="color: #16a34a; font-size: 1.15rem; margin-top: 0; margin-bottom: 8px;">Nomad Insurance Essential</h3>
+                        <p style="margin: 0 0 16px 0; font-size: 0.9rem; color: var(--text-color); line-height: 1.5;">Schengen visa applications typically require €30,000+ in medical cover. Nomad Insurance Essential is travel medical insurance. Confirm the quote against your embassy’s rules before you apply.</p>
+                    </div>
+                    <a href="https://safetywing.com/nomad-insurance?referenceID=26596195&amp;campaign=globalvisamath&amp;utm_campaign=globalvisamath&amp;utm_source=26596195&amp;utm_medium=Ambassador" target="_blank" rel="noopener sponsored" class="btn-primary" style="flex:none; background-color: #16a34a; text-decoration: none; padding: 10px 16px; display: inline-block; text-align: center; font-size: 0.95rem; font-weight: 600;">Get a travel medical quote</a>
+                    <a href="https://explore.safetywing.com/nomad-insurance-complete?selectedPlan=NOMAD_INSURANCE_COMPLETE&amp;referenceID=26596195&amp;campaign=globalvisamath&amp;utm_campaign=globalvisamath&amp;utm_source=26596195&amp;utm_medium=Ambassador" target="_blank" rel="noopener sponsored" style="display:block; margin-top:10px; text-align:center; color:#16a34a; font-size:0.85rem;">Need full health and travel cover? Nomad Insurance Complete</a>
                 </div>
             </div>
         </section>
